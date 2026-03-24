@@ -656,6 +656,40 @@
       padding: 4px 12px; background: var(--bg2);
     }
 
+    /* Bloom modal — three act structure */
+    .bloom-acts { max-width: 620px; }
+    .bloom-act { margin-bottom: 2.8rem; }
+    .bloom-act-num {
+      font-size: 0.58rem; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--red); font-weight: 600; margin-bottom: 0.55rem;
+    }
+    .bloom-act-heading {
+      font-size: 0.95rem; font-weight: 600; color: var(--ink);
+      margin-bottom: 0.9rem; line-height: 1.45;
+    }
+    .bloom-act-text {
+      font-size: 0.86rem; color: var(--ink2); line-height: 1.9;
+      margin-bottom: 0.75rem;
+    }
+    .bloom-act-text:last-child { margin-bottom: 0; }
+    .bloom-divider {
+      border: none; border-top: 1px solid var(--border); margin: 2.5rem 0;
+    }
+    .bloom-changes { margin-top: 1.5rem; }
+    .bloom-change {
+      border-top: 1px solid var(--border);
+      padding: 1.4rem 0;
+    }
+    .bloom-change:last-child { border-bottom: 1px solid var(--border); }
+    .bloom-change-title {
+      font-size: 0.86rem; font-weight: 600; color: var(--ink);
+      margin-bottom: 0.55rem; line-height: 1.4;
+    }
+    .bloom-change-text {
+      font-size: 0.84rem; color: var(--ink2); line-height: 1.88;
+    }
+    .bloom-change-text strong { color: var(--ink); font-weight: 600; }
+
     /* ANIMATIONS */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -1306,116 +1340,78 @@
 
     <div class="modal-body">
 
-      <div style="margin-bottom:2rem;">
+      <div style="margin-bottom:2.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+        <a href="bloom-v1.html" target="_blank" style="display:inline-block; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink2); border:1px solid var(--border); padding:0.6rem 1.4rem; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='var(--bg2)'" onmouseout="this.style.background='transparent'">View v1 →</a>
         <a href="bloom-prototype.html" target="_blank" style="display:inline-block; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--red); border:1px solid rgba(200,37,26,0.3); padding:0.6rem 1.4rem; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='rgba(200,37,26,0.06)'" onmouseout="this.style.background='transparent'">View v2 prototype →</a>
       </div>
 
-      <p class="modal-section-title" style="margin-top:0;">V1: built without a process</p>
-      <p style="font-size:0.88rem;color:var(--ink2);line-height:1.85;max-width:600px;">
-        The original Bloom went straight from idea to code. No research, no defined scope, no UX direction set upfront. The aesthetic was discovered through iteration. Features accumulated. The visual direction changed multiple times post-build. It worked — but it showed exactly where an unstructured process creates drag.
-      </p>
-      <div class="feature-chips">
-        <span class="feature-chip">4-column Kanban</span>
-        <span class="feature-chip">Drag-and-drop</span>
-        <span class="feature-chip">Subtasks</span>
-        <span class="feature-chip">Due date tracking</span>
-        <span class="feature-chip">Month + priority filters</span>
-        <span class="feature-chip">Links manager</span>
-        <span class="feature-chip">Confetti on completion</span>
-        <span class="feature-chip">Rotating affirmations</span>
-        <span class="feature-chip">Pink princess aesthetic</span>
-      </div>
+      <div class="bloom-acts">
 
-      <div class="collab-section" style="margin-top:2.5rem;">
-        <p class="modal-section-title">V2: full PDLC pipeline</p>
-        <p style="font-size:0.88rem;color:var(--ink2);line-height:1.85;max-width:600px;margin-bottom:1.5rem;">
-          V2 ran every phase. Research surfaced that 73% of users abandon productivity tools within 30 days — and the Today view is the single habit anchor that determines whether a tool gets used daily or once. That finding alone restructured the entire product.
-        </p>
-        <div class="review-table">
-
-          <div class="review-table-header">
-            <span>PDLC Phase</span>
-            <span>What it produced</span>
-          </div>
-
-          <div class="review-table-row">
-            <div class="review-phase">
-              <span class="review-phase-name">Phase 01: Brainstorm</span>
-              <span class="review-phase-tag">project_brief.md</span>
-            </div>
-            <div class="review-reality">
-              <span class="review-status done">Completed</span>
-              <span class="review-reality-text">Scope locked before any work began. Platform confirmed as browser-first. One explicit constraint set upfront: no gamification. Research would decide the visual direction — nothing assumed.</span>
-            </div>
-          </div>
-
-          <div class="review-table-row">
-            <div class="review-phase">
-              <span class="review-phase-name">Phase 02: PRD Draft</span>
-              <span class="review-phase-tag">prd_draft.md</span>
-            </div>
-            <div class="review-reality">
-              <span class="review-status done">Completed</span>
-              <span class="review-reality-text">A pre-research baseline captured the raw vision. Features written down before any external input — which made it possible to see exactly what research changed, and what held up without it.</span>
-            </div>
-          </div>
-
-          <div class="review-table-row">
-            <div class="review-phase">
-              <span class="review-phase-name">Phase 03: Research</span>
-              <span class="review-phase-tag">research.md</span>
-            </div>
-            <div class="review-reality">
-              <span class="review-status done">Completed</span>
-              <span class="review-reality-text">Four research tiers across competitor analysis and user behavior psychology. Key finding: the Today view is not a filter — it is the product's daily ritual anchor. Backlog overwhelm is the top abandonment trigger. The Links tab had no precedent in personal task tools. Every finding with a direct PRD impact was documented.</span>
-            </div>
-          </div>
-
-          <div class="review-table-row">
-            <div class="review-phase">
-              <span class="review-phase-name">Phase 04: UX Research</span>
-              <span class="review-phase-tag">ux_research.md</span>
-            </div>
-            <div class="review-reality">
-              <span class="review-status done">Completed</span>
-              <span class="review-reality-text">Visual direction defined before a line of code. Research converged on "quiet authority" — warm off-white, deep slate blue, Inter typeface. Tone: settled, unhurried, precise. Every component specced with all five states. Completion interaction defined as tactile acknowledgment, not reward.</span>
-            </div>
-          </div>
-
-          <div class="review-table-row">
-            <div class="review-phase">
-              <span class="review-phase-name">Phase 05: Prototype</span>
-              <span class="review-phase-tag">prototype.html</span>
-            </div>
-            <div class="review-reality">
-              <span class="review-status done">Completed</span>
-              <span class="review-reality-text">Single HTML file built from the locked spec. Today view as default landing state. Overdue indicator, soft WIP limit, export nudge with last-backup date. No confetti — strikethrough draws across the task name, card fades to archive. The spec was written first. The prototype followed it exactly.</span>
-            </div>
-          </div>
-
+        <div class="bloom-act">
+          <p class="bloom-act-num">Act 01 — Where V1 came from</p>
+          <p class="bloom-act-text">
+            Bloom started as something I built for myself. I wanted a personal task board that lived in one HTML file, opened instantly, and kept everything in the browser with no accounts or syncing. So I built it. It worked well enough that I kept using it.
+          </p>
+          <p class="bloom-act-text">
+            When the PDLC pipeline was ready, I wanted a real product to test it on. Something that already existed, with actual decisions baked in, so the agents had something to push against. Bloom V1 was the obvious choice. The idea was solid. But it had been built on instinct alone, no research, no UX spec, no scope defined upfront. That's exactly the kind of baseline the pipeline is meant to improve.
+          </p>
+          <p class="bloom-act-text">
+            So V2 wasn't a redesign for its own sake. It was the same product rebuilt from scratch through every pipeline phase, to see what a structured process actually changes.
+          </p>
         </div>
-      </div>
 
-      <div class="flow-principles" style="margin-top:2.5rem;">
-        <p class="modal-section-title">What the pipeline actually changed</p>
-        <div class="principles-grid">
-          <div class="principle-card">
-            <p class="principle-card-title">Today view became the product's front door</p>
-            <p class="principle-card-desc">In v1, Today was a filter pill. Research showed it is the single habit anchor — 73% of users abandon productivity tools within 30 days, and the Today view is what determines whether they come back. V2 loads it first, every time.</p>
-          </div>
-          <div class="principle-card">
-            <p class="principle-card-title">The aesthetic was decided, not discovered</p>
-            <p class="principle-card-desc">V1's visual direction changed multiple times post-build. V2's UX spec locked the palette, typeface, and motion before code was written. Research landed on quiet authority: warm off-white, slate blue, Inter. Nothing was iterated into place.</p>
-          </div>
-          <div class="principle-card">
-            <p class="principle-card-title">The Links tab was cut by research</p>
-            <p class="principle-card-desc">V1 had a dedicated Links manager tab. Research found no precedent for this in personal task tools — links belong with the tasks they relate to. V2 replaced the entire tab with a URL field on each task card, reducing surface area without losing the value.</p>
-          </div>
-          <div class="principle-card">
-            <p class="principle-card-title">Backlog overwhelm became a structural concern</p>
-            <p class="principle-card-desc">Research identified overdue task pileup as the top abandonment trigger. V2 added an overdue indicator surfaced directly in the Today view, a soft WIP limit on In Progress, and an export nudge. V1 had none of these — the risk was invisible.</p>
+        <hr class="bloom-divider">
+
+        <div class="bloom-act">
+          <p class="bloom-act-num">Act 02 — What the pipeline changed</p>
+          <p class="bloom-act-text">
+            The PDLC didn't add more work to the process. It moved decisions earlier.
+          </p>
+          <p class="bloom-act-text">
+            Research runs before the PRD is written. The UX spec is finished before any code starts. Scope gets agreed on before the build begins. By the time I was writing the prototype for V2, the questions that kept coming up mid-build in V1 were already answered. What should the palette be? Locked in UX research. What does completing a task feel like? Defined in the spec. Which features get cut? Settled in the PRD.
+          </p>
+          <p class="bloom-act-text">
+            In V1, those decisions happened during the build. In V2, they happened before it. That's the whole difference.
+          </p>
+        </div>
+
+        <hr class="bloom-divider">
+
+        <div class="bloom-act">
+          <p class="bloom-act-num">Act 03 — What it actually changed</p>
+          <div class="bloom-changes">
+
+            <div class="bloom-change">
+              <p class="bloom-change-title">Today became the front door, not a filter</p>
+              <p class="bloom-change-text">
+                In V1, Today was a filter pill. You opened the app, saw the full board, and clicked if you wanted just today's tasks. Research changed that. <strong>73% of people stop using a productivity tool within 30 days.</strong> The main reason isn't missing features. It's that the tool doesn't give them a clear starting point each morning. So in V2, Today is the default screen. It's the first thing you see when you open Bloom. That came directly from a research finding, not from using the app and noticing something felt wrong.
+              </p>
+            </div>
+
+            <div class="bloom-change">
+              <p class="bloom-change-title">The visual direction was decided before any code was written</p>
+              <p class="bloom-change-text">
+                V1's aesthetic landed through iteration. I tried different fonts, adjusted the palette, reworked the header layout. The final version felt right but I got there by trying things. The UX research phase in V2 produced a spec before anything was built: <strong>warm off-white (#F5F3EF), deep slate blue (#2D4A6B), Inter typeface throughout.</strong> The feeling had a name: quiet authority. Like picking up a well-made notebook. When I opened a code editor to write the prototype, the aesthetic was already done.
+              </p>
+            </div>
+
+            <div class="bloom-change">
+              <p class="bloom-change-title">Research cut an entire feature I thought was useful</p>
+              <p class="bloom-change-text">
+                V1 had a dedicated Links tab. Save URLs, bookmarks, references alongside your tasks. It seemed like a good idea. Research looked at every major personal task app and found that <strong>none of them have a separate links section.</strong> Links belong with the task they relate to. So V2 replaced the whole Links manager with a URL field on each task card. The feature didn't disappear. It moved to where it actually makes sense. I wouldn't have cut it without the research phase.
+              </p>
+            </div>
+
+            <div class="bloom-change">
+              <p class="bloom-change-title">Problems that were invisible in V1 got built into V2</p>
+              <p class="bloom-change-text">
+                V1 had no safeguards for when tasks piled up. Research identified <strong>overdue task accumulation as the top reason people stop using task apps.</strong> Not bad design. Just tasks building up until opening the app starts to feel like a guilt trip. V2 has three things V1 didn't: an overdue indicator in the Today view, a soft WIP limit that flags when In Progress goes above three cards, and a nudge when you haven't backed up in over a week. The problem was real in V1. It just wasn't visible because nobody had looked for it yet.
+              </p>
+            </div>
+
           </div>
         </div>
+
       </div>
 
     </div>
