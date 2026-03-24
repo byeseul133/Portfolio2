@@ -752,11 +752,11 @@
     <div class="work-card clickable reveal" onclick="openModal('todo')">
       <span class="work-num">02</span>
       <h3>Bloom: Personal Task Board</h3>
-      <p>A self-contained Kanban board for personal task management. The first project built after the PDLC pipeline existed, then used as a benchmark to evaluate what the process gets right and where the gaps are.</p>
+      <p>A personal Kanban board built twice. V1 was built without a process. V2 was rebuilt from scratch through the full PDLC pipeline: research, PRD, UX spec, then prototype. A direct before-and-after of what a structured process actually changes.</p>
       <span class="work-tag">Personal Productivity</span>
       <span class="work-tag">Kanban</span>
-      <span class="work-tag">PDLC Benchmark</span>
-      <span class="work-card-hint">Click to see the retrospective →</span>
+      <span class="work-tag">PDLC Pipeline</span>
+      <span class="work-card-hint">Click to see what changed →</span>
     </div>
     <div class="work-card reveal">
       <span class="work-num">03</span>
@@ -1288,67 +1288,64 @@
     <button class="modal-close" onclick="closeModal()">✕</button>
 
     <div class="modal-header">
-      <p class="modal-eyebrow">Personal Productivity · Kanban · PDLC Benchmark</p>
+      <p class="modal-eyebrow">Personal Productivity · Kanban · PDLC Pipeline</p>
       <h2 class="modal-title">Bloom: <em>Personal Task Board</em></h2>
       <p class="modal-desc">
-        A self-contained Kanban board for personal task tracking. Drag-and-drop columns,
-        subtasks, priority levels, a links manager, and a visual aesthetic designed around how it
-        should feel to use it. Built as a single HTML file. The first project evaluated against
-        the PDLC pipeline as a benchmark.
+        Built twice. V1 went straight from idea to code: no research, no UX spec, no defined scope.
+        V2 ran the full PDLC pipeline — brainstorm, brief, PRD, research, UX spec, then prototype.
+        Same product. Completely different result.
       </p>
       <div class="modal-tags">
         <span class="work-tag">Personal Productivity</span>
         <span class="work-tag">Kanban</span>
         <span class="work-tag">Vanilla JS</span>
         <span class="work-tag">localStorage</span>
-        <span class="work-tag">PDLC Benchmark</span>
+        <span class="work-tag">PDLC Pipeline</span>
       </div>
     </div>
 
     <div class="modal-body">
 
       <div style="margin-bottom:2rem;">
-        <a href="bloom-prototype.html" target="_blank" style="display:inline-block; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--red); border:1px solid rgba(200,37,26,0.3); padding:0.6rem 1.4rem; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='rgba(200,37,26,0.06)'" onmouseout="this.style.background='transparent'">View live demo →</a>
+        <a href="bloom-prototype.html" target="_blank" style="display:inline-block; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--red); border:1px solid rgba(200,37,26,0.3); padding:0.6rem 1.4rem; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='rgba(200,37,26,0.06)'" onmouseout="this.style.background='transparent'">View v2 prototype →</a>
       </div>
 
-      <p class="modal-section-title" style="margin-top:0;">What was built</p>
+      <p class="modal-section-title" style="margin-top:0;">V1: built without a process</p>
       <p style="font-size:0.88rem;color:var(--ink2);line-height:1.85;max-width:600px;">
-        A solo-use productivity app that lives entirely in one HTML file. No server, no accounts, no build step. All data persists in localStorage. The design leans into a specific feeling: rewarding, personal, and visually distinctive. Not trying to look like every other task tool.
+        The original Bloom went straight from idea to code. No research, no defined scope, no UX direction set upfront. The aesthetic was discovered through iteration. Features accumulated. The visual direction changed multiple times post-build. It worked — but it showed exactly where an unstructured process creates drag.
       </p>
       <div class="feature-chips">
-        <span class="feature-chip">4-column Kanban board</span>
+        <span class="feature-chip">4-column Kanban</span>
         <span class="feature-chip">Drag-and-drop</span>
         <span class="feature-chip">Subtasks</span>
-        <span class="feature-chip">Priority + type filters</span>
         <span class="feature-chip">Due date tracking</span>
+        <span class="feature-chip">Month + priority filters</span>
         <span class="feature-chip">Links manager</span>
         <span class="feature-chip">Confetti on completion</span>
         <span class="feature-chip">Rotating affirmations</span>
-        <span class="feature-chip">Real-time search</span>
-        <span class="feature-chip">Glassmorphism UI</span>
-      </div>
-
-      <div class="why-section" style="margin-top:2.5rem;">
-        <p>This project existed before the PDLC pipeline did. The idea went straight to building: no brainstorm gate, no research phase, no UX spec. Using it as a benchmark revealed exactly where an unstructured process creates drag, and what the pipeline is actually for.</p>
+        <span class="feature-chip">Pink princess aesthetic</span>
       </div>
 
       <div class="collab-section" style="margin-top:2.5rem;">
-        <p class="modal-section-title">Measured against the PDLC</p>
+        <p class="modal-section-title">V2: full PDLC pipeline</p>
+        <p style="font-size:0.88rem;color:var(--ink2);line-height:1.85;max-width:600px;margin-bottom:1.5rem;">
+          V2 ran every phase. Research surfaced that 73% of users abandon productivity tools within 30 days — and the Today view is the single habit anchor that determines whether a tool gets used daily or once. That finding alone restructured the entire product.
+        </p>
         <div class="review-table">
 
           <div class="review-table-header">
             <span>PDLC Phase</span>
-            <span>What actually happened</span>
+            <span>What it produced</span>
           </div>
 
           <div class="review-table-row">
             <div class="review-phase">
-              <span class="review-phase-name">Phase 01: Brainstorm & Clarify</span>
+              <span class="review-phase-name">Phase 01: Brainstorm</span>
               <span class="review-phase-tag">project_brief.md</span>
             </div>
             <div class="review-reality">
-              <span class="review-status skipped">Skipped</span>
-              <span class="review-reality-text">No structured brainstorm. The idea went directly to a PRD without a Brainstorm Copilot conversation. There was no explicit scope-setting, no "not building" list agreed upfront, and no platform decision documented before work began.</span>
+              <span class="review-status done">Completed</span>
+              <span class="review-reality-text">Scope locked before any work began. Platform confirmed as browser-first. One explicit constraint set upfront: no gamification. Research would decide the visual direction — nothing assumed.</span>
             </div>
           </div>
 
@@ -1358,8 +1355,8 @@
               <span class="review-phase-tag">prd_draft.md</span>
             </div>
             <div class="review-reality">
-              <span class="review-status partial">Partial</span>
-              <span class="review-reality-text">A PRD exists and is detailed, but it was written as a living document that evolved alongside the build, not as a baseline written before research. There was no pre-research draft to test assumptions against. Future ideas like recurring tasks, export, and keyboard shortcuts ended up at the bottom as an afterthought rather than being decided as out-of-scope from day one.</span>
+              <span class="review-status done">Completed</span>
+              <span class="review-reality-text">A pre-research baseline captured the raw vision. Features written down before any external input — which made it possible to see exactly what research changed, and what held up without it.</span>
             </div>
           </div>
 
@@ -1369,8 +1366,8 @@
               <span class="review-phase-tag">research.md</span>
             </div>
             <div class="review-reality">
-              <span class="review-status skipped">Skipped</span>
-              <span class="review-reality-text">No competitive research, no community patterns, no user behavior data. A research phase would likely have surfaced that a Blocked column sees minimal use in solo personal task management, which might have simplified the board. It also would have validated or challenged the decision to use month-based filtering over tag-based filtering.</span>
+              <span class="review-status done">Completed</span>
+              <span class="review-reality-text">Four research tiers across competitor analysis and user behavior psychology. Key finding: the Today view is not a filter — it is the product's daily ritual anchor. Backlog overwhelm is the top abandonment trigger. The Links tab had no precedent in personal task tools. Every finding with a direct PRD impact was documented.</span>
             </div>
           </div>
 
@@ -1380,8 +1377,8 @@
               <span class="review-phase-tag">ux_research.md</span>
             </div>
             <div class="review-reality">
-              <span class="review-status skipped">Skipped</span>
-              <span class="review-reality-text">The visual direction emerged through iteration. The changelog shows multiple rounds of font changes, header redesigns, and UI enhancements added post-build. A UX research document would have defined the feeling and visual spec before a single line was written. Confetti and affirmations would have been part of the original design intent, not reactive additions. The aesthetic was discovered, not designed.</span>
+              <span class="review-status done">Completed</span>
+              <span class="review-reality-text">Visual direction defined before a line of code. Research converged on "quiet authority" — warm off-white, deep slate blue, Inter typeface. Tone: settled, unhurried, precise. Every component specced with all five states. Completion interaction defined as tactile acknowledgment, not reward.</span>
             </div>
           </div>
 
@@ -1391,8 +1388,8 @@
               <span class="review-phase-tag">prototype.html</span>
             </div>
             <div class="review-reality">
-              <span class="review-status done">Followed</span>
-              <span class="review-reality-text">Single HTML file, no build step, no accounts, opens directly in the browser. All data in localStorage. This matches the PDLC prototype spec exactly — the output format was right even without the pipeline to produce it.</span>
+              <span class="review-status done">Completed</span>
+              <span class="review-reality-text">Single HTML file built from the locked spec. Today view as default landing state. Overdue indicator, soft WIP limit, export nudge with last-backup date. No confetti — strikethrough draws across the task name, card fades to archive. The spec was written first. The prototype followed it exactly.</span>
             </div>
           </div>
 
@@ -1400,23 +1397,23 @@
       </div>
 
       <div class="flow-principles" style="margin-top:2.5rem;">
-        <p class="modal-section-title">What the PDLC would have changed</p>
+        <p class="modal-section-title">What the pipeline actually changed</p>
         <div class="principles-grid">
           <div class="principle-card">
-            <p class="principle-card-title">The aesthetic would have been decided, not discovered</p>
-            <p class="principle-card-desc">A UX research document defines the feeling before building starts. The font changes and UI iterations in the changelog are exactly the kind of redesign a locked UX spec prevents. "Rewarding and personal" as a feeling gets translated into a palette, typography choices, and motion, all written down before code is written.</p>
+            <p class="principle-card-title">Today view became the product's front door</p>
+            <p class="principle-card-desc">In v1, Today was a filter pill. Research showed it is the single habit anchor — 73% of users abandon productivity tools within 30 days, and the Today view is what determines whether they come back. V2 loads it first, every time.</p>
           </div>
           <div class="principle-card">
-            <p class="principle-card-title">Research would have simplified the board</p>
-            <p class="principle-card-desc">A four-column Kanban including Blocked is standard in team workflows. For solo personal use, research into how individuals actually track tasks would have challenged that assumption before the board was built, and possibly produced a simpler, more accurate structure.</p>
+            <p class="principle-card-title">The aesthetic was decided, not discovered</p>
+            <p class="principle-card-desc">V1's visual direction changed multiple times post-build. V2's UX spec locked the palette, typeface, and motion before code was written. Research landed on quiet authority: warm off-white, slate blue, Inter. Nothing was iterated into place.</p>
           </div>
           <div class="principle-card">
-            <p class="principle-card-title">Out-of-scope decisions would have been explicit from day one</p>
-            <p class="principle-card-desc">Recurring tasks, CSV export, and keyboard shortcuts ended up as "Future Ideas" at the bottom of the PRD. With a structured brainstorm and a project brief, Not Building is a first-class section, decided intentionally rather than accumulated over time.</p>
+            <p class="principle-card-title">The Links tab was cut by research</p>
+            <p class="principle-card-desc">V1 had a dedicated Links manager tab. Research found no precedent for this in personal task tools — links belong with the tasks they relate to. V2 replaced the entire tab with a URL field on each task card, reducing surface area without losing the value.</p>
           </div>
           <div class="principle-card">
-            <p class="principle-card-title">Confetti would have been in the spec, not added later</p>
-            <p class="principle-card-desc">The completions experience: confetti, affirmations, the weekly accomplishments pill. These are core to what makes the app feel right. A feeling-first UX spec would have defined them as requirements from day one, not things discovered after the base build was done.</p>
+            <p class="principle-card-title">Backlog overwhelm became a structural concern</p>
+            <p class="principle-card-desc">Research identified overdue task pileup as the top abandonment trigger. V2 added an overdue indicator surfaced directly in the Today view, a soft WIP limit on In Progress, and an export nudge. V1 had none of these — the risk was invisible.</p>
           </div>
         </div>
       </div>
