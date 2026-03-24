@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ashley's Todo ✨ Princess Edition — Portfolio Demo</title>
+<title>Bloom — Personal Task Board · Portfolio Demo</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Nunito:wght@700;800;900&family=Varela+Round&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -291,8 +291,8 @@
 <!-- HEADER -->
 <div class="royal-header">
   <div class="crown">👑</div>
-  <div class="app-title">Ashley's Todo</div>
-  <div class="app-subtitle">Slaying tasks one by one</div>
+  <div class="app-title">Bloom</div>
+  <div class="app-subtitle">Personal task board — grow one task at a time</div>
   <div class="weekly-bar">
     <div class="weekly-badge">✅ <span class="weekly-num" id="weeklyCount">0</span> tasks accomplished this week</div>
   </div>
@@ -326,6 +326,15 @@
 <!-- FILTERS -->
 <div class="filters-wrap">
   <div class="filter-panel">
+    <div class="filter-group">
+      <div class="filter-group-header">
+        <div class="filter-label">✦ Today</div>
+      </div>
+      <div class="filter-pills">
+        <span class="pill" id="todayPill" data-val="today" onclick="toggleTodayFilter()">📅 Due Today</span>
+      </div>
+    </div>
+    <div class="filter-divider"></div>
     <div class="filter-group">
       <div class="filter-group-header">
         <div class="filter-label">✦ Month</div>
@@ -717,6 +726,13 @@
 
   // ── FILTERS ──
   let activeMonths = new Set(), activePriorities = new Set(), activeTypes = new Set();
+  let activeTodayOnly = false;
+
+  function toggleTodayFilter() {
+    activeTodayOnly = !activeTodayOnly;
+    document.getElementById('todayPill').classList.toggle('active', activeTodayOnly);
+    applyFilters();
+  }
 
   [['monthPills', activeMonths], ['priorityPills', activePriorities], ['typePills', activeTypes]].forEach(([id, set]) => {
     document.getElementById(id).querySelectorAll('.pill').forEach(pill => {
@@ -738,13 +754,16 @@
 
   function applyFilters() {
     const q = document.getElementById('searchInput').value.toLowerCase();
+    const todayStr = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
     document.querySelectorAll('.task-card').forEach(card => {
       const name = card.querySelector('.task-name')?.textContent.toLowerCase() || '';
       const matchSearch   = !q || name.includes(q);
       const matchMonth    = activeMonths.size === 0    || activeMonths.has(card.dataset.month);
       const matchPriority = activePriorities.size === 0 || activePriorities.has(card.dataset.priority);
       const matchType     = activeTypes.size === 0     || activeTypes.has(card.dataset.type);
-      card.classList.toggle('hidden', !(matchSearch && matchMonth && matchPriority && matchType));
+      const cardDate = card.dataset.date || '';
+      const matchToday    = !activeTodayOnly || (cardDate && cardDate <= todayStr && card.closest('.column')?.dataset.col !== 'done');
+      card.classList.toggle('hidden', !(matchSearch && matchMonth && matchPriority && matchType && matchToday));
     });
   }
 
