@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bloom — Task Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg: '#F5F3EF',
+            primary: '#2D4A6B',
+            accent: '#8C7355',
+            ink: '#1C1917',
+            overdue: '#C0622F',
+            wip: '#B8860B',
+            done: '#3A7D5C',
+            border: '#E2DDD6',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { background: #F5F3EF; font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #1C1917; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #E2DDD6; border-radius: 3px; }
+
+    /* Completion animation */
+    @keyframes successFlash {
+      0% { background-color: #F5F3EF; }
+      30% { background-color: #d1fae5; }
+      100% { background-color: #F5F3EF; }
+    }
+    .completing {
+      animation: successFlash 0.5s ease-out forwards;
+    }
+    .task-strikethrough .task-name {
+      text-decoration: line-through;
+      color: #9ca3af;
+      transition: all 0.3s ease;
+    }
+    .task-fading {
+      opacity: 0;
+      transform: translateX(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      pointer-events: none;
+    }
+
+    /* Drag states */
+    .dragging {
+      opacity: 0.5;
+      transform: rotate(2deg);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    .drag-over-col {
+      background: rgba(44, 74, 107, 0.04);
+      border: 2px dashed #2D4A6B !important;
+    }
+    .drop-indicator {
+      height: 2px;
+      background: #2D4A6B;
+      border-radius: 2px;
+      margin: 4px 0;
+      transition: all 0.15s ease-out;
+    }
+
+    /* Card expand animation */
+    .card-expanded-body {
+      animation: slideDown 0.2s ease-out;
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Add task form */
+    .add-task-form {
+      animation: slideDown 0.2s ease-out;
+    }
+
+    /* Search expand */
+    .search-expanded {
+      animation: expandSearch 0.2s ease-out;
+    }
+    @keyframes expandSearch {
+      from { width: 32px; opacity: 0.5; }
+      to { width: 240px; opacity: 1; }
+    }
+
+    /* Filter faded */
+    .filter-faded {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    /* Nudge pulse */
+    @keyframes nudgePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(139, 115, 85, 0.4); }
+      50% { box-shadow: 0 0 0 6px rgba(139, 115, 85, 0); }
+    }
+    .export-nudge {
+      animation: nudgePulse 2s infinite;
+    }
+
+    /* Column headers */
+    .col-header-normal { background: white; }
+    .col-header-wip { background: #B8860B; color: white; }
+
+    /* Tooltip */
+    .tooltip {
+      position: absolute;
+      background: #1C1917;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 100;
+      top: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Archive panel */
+    .archive-panel {
+      animation: slideInRight 0.25s ease-out;
+    }
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Board column scroll */
+    .board-col-body {
+      height: calc(100vh - 220px);
+      overflow-y: auto;
+    }
+
+    /* Today list scroll */
+    .today-list {
+      height: calc(100vh - 160px);
+      overflow-y: auto;
+    }
+
+    /* Priority badge colors */
+    .priority-high { background: #fee2e2; color: #991b1b; }
+    .priority-med { background: #fef3c7; color: #92400e; }
+    .priority-low { background: #f0fdf4; color: #166534; }
+    .type-work { background: #eff6ff; color: #1e40af; }
+    .type-personal { background: #fdf4ff; color: #7e22ce; }
+
+    /* Subtask checkbox */
+    input[type="checkbox"].subtask-cb {
+      width: 14px; height: 14px;
+      accent-color: #3A7D5C;
+      cursor: pointer;
+    }
+
+    /* Date input style */
+    input[type="date"] {
+      color-scheme: light;
+    }
+
+    /* Kanban columns layout */
+    .kanban-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding: 16px;
+      height: calc(100vh - 72px);
+      overflow-x: auto;
+    }
+
+    .kanban-col {
+      min-width: 240px;
+      background: white;
+      border: 1px solid #E2DDD6;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Hover states */
+    .task-card:hover {
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    /* Overdue left border */
+    .overdue-card {
+      border-left: 3px solid #C0622F !important;
+    }
+
+    /* Done card */
+    .done-card {
+      opacity: 0.7;
+    }
+    .done-card .task-name {
+      text-decoration: line-through;
+      color: #6b7280;
+    }
+
+    /* Modal overlay */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.15s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .modal-box {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      width: 480px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      animation: slideUp 0.2s ease-out;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Search results */
+    .search-results {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: white;
+      border: 1px solid #E2DDD6;
+      border-radius: 10px;
+      width: 340px;
+      max-height: 400px;
+      overflow-y: auto;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      z-index: 40;
+    }
+
+    /* Transition helper */
+    .transition-opacity-smooth {
+      transition: opacity 0.3s ease;
+    }
+  </style>
+</head>
+<body class="bg-bg min-h-screen">
+
+<!-- APP ROOT -->
+<div id="app"></div>
+
+<script>
+// ============================================================
+// DATA MODEL & STORAGE
+// ============================================================
+
+const SEED_TASKS = [
+  { id: 1, col: 'todo', name: 'Define v2 feature scope', notes: 'Review research findings and align with product roadmap. Consider user feedback from last quarter.', priority: 'high', type: 'work', date: '2026-03-23', month: 'mar', subtasks: [{label: 'Review research doc', checked: true}, {label: 'List must-haves', checked: false}, {label: 'Align with roadmap', checked: false}], url: '' },
+  { id: 2, col: 'todo', name: 'Write weekly reflection', notes: 'Sunday ritual — what went well, what to improve.', priority: 'med', type: 'personal', date: '2026-03-25', month: 'mar', subtasks: [], url: '' },
+  { id: 3, col: 'todo', name: 'Update portfolio case study', notes: '', priority: 'low', type: 'personal', date: '2026-03-28', month: 'mar', subtasks: [{label: 'Write copy', checked: false}, {label: 'Add screenshots', checked: false}], url: 'https://figma.com' },
+  { id: 4, col: 'todo', name: 'Read Shape Up methodology', notes: 'Focus on the betting table chapter.', priority: 'low', type: 'personal', date: '2026-03-30', month: 'mar', subtasks: [], url: '' },
+  { id: 5, col: 'inprogress', name: 'Build API integration prototype', notes: 'Using mock data for now. Switch to real endpoints in sprint 4.', priority: 'high', type: 'work', date: '2026-03-23', month: 'mar', subtasks: [{label: 'Design endpoints', checked: true}, {label: 'Build mock responses', checked: true}, {label: 'Connect to UI', checked: false}], url: '' },
+  { id: 6, col: 'inprogress', name: 'Redesign onboarding flow', notes: '', priority: 'high', type: 'work', date: '2026-03-24', month: 'mar', subtasks: [{label: 'Audit current flow', checked: true}, {label: 'Wireframes', checked: false}], url: '' },
+  { id: 7, col: 'inprogress', name: 'Set up home office desk', notes: 'Order monitor arm. Cable management.', priority: 'med', type: 'personal', date: '2026-03-26', month: 'mar', subtasks: [], url: '' },
+  { id: 8, col: 'inprogress', name: 'Prepare Q2 roadmap deck', notes: 'Present to leadership on March 30.', priority: 'high', type: 'work', date: '2026-03-30', month: 'mar', subtasks: [{label: 'Gather metrics', checked: false}, {label: 'Build slides', checked: false}, {label: 'Rehearse', checked: false}], url: '' },
+  { id: 9, col: 'blocked', name: 'Launch beta testing', notes: 'Waiting on legal sign-off for terms of service.', priority: 'high', type: 'work', date: '2026-03-20', month: 'mar', subtasks: [], url: '' },
+  { id: 10, col: 'blocked', name: 'Finalize vendor contract', notes: 'Legal reviewing. Expected back by end of week.', priority: 'med', type: 'work', date: '2026-03-18', month: 'mar', subtasks: [], url: '' },
+  { id: 11, col: 'done', name: 'PRD draft for v2', notes: '', priority: 'high', type: 'work', date: '2026-03-21', month: 'mar', subtasks: [{label: 'Write first draft', checked: true}, {label: 'Incorporate research', checked: true}, {label: 'Peer review', checked: true}], url: '' },
+  { id: 12, col: 'done', name: 'User interview synthesis', notes: '12 interviews. Key themes documented.', priority: 'high', type: 'work', date: '2026-03-19', month: 'mar', subtasks: [], url: '' },
+];
+
+const SEED_META = { lastExportDate: '2026-03-14' };
+
+// Storage helpers
+function loadTasks() {
+  const raw = localStorage.getItem('bloom-tasks');
+  return raw ? JSON.parse(raw) : null;
+}
+function saveTasks(tasks) {
+  localStorage.setItem('bloom-tasks', JSON.stringify(tasks));
+}
+function loadArchive() {
+  const raw = localStorage.getItem('bloom-archive');
+  return raw ? JSON.parse(raw) : [];
+}
+function saveArchive(archive) {
+  localStorage.setItem('bloom-archive', JSON.stringify(archive));
+}
+function loadMeta() {
+  const raw = localStorage.getItem('bloom-meta');
+  return raw ? JSON.parse(raw) : null;
+}
+function saveMeta(meta) {
+  localStorage.setItem('bloom-meta', JSON.stringify(meta));
+}
+
+// Init data
+let tasks = loadTasks();
+let archive = loadArchive();
+let meta = loadMeta();
+
+if (!tasks) {
+  tasks = SEED_TASKS.map(t => ({...t, subtasks: t.subtasks.map(s => ({...s}))}));
+  saveTasks(tasks);
+}
+if (!meta) {
+  meta = {...SEED_META};
+  saveMeta(meta);
+}
+
+// ============================================================
+// APP STATE
+// ============================================================
+
+let state = {
+  view: 'today',          // 'today' | 'board' | 'archive'
+  expandedCardId: null,
+  searchOpen: false,
+  searchQuery: '',
+  showAddForm: false,
+  addFormCol: 'todo',
+  filterPriority: null,
+  filterType: null,
+  filterOverdue: false,
+  dragTaskId: null,
+  showArchive: false,
+  archiveSearch: '',
+  nextId: Math.max(...(tasks.map(t => t.id) || [0])) + 1,
+};
+
+// ============================================================
+// UTILITY
+// ============================================================
+
+const TODAY = '2026-03-23';
+
+function isOverdue(task) {
+  return task.date < TODAY && task.col !== 'done';
+}
+function isDueToday(task) {
+  return task.date === TODAY && task.col !== 'done';
+}
+function priorityOrder(p) {
+  return p === 'high' ? 0 : p === 'med' ? 1 : 2;
+}
+
+function formatDate(d) {
+  if (!d) return '';
+  const [y, m, day] = d.split('-');
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${months[parseInt(m)-1]} ${parseInt(day)}`;
+}
+
+function daysSince(dateStr) {
+  if (!dateStr) return Infinity;
+  const then = new Date(dateStr);
+  const now = new Date(TODAY);
+  return Math.floor((now - then) / (1000 * 60 * 60 * 24));
+}
+
+function exportNudge() {
+  return daysSince(meta.lastExportDate) >= 7;
+}
+
+function getTasksForToday() {
+  const overdue = tasks.filter(t => isOverdue(t) && t.col !== 'done')
+    .sort((a, b) => priorityOrder(a.priority) - priorityOrder(b.priority));
+  const dueToday = tasks.filter(t => isDueToday(t))
+    .sort((a, b) => priorityOrder(a.priority) - priorityOrder(b.priority));
+  return { overdue, dueToday };
+}
+
+function getFilteredBoardTasks(col) {
+  let filtered = tasks.filter(t => t.col === col);
+  if (state.filterPriority) filtered = filtered.filter(t => t.priority === state.filterPriority);
+  if (state.filterType) filtered = filtered.filter(t => t.type === state.filterType);
+  if (state.filterOverdue) filtered = filtered.filter(t => isOverdue(t));
+  return filtered;
+}
+
+function sanitizeHTML(str) {
+  const div = document.createElement('div');
+  div.appendChild(document.createTextNode(str || ''));
+  return div.innerHTML;
+}
+
+// ============================================================
+// RENDER ENGINE
+// ============================================================
+
+function render() {
+  const app = document.getElementById('app');
+  app.innerHTML = renderApp();
+  attachEventListeners();
+}
+
+function renderApp() {
+  return `
+    <div class="flex flex-col h-screen overflow-hidden">
+      ${renderHeader()}
+      <div class="flex-1 overflow-hidden">
+        ${state.view === 'today' ? renderTodayView() : renderBoardView()}
+      </div>
+    </div>
+    ${state.showArchive ? renderArchivePanel() : ''}
+    ${renderSearchResults()}
+  `;
+}
+
+// ============================================================
+// HEADER
+// ============================================================
+
+function renderHeader() {
+  const nudge = exportNudge();
+  const dayStr = nudge ? `${daysSince(meta.lastExportDate)}d ago` : (meta.lastExportDate ? formatDate(meta.lastExportDate) : 'Never');
+
+  return `
+    <header class="bg-white border-b border-border px-6 py-0 flex items-center justify-between h-[56px] shrink-0">
+      <!-- Left: Logo + View Switcher -->
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M7 2C4.8 2 3 3.8 3 6c0 1.5.8 2.8 2 3.5V11h4V9.5C10.2 8.8 11 7.5 11 6c0-2.2-1.8-4-4-4z" fill="white"/>
+            </svg>
+          </div>
+          <span class="font-semibold text-ink text-[15px] tracking-tight">Bloom</span>
+        </div>
+
+        <nav class="flex items-center gap-1">
+          <button onclick="switchView('today')" class="px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${state.view === 'today' ? 'bg-primary text-white' : 'text-ink/60 hover:text-ink hover:bg-bg'}">
+            Today
+          </button>
+          <button onclick="switchView('board')" class="px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${state.view === 'board' ? 'bg-primary text-white' : 'text-ink/60 hover:text-ink hover:bg-bg'}">
+            Board
+          </button>
+        </nav>
+      </div>
+
+      <!-- Right: Search + Export + Archive -->
+      <div class="flex items-center gap-3 relative">
+        <!-- Search -->
+        <div class="relative flex items-center" id="search-container">
+          ${state.searchOpen ? `
+            <div class="relative search-expanded">
+              <input
+                type="text"
+                id="search-input"
+                value="${sanitizeHTML(state.searchQuery)}"
+                placeholder="Search tasks…"
+                oninput="handleSearchInput(this.value)"
+                onkeydown="handleSearchKeydown(event)"
+                class="w-60 pl-8 pr-8 py-1.5 text-sm border border-border rounded-lg bg-bg focus:outline-none focus:border-primary"
+                autofocus
+              />
+              <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 text-ink/40 pointer-events-none" width="13" height="13" viewBox="0 0 20 20" fill="none">
+                <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <button onclick="closeSearch()" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-ink/40 hover:text-ink">
+                <svg width="12" height="12" viewBox="0 0 20 20" fill="none">
+                  <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+          ` : `
+            <button onclick="openSearch()" class="p-2 rounded-lg text-ink/50 hover:text-ink hover:bg-bg transition-colors" title="Search">
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          `}
+        </div>
+
+        <!-- Archive button -->
+        <button onclick="toggleArchive()" class="p-2 rounded-lg text-ink/50 hover:text-ink hover:bg-bg transition-colors ${state.showArchive ? 'bg-bg text-ink' : ''}" title="Archive">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M21 8v13H3V8M23 3H1v5h22V3zM10 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <!-- Export indicator -->
+        <div class="relative">
+          <button
+            onclick="handleExport()"
+            class="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-medium transition-colors ${nudge ? 'border-accent bg-accent/10 text-accent export-nudge' : 'border-border text-ink/60 hover:border-primary hover:text-primary'}"
+            title="Export JSON backup"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>${nudge ? `Backup overdue (${dayStr})` : `Backed up ${dayStr}`}</span>
+          </button>
+        </div>
+
+        <!-- Add Task button -->
+        <button onclick="openAddForm()" class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
+            <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          Add Task
+        </button>
+      </div>
+    </header>
+  `;
+}
+
+// ============================================================
+// TODAY VIEW
+// ============================================================
+
+function renderTodayView() {
+  const { overdue, dueToday } = getTasksForToday();
+  const allToday = [...overdue, ...dueToday];
+  const isEmpty = allToday.length === 0;
+
+  return `
+    <div class="px-8 py-6 today-list">
+      <!-- Page title row -->
+      <div class="flex items-baseline justify-between mb-6">
+        <div>
+          <h1 class="text-2xl font-semibold text-ink">Today</h1>
+          <p class="text-sm text-ink/50 mt-0.5">Monday, March 23, 2026</p>
+        </div>
+        <div class="flex items-center gap-2">
+          ${state.view === 'today' ? `
+            <span class="text-xs text-ink/40">${allToday.length} task${allToday.length !== 1 ? 's' : ''}</span>
+          ` : ''}
+        </div>
+      </div>
+
+      ${state.showAddForm && state.addFormCol === 'today' ? renderAddForm('today') : ''}
+
+      ${isEmpty ? renderTodayEmpty() : `
+        <!-- Overdue group -->
+        ${overdue.length > 0 ? `
+          <div class="mb-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-xs font-semibold uppercase tracking-wider text-overdue">Overdue</span>
+              <span class="text-xs text-overdue/70 bg-overdue/10 px-2 py-0.5 rounded-full font-medium">${overdue.length}</span>
+            </div>
+            <div class="space-y-2" id="overdue-group">
+              ${overdue.map(t => renderTodayCard(t, true)).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- Due Today group -->
+        ${dueToday.length > 0 ? `
+          <div class="mb-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-xs font-semibold uppercase tracking-wider text-primary/70">Due Today</span>
+              <span class="text-xs text-primary/60 bg-primary/10 px-2 py-0.5 rounded-full font-medium">${dueToday.length}</span>
+            </div>
+            <div class="space-y-2" id="today-group">
+              ${dueToday.map(t => renderTodayCard(t, false)).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- Quick add -->
+        <button onclick="openAddFormToday()" class="flex items-center gap-2 text-sm text-ink/40 hover:text-ink/70 transition-colors py-2 group">
+          <span class="w-5 h-5 rounded-full border-2 border-dashed border-ink/20 group-hover:border-ink/40 flex items-center justify-center transition-colors">
+            <svg width="10" height="10" viewBox="0 0 20 20" fill="none">
+              <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          Add a task for today
+        </button>
+      `}
+    </div>
+  `;
+}
+
+function renderTodayEmpty() {
+  return `
+    <div class="flex flex-col items-center justify-center py-24 text-center">
+      <div class="w-16 h-16 rounded-full bg-done/10 flex items-center justify-center mb-4">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <path d="M20 6L9 17l-5-5" stroke="#3A7D5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="text-xl font-semibold text-ink mb-2">You're clear for today.</h2>
+      <p class="text-sm text-ink/50 mb-6">No overdue or due-today tasks. Enjoy the breathing room.</p>
+      <button onclick="switchView('board')" class="px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors">
+        Open Board
+      </button>
+    </div>
+  `;
+}
+
+function renderTodayCard(task, isOverdueCard) {
+  const isExpanded = state.expandedCardId === task.id;
+  const completedSubtasks = task.subtasks.filter(s => s.checked).length;
+
+  return `
+    <div
+      id="card-${task.id}"
+      class="task-card bg-white rounded-xl border border-border cursor-pointer transition-all ${isOverdueCard ? 'overdue-card' : ''}"
+      style="border-left-color: ${isOverdueCard ? '#C0622F' : ''}"
+    >
+      <!-- Card header (always visible) -->
+      <div class="flex items-start gap-3 p-4 ${isExpanded ? 'pb-3' : ''}" onclick="toggleCardExpand(${task.id}, event)">
+        <!-- Checkbox -->
+        <div class="pt-0.5 shrink-0" onclick="event.stopPropagation()">
+          <button
+            onclick="completeTask(${task.id})"
+            class="w-5 h-5 rounded-full border-2 border-border hover:border-done flex items-center justify-center transition-colors group"
+            title="Mark complete"
+          >
+            <div class="w-2.5 h-2.5 rounded-full bg-transparent group-hover:bg-done/40 transition-colors"></div>
+          </button>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 min-w-0">
+          <div class="flex items-start justify-between gap-3">
+            <span class="task-name text-sm font-medium text-ink leading-snug">${sanitizeHTML(task.name)}</span>
+            <div class="flex items-center gap-1.5 shrink-0">
+              ${isOverdueCard ? `<span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-overdue/10 text-overdue border border-overdue/20">Overdue</span>` : ''}
+              <span class="text-xs px-2 py-0.5 rounded-full font-medium priority-${task.priority}">${task.priority}</span>
+              <span class="text-xs px-2 py-0.5 rounded-full font-medium type-${task.type}">${task.type}</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 mt-1.5">
+            <span class="text-xs text-ink/50">${formatDate(task.date)}</span>
+            ${task.subtasks.length > 0 ? `
+              <span class="text-xs text-ink/40">${completedSubtasks}/${task.subtasks.length} subtasks</span>
+            ` : ''}
+            ${isOverdueCard ? `<span class="text-xs text-overdue/70">${daysSince(task.date)}d overdue</span>` : ''}
+          </div>
+        </div>
+
+        <!-- Expand chevron -->
+        <div class="shrink-0 text-ink/30 transition-transform ${isExpanded ? 'rotate-180' : ''}">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
+            <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Expanded body -->
+      ${isExpanded ? renderCardExpanded(task) : ''}
+    </div>
+  `;
+}
+
+function renderCardExpanded(task) {
+  return `
+    <div class="card-expanded-body border-t border-border/50 px-4 pb-4 pt-3">
+      <!-- Notes -->
+      ${task.notes ? `
+        <div class="mb-3">
+          <p class="text-xs text-ink/50 font-medium uppercase tracking-wider mb-1">Notes</p>
+          <p class="text-sm text-ink/80 leading-relaxed">${sanitizeHTML(task.notes)}</p>
+        </div>
+      ` : ''}
+
+      <!-- URL -->
+      ${task.url ? `
+        <div class="mb-3">
+          <p class="text-xs text-ink/50 font-medium uppercase tracking-wider mb-1">Link</p>
+          <a href="${sanitizeHTML(task.url)}" target="_blank" class="text-sm text-primary hover:underline truncate block">${sanitizeHTML(task.url)}</a>
+        </div>
+      ` : ''}
+
+      <!-- Subtasks -->
+      ${task.subtasks.length > 0 ? `
+        <div class="mb-3">
+          <p class="text-xs text-ink/50 font-medium uppercase tracking-wider mb-2">Subtasks</p>
+          <div class="space-y-1.5">
+            ${task.subtasks.map((s, i) => `
+              <label class="flex items-center gap-2 cursor-pointer group" onclick="event.stopPropagation()">
+                <input
+                  type="checkbox"
+                  class="subtask-cb"
+                  ${s.checked ? 'checked' : ''}
+                  onchange="toggleSubtask(${task.id}, ${i}, this.checked)"
+                />
+                <span class="text-sm ${s.checked ? 'line-through text-ink/40' : 'text-ink/80'}">${sanitizeHTML(s.label)}</span>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      ` : ''}
+
+      <!-- Actions row -->
+      <div class="flex items-center justify-between pt-2 mt-2 border-t border-border/50">
+        <div class="flex items-center gap-1">
+          <span class="text-xs text-ink/40">Col:</span>
+          <select
+            class="text-xs text-ink/60 bg-transparent border-none outline-none cursor-pointer hover:text-ink"
+            onchange="moveTask(${task.id}, this.value)"
+            onclick="event.stopPropagation()"
+          >
+            <option value="todo" ${task.col === 'todo' ? 'selected' : ''}>To Do</option>
+            <option value="inprogress" ${task.col === 'inprogress' ? 'selected' : ''}>In Progress</option>
+            <option value="blocked" ${task.col === 'blocked' ? 'selected' : ''}>Blocked</option>
+            <option value="done" ${task.col === 'done' ? 'selected' : ''}>Done</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-2" onclick="event.stopPropagation()">
+          <button onclick="deleteTask(${task.id})" class="text-xs text-ink/30 hover:text-red-500 transition-colors px-2 py-1 rounded">Delete</button>
+          <button onclick="completeTask(${task.id})" class="text-xs text-done font-medium hover:bg-done/10 transition-colors px-2 py-1 rounded">
+            Mark Complete
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+// BOARD VIEW
+// ============================================================
+
+const COLUMNS = [
+  { id: 'todo', label: 'To Do' },
+  { id: 'inprogress', label: 'In Progress' },
+  { id: 'blocked', label: 'Blocked' },
+  { id: 'done', label: 'Done' },
+];
+
+function renderBoardView() {
+  const inProgressCount = tasks.filter(t => t.col === 'inprogress').length;
+  const hasWip = inProgressCount > 3;
+
+  return `
+    <div class="flex flex-col h-full overflow-hidden">
+      <!-- Board filters bar -->
+      <div class="px-6 py-2.5 bg-white border-b border-border flex items-center gap-3 shrink-0">
+        <span class="text-xs text-ink/50 font-medium">Filter:</span>
+
+        <!-- Priority filters -->
+        <div class="flex items-center gap-1">
+          ${['high','med','low'].map(p => `
+            <button
+              onclick="toggleFilter('priority', '${p}')"
+              class="px-2.5 py-1 text-xs rounded-md font-medium transition-all ${state.filterPriority === p ? 'ring-2 ring-offset-1' : 'opacity-60 hover:opacity-100'} priority-${p}"
+            >${p}</button>
+          `).join('')}
+        </div>
+
+        <div class="w-px h-4 bg-border"></div>
+
+        <!-- Type filters -->
+        <div class="flex items-center gap-1">
+          ${['work','personal'].map(tp => `
+            <button
+              onclick="toggleFilter('type', '${tp}')"
+              class="px-2.5 py-1 text-xs rounded-md font-medium transition-all ${state.filterType === tp ? 'ring-2 ring-offset-1' : 'opacity-60 hover:opacity-100'} type-${tp}"
+            >${tp}</button>
+          `).join('')}
+        </div>
+
+        <div class="w-px h-4 bg-border"></div>
+
+        <!-- Overdue filter -->
+        <button
+          onclick="toggleFilter('overdue')"
+          class="px-2.5 py-1 text-xs rounded-md font-medium transition-all ${state.filterOverdue ? 'bg-overdue/20 text-overdue ring-2 ring-overdue/30' : 'bg-overdue/10 text-overdue/70 hover:bg-overdue/15'}"
+        >Overdue only</button>
+
+        ${state.filterPriority || state.filterType || state.filterOverdue ? `
+          <button onclick="clearFilters()" class="text-xs text-ink/40 hover:text-ink transition-colors ml-1">Clear all</button>
+        ` : ''}
+      </div>
+
+      <!-- Kanban columns -->
+      <div class="kanban-board flex-1">
+        ${COLUMNS.map(col => renderBoardColumn(col, hasWip)).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderBoardColumn(col, globalWip) {
+  const isInProgress = col.id === 'inprogress';
+  const colTasks = getFilteredBoardTasks(col.id);
+  const totalInCol = tasks.filter(t => t.col === col.id).length;
+  const isWipWarning = isInProgress && globalWip;
+
+  return `
+    <div
+      class="kanban-col"
+      data-col="${col.id}"
+      ondragover="handleDragOver(event, '${col.id}')"
+      ondrop="handleDrop(event, '${col.id}')"
+      ondragenter="handleDragEnter(event, '${col.id}')"
+      ondragleave="handleDragLeave(event, '${col.id}')"
+    >
+      <!-- Column header -->
+      <div class="px-4 py-3 border-b border-border shrink-0 ${isWipWarning ? 'col-header-wip' : 'col-header-normal'}">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-semibold ${isWipWarning ? 'text-white' : 'text-ink'}">${col.label}</span>
+            <span class="text-xs px-1.5 py-0.5 rounded-full font-medium ${isWipWarning ? 'bg-white/20 text-white' : 'bg-bg text-ink/50'}">${totalInCol}</span>
+            ${isWipWarning ? `<span class="text-xs text-white/90 font-medium">(${totalInCol}) — over limit</span>` : ''}
+          </div>
+          <button
+            onclick="openAddFormBoard('${col.id}')"
+            class="p-1 rounded transition-colors ${isWipWarning ? 'text-white/70 hover:text-white hover:bg-white/10' : 'text-ink/30 hover:text-ink hover:bg-bg'}"
+            title="Add task to ${col.label}"
+          >
+            <svg width="13" height="13" viewBox="0 0 20 20" fill="none">
+              <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        ${isWipWarning ? `<p class="text-xs text-white/70 mt-1">WIP limit is 3 — consider finishing before starting new work</p>` : ''}
+      </div>
+
+      <!-- Add form (for board) -->
+      ${state.showAddForm && state.addFormCol === col.id ? `
+        <div class="p-3 border-b border-border bg-bg/50">
+          ${renderAddForm(col.id)}
+        </div>
+      ` : ''}
+
+      <!-- Tasks list -->
+      <div class="board-col-body p-3 space-y-2" id="col-body-${col.id}">
+        ${colTasks.length === 0 && !state.filterPriority && !state.filterType && !state.filterOverdue ? `
+          <div class="flex flex-col items-center justify-center py-8 text-center">
+            <div class="w-10 h-10 rounded-full bg-bg border-2 border-dashed border-border flex items-center justify-center mb-2">
+              <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
+                <path d="M10 4v12M4 10h12" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <p class="text-xs text-ink/30">No tasks here</p>
+          </div>
+        ` : colTasks.map(t => renderBoardCard(t)).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderBoardCard(task) {
+  const overdueCard = isOverdue(task);
+  const isDone = task.col === 'done';
+  const completedSubtasks = task.subtasks.filter(s => s.checked).length;
+  const isExpanded = state.expandedCardId === task.id;
+
+  return `
+    <div
+      id="card-${task.id}"
+      class="task-card bg-white rounded-lg border border-border cursor-pointer transition-all select-none ${overdueCard ? 'overdue-card' : ''} ${isDone ? 'done-card' : ''}"
+      draggable="true"
+      data-task-id="${task.id}"
+      ondragstart="handleDragStart(event, ${task.id})"
+      ondragend="handleDragEnd(event)"
+      onclick="toggleCardExpand(${task.id}, event)"
+    >
+      <div class="p-3">
+        <div class="flex items-start gap-2">
+          <!-- Checkbox -->
+          <div class="shrink-0 pt-0.5" onclick="event.stopPropagation()">
+            <button
+              onclick="completeTask(${task.id})"
+              class="w-4 h-4 rounded-full border-2 ${isDone ? 'border-done bg-done flex items-center justify-center' : 'border-border hover:border-done'} transition-colors"
+              title="Mark complete"
+            >
+              ${isDone ? `<svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ''}
+            </button>
+          </div>
+
+          <div class="flex-1 min-w-0">
+            <p class="task-name text-sm font-medium text-ink leading-snug truncate">${sanitizeHTML(task.name)}</p>
+
+            <div class="flex items-center flex-wrap gap-1.5 mt-1.5">
+              ${overdueCard ? `<span class="text-xs px-1.5 py-0.5 rounded font-semibold bg-overdue/10 text-overdue">Overdue</span>` : ''}
+              <span class="text-xs priority-${task.priority} px-1.5 py-0.5 rounded">${task.priority}</span>
+              <span class="text-xs type-${task.type} px-1.5 py-0.5 rounded">${task.type}</span>
+              ${task.date ? `<span class="text-xs text-ink/40">${formatDate(task.date)}</span>` : ''}
+            </div>
+
+            ${task.subtasks.length > 0 ? `
+              <div class="mt-2">
+                <div class="flex items-center gap-1.5 mb-1">
+                  <div class="flex-1 h-1 bg-border rounded-full overflow-hidden">
+                    <div class="h-full bg-done rounded-full transition-all" style="width: ${task.subtasks.length > 0 ? Math.round((completedSubtasks/task.subtasks.length)*100) : 0}%"></div>
+                  </div>
+                  <span class="text-xs text-ink/40">${completedSubtasks}/${task.subtasks.length}</span>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      </div>
+
+      <!-- Expanded (board) -->
+      ${isExpanded ? `
+        <div class="card-expanded-body border-t border-border/50 px-3 pb-3 pt-2" onclick="event.stopPropagation()">
+          ${task.notes ? `<p class="text-xs text-ink/60 mb-2 leading-relaxed">${sanitizeHTML(task.notes)}</p>` : ''}
+          ${task.url ? `<a href="${sanitizeHTML(task.url)}" target="_blank" class="text-xs text-primary hover:underline block mb-2 truncate">${sanitizeHTML(task.url)}</a>` : ''}
+          ${task.subtasks.length > 0 ? `
+            <div class="space-y-1 mb-2">
+              ${task.subtasks.map((s, i) => `
+                <label class="flex items-center gap-1.5 cursor-pointer">
+                  <input type="checkbox" class="subtask-cb" ${s.checked ? 'checked' : ''} onchange="toggleSubtask(${task.id}, ${i}, this.checked)" />
+                  <span class="text-xs ${s.checked ? 'line-through text-ink/40' : 'text-ink/70'}">${sanitizeHTML(s.label)}</span>
+                </label>
+              `).join('')}
+            </div>
+          ` : ''}
+          <div class="flex items-center justify-end gap-2 pt-1 border-t border-border/30">
+            <button onclick="deleteTask(${task.id})" class="text-xs text-ink/30 hover:text-red-500 transition-colors px-1.5 py-1 rounded">Delete</button>
+          </div>
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+// ============================================================
+// ADD TASK FORM
+// ============================================================
+
+function renderAddForm(colOrContext) {
+  return `
+    <div class="add-task-form bg-white border border-border rounded-xl p-4 shadow-sm" onclick="event.stopPropagation()">
+      <div class="space-y-3">
+        <input
+          type="text"
+          id="add-task-name"
+          placeholder="Task name…"
+          class="w-full text-sm font-medium text-ink border border-border rounded-lg px-3 py-2 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+          onkeydown="handleAddFormKeydown(event, '${colOrContext}')"
+          autofocus
+        />
+
+        <div class="flex items-center gap-2">
+          <select id="add-task-priority" class="flex-1 text-xs border border-border rounded-lg px-2 py-1.5 focus:outline-none focus:border-primary text-ink bg-white">
+            <option value="high">High</option>
+            <option value="med" selected>Med</option>
+            <option value="low">Low</option>
+          </select>
+          <select id="add-task-type" class="flex-1 text-xs border border-border rounded-lg px-2 py-1.5 focus:outline-none focus:border-primary text-ink bg-white">
+            <option value="work">Work</option>
+            <option value="personal" selected>Personal</option>
+          </select>
+          <input
+            type="date"
+            id="add-task-date"
+            value="${TODAY}"
+            class="flex-1 text-xs border border-border rounded-lg px-2 py-1.5 focus:outline-none focus:border-primary text-ink bg-white"
+          />
+        </div>
+
+        <!-- More toggle -->
+        <div id="add-form-more-section">
+          <button
+            type="button"
+            onclick="toggleAddFormMore()"
+            id="add-form-more-btn"
+            class="text-xs text-ink/40 hover:text-ink/60 transition-colors flex items-center gap-1"
+          >
+            <svg id="more-chevron" width="10" height="10" viewBox="0 0 20 20" fill="none" class="transition-transform">
+              <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            More options
+          </button>
+          <div id="add-form-more" class="hidden mt-2 space-y-2">
+            <textarea
+              id="add-task-notes"
+              placeholder="Notes…"
+              rows="2"
+              class="w-full text-xs border border-border rounded-lg px-3 py-2 focus:outline-none focus:border-primary resize-none"
+            ></textarea>
+            <input
+              type="url"
+              id="add-task-url"
+              placeholder="URL…"
+              class="w-full text-xs border border-border rounded-lg px-3 py-2 focus:outline-none focus:border-primary"
+            />
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-1">
+          <button type="button" onclick="closeAddForm()" class="text-xs text-ink/50 hover:text-ink px-3 py-1.5 rounded-lg transition-colors">Cancel</button>
+          <button type="button" onclick="saveNewTask('${colOrContext}')" class="text-xs font-medium bg-primary text-white px-3 py-1.5 rounded-lg hover:bg-primary/90 transition-colors">Save task</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+// ARCHIVE PANEL
+// ============================================================
+
+function renderArchivePanel() {
+  const filtered = state.archiveSearch
+    ? archive.filter(t => t.name.toLowerCase().includes(state.archiveSearch.toLowerCase()) || (t.notes || '').toLowerCase().includes(state.archiveSearch.toLowerCase()))
+    : archive;
+
+  return `
+    <div class="fixed inset-0 z-40" onclick="closeArchiveOnOutside(event)">
+      <div class="archive-panel absolute right-0 top-0 h-full w-96 bg-white border-l border-border shadow-2xl flex flex-col" id="archive-panel">
+        <div class="flex items-center justify-between px-5 py-4 border-b border-border shrink-0">
+          <div>
+            <h2 class="font-semibold text-ink">Archive</h2>
+            <p class="text-xs text-ink/50 mt-0.5">${archive.length} completed task${archive.length !== 1 ? 's' : ''}</p>
+          </div>
+          <button onclick="toggleArchive()" class="p-2 rounded-lg text-ink/50 hover:text-ink hover:bg-bg">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+              <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="px-4 py-3 border-b border-border shrink-0">
+          <input
+            type="text"
+            placeholder="Search archive…"
+            value="${sanitizeHTML(state.archiveSearch)}"
+            oninput="handleArchiveSearch(this.value)"
+            class="w-full text-sm border border-border rounded-lg px-3 py-2 focus:outline-none focus:border-primary bg-bg"
+          />
+        </div>
+        <div class="flex-1 overflow-y-auto p-4 space-y-2">
+          ${filtered.length === 0 ? `
+            <div class="text-center py-12">
+              <p class="text-sm text-ink/40">${state.archiveSearch ? 'No results.' : 'Archive is empty.'}</p>
+            </div>
+          ` : filtered.map(t => `
+            <div class="bg-bg border border-border rounded-lg p-3">
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <p class="text-sm font-medium text-ink/60 line-through">${sanitizeHTML(t.name)}</p>
+                  <div class="flex items-center gap-1.5 mt-1">
+                    <span class="text-xs priority-${t.priority} px-1.5 py-0.5 rounded">${t.priority}</span>
+                    <span class="text-xs type-${t.type} px-1.5 py-0.5 rounded">${t.type}</span>
+                    <span class="text-xs text-ink/40">${formatDate(t.date)}</span>
+                  </div>
+                  ${t.notes ? `<p class="text-xs text-ink/40 mt-1 truncate">${sanitizeHTML(t.notes)}</p>` : ''}
+                </div>
+                <button onclick="restoreTask(${t.id})" class="text-xs text-primary hover:underline shrink-0 mt-0.5">Restore</button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+// SEARCH RESULTS
+// ============================================================
+
+function renderSearchResults() {
+  if (!state.searchOpen || !state.searchQuery.trim()) return '';
+
+  const q = state.searchQuery.toLowerCase();
+  const activeMATCHES = tasks.filter(t =>
+    t.name.toLowerCase().includes(q) || (t.notes || '').toLowerCase().includes(q)
+  );
+  const archiveMatches = archive.filter(t =>
+    t.name.toLowerCase().includes(q) || (t.notes || '').toLowerCase().includes(q)
+  );
+
+  return `
+    <div class="search-results" id="search-results-panel" style="position:fixed; top:64px; right:180px; z-index:50;">
+      ${activeMATCHES.length === 0 && archiveMatches.length === 0 ? `
+        <div class="px-4 py-6 text-center">
+          <p class="text-sm text-ink/50">No results for "<strong>${sanitizeHTML(state.searchQuery)}</strong>"</p>
+        </div>
+      ` : `
+        ${activeMATCHES.length > 0 ? `
+          <div class="px-3 pt-3 pb-1">
+            <p class="text-xs font-semibold text-ink/40 uppercase tracking-wider mb-2">Active Tasks</p>
+            ${activeMATCHES.slice(0, 8).map(t => `
+              <button onclick="focusTask(${t.id})" class="w-full text-left px-2 py-2 rounded-lg hover:bg-bg transition-colors flex items-start gap-2">
+                <span class="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 ${t.col === 'done' ? 'bg-done' : isOverdue(t) ? 'bg-overdue' : 'bg-primary/40'}"></span>
+                <div>
+                  <p class="text-sm font-medium text-ink">${sanitizeHTML(t.name)}</p>
+                  <p class="text-xs text-ink/40">${COLUMNS.find(c => c.id === t.col)?.label || t.col} · ${formatDate(t.date)}</p>
+                </div>
+              </button>
+            `).join('')}
+          </div>
+        ` : ''}
+        ${archiveMatches.length > 0 ? `
+          <div class="px-3 pt-2 pb-3 border-t border-border mt-1">
+            <p class="text-xs font-semibold text-ink/40 uppercase tracking-wider mb-2">Archive</p>
+            ${archiveMatches.slice(0, 4).map(t => `
+              <div class="px-2 py-2 flex items-start gap-2">
+                <span class="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 bg-ink/20"></span>
+                <div>
+                  <p class="text-sm font-medium text-ink/50 line-through">${sanitizeHTML(t.name)}</p>
+                  <p class="text-xs text-ink/40">${formatDate(t.date)}</p>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+      `}
+    </div>
+  `;
+}
+
+// ============================================================
+// EVENT HANDLERS / ACTIONS
+// ============================================================
+
+function switchView(view) {
+  state.view = view;
+  state.expandedCardId = null;
+  state.showAddForm = false;
+  render();
+}
+
+function toggleCardExpand(id, evt) {
+  // Don't toggle if clicking interactive elements
+  if (evt && (evt.target.tagName === 'BUTTON' || evt.target.tagName === 'INPUT' ||
+      evt.target.tagName === 'SELECT' || evt.target.tagName === 'A' ||
+      evt.target.tagName === 'TEXTAREA' || evt.target.tagName === 'LABEL')) return;
+  state.expandedCardId = state.expandedCardId === id ? null : id;
+  render();
+}
+
+function completeTask(id) {
+  const card = document.getElementById(`card-${id}`);
+  if (!card) return;
+
+  // Strikethrough + flash
+  card.classList.add('completing', 'task-strikethrough');
+
+  setTimeout(() => {
+    card.classList.add('task-fading');
+    setTimeout(() => {
+      const task = tasks.find(t => t.id === id);
+      if (!task) return;
+      // Move to archive
+      task.col = 'done';
+      archive.unshift({...task, subtasks: task.subtasks.map(s => ({...s}))});
+      tasks = tasks.filter(t => t.id !== id);
+      saveTasks(tasks);
+      saveArchive(archive);
+      if (state.expandedCardId === id) state.expandedCardId = null;
+      render();
+    }, 400);
+  }, 500);
+}
+
+function moveTask(id, newCol) {
+  const task = tasks.find(t => t.id === id);
+  if (!task) return;
+  if (newCol === 'done') {
+    completeTask(id);
+    return;
+  }
+  task.col = newCol;
+  saveTasks(tasks);
+  render();
+}
+
+function deleteTask(id) {
+  tasks = tasks.filter(t => t.id !== id);
+  if (state.expandedCardId === id) state.expandedCardId = null;
+  saveTasks(tasks);
+  render();
+}
+
+function toggleSubtask(taskId, index, checked) {
+  const task = tasks.find(t => t.id === taskId);
+  if (!task) return;
+  task.subtasks[index].checked = checked;
+  saveTasks(tasks);
+  // Re-render just the subtask area without full re-render for smoothness
+  // But for simplicity, full render:
+  render();
+}
+
+function restoreTask(id) {
+  const task = archive.find(t => t.id === id);
+  if (!task) return;
+  task.col = 'todo';
+  tasks.push({...task, subtasks: task.subtasks.map(s => ({...s}))});
+  archive = archive.filter(t => t.id !== id);
+  saveTasks(tasks);
+  saveArchive(archive);
+  render();
+}
+
+// SEARCH
+function openSearch() {
+  state.searchOpen = true;
+  render();
+  // Focus after render
+  setTimeout(() => {
+    const inp = document.getElementById('search-input');
+    if (inp) inp.focus();
+  }, 50);
+}
+
+function closeSearch() {
+  state.searchOpen = false;
+  state.searchQuery = '';
+  render();
+}
+
+function handleSearchInput(value) {
+  state.searchQuery = value;
+  render();
+}
+
+function handleSearchKeydown(evt) {
+  if (evt.key === 'Escape') closeSearch();
+}
+
+function focusTask(id) {
+  closeSearch();
+  const task = tasks.find(t => t.id === id);
+  if (!task) return;
+  // Navigate to appropriate view
+  if (task.date <= TODAY || task.date === TODAY) {
+    state.view = 'today';
+  } else {
+    state.view = 'board';
+  }
+  state.expandedCardId = id;
+  render();
+  setTimeout(() => {
+    const el = document.getElementById(`card-${id}`);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
+}
+
+// ADD FORM
+function openAddForm() {
+  state.showAddForm = true;
+  state.addFormCol = state.view === 'board' ? 'todo' : 'today';
+  render();
+}
+
+function openAddFormToday() {
+  state.showAddForm = true;
+  state.addFormCol = 'today';
+  render();
+  setTimeout(() => {
+    const inp = document.getElementById('add-task-name');
+    if (inp) inp.focus();
+  }, 50);
+}
+
+function openAddFormBoard(col) {
+  state.showAddForm = true;
+  state.addFormCol = col;
+  render();
+  setTimeout(() => {
+    const inp = document.getElementById('add-task-name');
+    if (inp) inp.focus();
+  }, 50);
+}
+
+function closeAddForm() {
+  state.showAddForm = false;
+  render();
+}
+
+function toggleAddFormMore() {
+  const more = document.getElementById('add-form-more');
+  const chevron = document.getElementById('more-chevron');
+  const btn = document.getElementById('add-form-more-btn');
+  if (!more) return;
+  const isHidden = more.classList.contains('hidden');
+  more.classList.toggle('hidden', !isHidden);
+  if (chevron) chevron.style.transform = isHidden ? 'rotate(180deg)' : '';
+}
+
+function handleAddFormKeydown(evt, col) {
+  if (evt.key === 'Enter') {
+    evt.preventDefault();
+    saveNewTask(col);
+  }
+  if (evt.key === 'Escape') closeAddForm();
+}
+
+function saveNewTask(colOrContext) {
+  const nameEl = document.getElementById('add-task-name');
+  const priorityEl = document.getElementById('add-task-priority');
+  const typeEl = document.getElementById('add-task-type');
+  const dateEl = document.getElementById('add-task-date');
+  const notesEl = document.getElementById('add-task-notes');
+  const urlEl = document.getElementById('add-task-url');
+
+  if (!nameEl || !nameEl.value.trim()) {
+    if (nameEl) nameEl.focus();
+    return;
+  }
+
+  const col = (colOrContext === 'today') ? 'todo' : colOrContext;
+  const month = (dateEl?.value || TODAY).split('-')[1] === '03' ? 'mar' : 'other';
+
+  const newTask = {
+    id: state.nextId++,
+    col: col,
+    name: nameEl.value.trim(),
+    priority: priorityEl?.value || 'med',
+    type: typeEl?.value || 'personal',
+    date: dateEl?.value || TODAY,
+    month: month,
+    notes: notesEl?.value || '',
+    subtasks: [],
+    url: urlEl?.value || '',
+  };
+
+  tasks.push(newTask);
+  saveTasks(tasks);
+  state.showAddForm = false;
+  render();
+}
+
+// FILTERS
+function toggleFilter(type, value) {
+  if (type === 'priority') {
+    state.filterPriority = state.filterPriority === value ? null : value;
+  } else if (type === 'type') {
+    state.filterType = state.filterType === value ? null : value;
+  } else if (type === 'overdue') {
+    state.filterOverdue = !state.filterOverdue;
+  }
+  render();
+}
+
+function clearFilters() {
+  state.filterPriority = null;
+  state.filterType = null;
+  state.filterOverdue = false;
+  render();
+}
+
+// ARCHIVE
+function toggleArchive() {
+  state.showArchive = !state.showArchive;
+  render();
+}
+
+function closeArchiveOnOutside(evt) {
+  const panel = document.getElementById('archive-panel');
+  if (panel && !panel.contains(evt.target)) {
+    state.showArchive = false;
+    render();
+  }
+}
+
+function handleArchiveSearch(value) {
+  state.archiveSearch = value;
+  render();
+}
+
+// EXPORT
+function handleExport() {
+  const data = {
+    exportedAt: new Date().toISOString(),
+    tasks: tasks,
+    archive: archive,
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `bloom-backup-${TODAY}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+
+  meta.lastExportDate = TODAY;
+  saveMeta(meta);
+  render();
+}
+
+// DRAG AND DROP
+let dragTaskId = null;
+let dragOverCol = null;
+
+function handleDragStart(evt, taskId) {
+  dragTaskId = taskId;
+  evt.dataTransfer.effectAllowed = 'move';
+  evt.dataTransfer.setData('text/plain', taskId);
+  const card = evt.currentTarget;
+  setTimeout(() => card.classList.add('dragging'), 0);
+}
+
+function handleDragEnd(evt) {
+  dragTaskId = null;
+  const card = evt.currentTarget;
+  card.classList.remove('dragging');
+  // Clean up all drag-over states
+  document.querySelectorAll('.drag-over-col').forEach(el => el.classList.remove('drag-over-col'));
+  document.querySelectorAll('.drop-indicator').forEach(el => el.remove());
+}
+
+function handleDragOver(evt, col) {
+  evt.preventDefault();
+  evt.dataTransfer.dropEffect = 'move';
+}
+
+function handleDragEnter(evt, col) {
+  evt.preventDefault();
+  const colEl = evt.currentTarget;
+  colEl.classList.add('drag-over-col');
+}
+
+function handleDragLeave(evt, col) {
+  const colEl = evt.currentTarget;
+  // Only remove if leaving the column itself (not a child)
+  if (!colEl.contains(evt.relatedTarget)) {
+    colEl.classList.remove('drag-over-col');
+  }
+}
+
+function handleDrop(evt, col) {
+  evt.preventDefault();
+  const taskId = parseInt(evt.dataTransfer.getData('text/plain'));
+  const colEl = evt.currentTarget;
+  colEl.classList.remove('drag-over-col');
+
+  if (!taskId || isNaN(taskId)) return;
+
+  const task = tasks.find(t => t.id === taskId);
+  if (!task) return;
+
+  if (col === 'done') {
+    // Trigger completion animation
+    const card = document.getElementById(`card-${taskId}`);
+    if (card) {
+      card.classList.add('completing', 'task-strikethrough');
+      setTimeout(() => {
+        card.classList.add('task-fading');
+        setTimeout(() => {
+          task.col = 'done';
+          archive.unshift({...task, subtasks: task.subtasks.map(s => ({...s}))});
+          tasks = tasks.filter(t => t.id !== taskId);
+          saveTasks(tasks);
+          saveArchive(archive);
+          render();
+        }, 400);
+      }, 500);
+      return;
+    }
+  }
+
+  task.col = col;
+  saveTasks(tasks);
+  render();
+}
+
+// ============================================================
+// EVENT LISTENERS ATTACHMENT
+// ============================================================
+
+function attachEventListeners() {
+  // Close search results on outside click
+  document.addEventListener('click', handleGlobalClick, { once: true });
+}
+
+function handleGlobalClick(evt) {
+  // Check if click is outside search
+  const searchContainer = document.getElementById('search-container');
+  const resultsPanel = document.getElementById('search-results-panel');
+
+  if (state.searchOpen && searchContainer && !searchContainer.contains(evt.target) &&
+      resultsPanel && !resultsPanel.contains(evt.target)) {
+    // Don't close, user is clicking elsewhere
+  }
+}
+
+// ============================================================
+// KEYBOARD SHORTCUTS
+// ============================================================
+
+document.addEventListener('keydown', (evt) => {
+  // Cmd/Ctrl+K: open search
+  if ((evt.metaKey || evt.ctrlKey) && evt.key === 'k') {
+    evt.preventDefault();
+    if (state.searchOpen) {
+      closeSearch();
+    } else {
+      openSearch();
+    }
+  }
+  // Escape: close various things
+  if (evt.key === 'Escape') {
+    if (state.showArchive) { state.showArchive = false; render(); return; }
+    if (state.searchOpen) { closeSearch(); return; }
+    if (state.showAddForm) { closeAddForm(); return; }
+    if (state.expandedCardId) { state.expandedCardId = null; render(); return; }
+  }
+  // T: switch to today
+  if (evt.key === 't' && !evt.metaKey && !evt.ctrlKey && evt.target.tagName === 'BODY') {
+    switchView('today');
+  }
+  // B: switch to board
+  if (evt.key === 'b' && !evt.metaKey && !evt.ctrlKey && evt.target.tagName === 'BODY') {
+    switchView('board');
+  }
+});
+
+// ============================================================
+// INITIAL RENDER
+// ============================================================
+
+render();
+
+</script>
+</body>
+</html>
