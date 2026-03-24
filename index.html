@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A space by Yeseul</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:     #f5f2ee;
+      --bg2:    #edeae4;
+      --bg3:    #e4e0d8;
+      --red:    #c8251a;
+      --red-dk: #9e1c14;
+      --ink:    #1a1714;
+      --ink2:   #3d3530;
+      --ink3:   #7a706a;
+      --border: rgba(26,23,20,0.1);
+      --serif:  'Cormorant Garamond', Georgia, serif;
+      --script: 'Caveat', cursive;
+      --sans:   'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.5rem 3.5rem;
+      background: transparent;
+      border-bottom: none;
+    }
+    nav.scrolled {
+      background: rgba(245,242,238,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      text-decoration: none; color: #fff;
+      transition: color 0.3s; line-height: 1;
+      display: flex; align-items: center;
+    }
+    .nav-logo svg { width: 32px; height: 32px; }
+    nav.scrolled .nav-logo { color: var(--ink); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s;
+    }
+    nav.scrolled .nav-links a { color: var(--ink2); }
+    .nav-links a:hover { color: var(--red); }
+
+    /* PAGE SYSTEM */
+    #hero, section { display: none; }
+    #hero.active { display: flex; }
+    section.active { display: block; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 8rem 0 4rem 6rem;
+      position: relative;
+      background: #b8c4c8 url('./image/7c5d0d0f78b7fc3272c9e14bdc60cc99.jpg') center center / cover no-repeat;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(10,8,7,0.22) 0%, transparent 65%),
+                  linear-gradient(to top, rgba(10,8,7,0.12) 0%, transparent 50%);
+    }
+    #hero > * { position: relative; z-index: 1; }
+
+    .hero-eyebrow {
+      font-family: var(--sans); font-size: 0.68rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 0.5rem;
+      opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(3.2rem, 6vw, 6.5rem);
+      font-weight: 300; line-height: 0.92;
+      color: #fff; letter-spacing: -0.02em;
+      opacity: 0; animation: fadeUp 1s 0.35s forwards;
+    }
+    .hero-title em { font-style: italic; color: rgba(255,255,255,0.75); display: block; }
+    .hero-title span.red { color: var(--red); }
+    .hero-subtitle {
+      margin-top: 0.5rem;
+      font-family: var(--serif); font-style: italic;
+      font-size: 1.15rem; color: rgba(255,255,255,0.6);
+      opacity: 0; animation: fadeUp 0.9s 0.55s forwards;
+    }
+    .hero-tagline {
+      margin-top: 0.9rem;
+      font-family: var(--sans); font-weight: 300;
+      font-size: 0.82rem; color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+      opacity: 0; animation: fadeUp 0.9s 0.65s forwards;
+    }
+    .hero-tags {
+      margin-top: 0.75rem; display: flex; flex-wrap: wrap; gap: 0;
+      opacity: 0; animation: fadeUp 0.9s 0.75s forwards;
+    }
+    .hero-tag {
+      font-size: 0.62rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(255,255,255,0.8);
+    }
+    .hero-tag::after { content: ' · '; color: var(--red); padding: 0 4px; }
+    .hero-tag:last-child::after { content: ''; }
+    .hero-cta {
+      margin-top: 1.5rem; display: flex; gap: 1.25rem; align-items: center;
+      opacity: 0; animation: fadeUp 0.9s 0.9s forwards;
+    }
+    .btn {
+      font-family: var(--sans); font-size: 0.68rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      text-decoration: none; transition: all 0.25s;
+      display: inline-block; border: none; border-radius: 0;
+    }
+    .btn-primary { background: var(--red); color: #fff; padding: 0.75rem 1.8rem; }
+    .btn-primary:hover { background: var(--red-dk); }
+    .btn-ghost {
+      background: transparent; color: rgba(255,255,255,0.7);
+      padding: 0; border-bottom: 1px solid rgba(255,255,255,0.3);
+      padding-bottom: 2px;
+    }
+    .btn-ghost:hover { color: #fff; border-color: #fff; }
+
+    /* SECTIONS */
+    section { padding: 7rem 3.5rem; min-height: 100vh; }
+
+    .section-eyebrow {
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .section-eyebrow::after {
+      content: ''; flex: 1; max-width: 60px;
+      height: 1px; background: var(--red); opacity: 0.4;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300; line-height: 1.05;
+      color: var(--ink); margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .section-title em { font-style: italic; }
+    .section-sub {
+      font-family: var(--serif); font-style: italic;
+      font-size: 1rem; color: var(--ink3);
+    }
+    .divider { width: 40px; height: 2px; background: var(--red); margin: 2rem 0 3.5rem; }
+
+    /* WORK */
+    #work { background: var(--bg); }
+    .work-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .work-card {
+      background: var(--bg); padding: 2.5rem;
+      transition: background 0.3s;
+    }
+    .work-card:hover { background: var(--bg2); }
+    .work-card.clickable { cursor: pointer; }
+    .work-card.clickable:hover { background: var(--bg2); }
+    .work-num {
+      font-family: var(--serif); font-style: italic;
+      font-size: 0.8rem; color: var(--red);
+      margin-bottom: 1.5rem; display: block;
+    }
+    .work-card h3 {
+      font-family: var(--serif); font-size: 1.4rem;
+      font-weight: 400; color: var(--ink);
+      margin-bottom: 0.75rem; line-height: 1.25;
+    }
+    .work-card p { font-size: 0.875rem; color: var(--ink2); line-height: 1.8; }
+    .work-tag {
+      display: inline-block; margin-top: 1.5rem; margin-right: 6px;
+      font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--red); border: 1px solid rgba(200,37,26,0.3);
+      padding: 3px 10px;
+    }
+    .work-card-hint {
+      display: block; margin-top: 1.25rem;
+      font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--ink3); opacity: 0.6;
+    }
+
+    /* ART */
+    #art { background: var(--bg2); }
+    .art-masonry { columns: 3; column-gap: 1rem; }
+    .art-item {
+      break-inside: avoid; margin-bottom: 1rem;
+      overflow: hidden; background: var(--bg3);
+      border: 1px solid var(--border);
+      cursor: pointer; transition: transform 0.3s;
+    }
+    .art-item:hover { transform: scale(1.01); }
+    .art-ph {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.4rem; color: var(--ink3);
+      font-size: 0.6rem; letter-spacing: 0.12em;
+      text-transform: uppercase; opacity: 0.4;
+    }
+    .art-item:nth-child(1) .art-ph { height: 260px; }
+    .art-item:nth-child(2) .art-ph { height: 180px; }
+    .art-item:nth-child(3) .art-ph { height: 220px; }
+    .art-item:nth-child(4) .art-ph { height: 200px; }
+    .art-item:nth-child(5) .art-ph { height: 280px; }
+    .art-item:nth-child(6) .art-ph { height: 160px; }
+    .art-item:nth-child(7) .art-ph { height: 240px; }
+    .art-item:nth-child(8) .art-ph { height: 190px; }
+    .art-item:nth-child(9) .art-ph { height: 210px; }
+    .art-caption {
+      padding: 0.6rem 1rem;
+      font-family: var(--serif); font-style: italic;
+      font-size: 0.82rem; color: var(--ink3);
+      border-top: 1px solid var(--border);
+    }
+    .art-hint { margin-top: 1.5rem; font-size: 0.75rem; color: var(--ink3); }
+
+    /* WRITING */
+    #writing { background: var(--bg); }
+    .writing-list { max-width: 720px; }
+    .essay-item {
+      display: grid; grid-template-columns: 70px 1fr;
+      gap: 2rem; padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none; color: inherit;
+      transition: padding-left 0.3s;
+    }
+    .essay-item:first-child { border-top: 1px solid var(--border); }
+    .essay-item:hover { padding-left: 0.75rem; }
+    .essay-date {
+      font-family: var(--serif); font-style: italic;
+      font-size: 0.8rem; color: var(--red);
+      padding-top: 4px;
+    }
+    .essay-body h3 {
+      font-family: var(--serif); font-size: 1.5rem;
+      font-weight: 400; color: var(--ink);
+      margin-bottom: 0.5rem; line-height: 1.25;
+    }
+    .essay-body p { font-size: 0.875rem; color: var(--ink3); line-height: 1.75; }
+    .essay-arrow {
+      display: inline-block; margin-top: 1rem;
+      font-size: 0.65rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--red);
+    }
+
+    /* ABOUT */
+    #about { background: var(--bg2); }
+    .about-wrap {
+      display: grid; grid-template-columns: 320px 1fr;
+      gap: 7rem; align-items: start; max-width: 960px;
+    }
+    .about-photo {
+      aspect-ratio: 3/4;
+      border: 1px solid var(--border);
+      overflow: hidden; position: relative;
+    }
+    .about-photo::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 3px;
+      background: var(--red);
+    }
+    .about-content h2 {
+      font-family: var(--serif); font-size: 2.2rem;
+      font-weight: 300; color: var(--ink);
+      line-height: 1.2; margin-bottom: 1.5rem;
+    }
+    .about-content h2 em { font-style: italic; color: var(--red); }
+    .about-content p { font-size: 0.9rem; color: var(--ink2); line-height: 1.95; margin-bottom: 1.1rem; }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2rem; }
+    .tag {
+      font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--ink2); border: 1px solid var(--border);
+      padding: 4px 12px; transition: all 0.2s;
+    }
+    .tag:hover { border-color: var(--red); color: var(--red); }
+    .about-links { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .about-links a {
+      font-size: 0.82rem; color: var(--ink2); text-decoration: none;
+      display: flex; align-items: center; gap: 0.75rem; transition: color 0.2s;
+    }
+    .about-links a::before { content: '→'; color: var(--red); font-size: 0.75rem; }
+    .about-links a:hover { color: var(--red); }
+
+    /* FOOTER */
+    footer {
+      background: var(--ink); padding: 2.5rem 3.5rem;
+      display: none; justify-content: space-between; align-items: center;
+    }
+    .footer-left {
+      font-family: var(--script); font-size: 1.6rem;
+      color: #fff; opacity: 0.9;
+    }
+    .footer-right { font-size: 0.65rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.4); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(26,23,20,0.6);
+      backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--bg);
+      max-width: 900px; width: 100%;
+      max-height: 88vh; overflow-y: auto;
+      border: 1px solid var(--border);
+      position: relative;
+      animation: fadeUp 0.35s ease forwards;
+    }
+    .modal-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: none; border: none; cursor: pointer;
+      font-size: 1.2rem; color: var(--ink3);
+      line-height: 1; padding: 4px 8px;
+      transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--red); }
+
+    .modal-header {
+      padding: 3rem 3rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-eyebrow {
+      font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 0.75rem;
+    }
+    .modal-title {
+      font-family: var(--serif); font-size: 2.2rem;
+      font-weight: 300; line-height: 1.1;
+      color: var(--ink); margin-bottom: 0.75rem;
+    }
+    .modal-title em { font-style: italic; }
+    .modal-desc {
+      font-size: 0.9rem; color: var(--ink2);
+      line-height: 1.85; max-width: 580px;
+    }
+    .modal-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1.5rem; }
+
+    .modal-body { padding: 2.5rem 3rem 3rem; }
+
+    /* Pipeline overview chart */
+    .pipeline-chart { display: flex; flex-direction: column; align-items: center; margin-bottom: 3.5rem; }
+    .chart-track { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 540px; }
+    .chart-node {
+      width: 100%; background: var(--bg2);
+      border: 1px solid var(--border); border-left: 3px solid var(--red);
+      display: grid; grid-template-columns: 52px 1fr; gap: 0;
+    }
+    .chart-node-left {
+      padding: 1rem 0.5rem; border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; align-items: center; gap: 0.2rem;
+    }
+    .chart-node-num {
+      font-family: var(--serif); font-style: italic;
+      font-size: 1.6rem; color: var(--red); line-height: 1;
+    }
+    .chart-node-cat {
+      font-size: 0.45rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--ink3); text-align: center; line-height: 1.3;
+    }
+    .chart-node-right { padding: 1rem 1.25rem; }
+    .chart-node-name {
+      font-family: var(--serif); font-size: 1rem; font-weight: 400;
+      color: var(--ink); margin-bottom: 0.4rem; line-height: 1.2;
+    }
+    .chart-agents { display: flex; flex-wrap: wrap; gap: 4px; }
+    .chart-agent {
+      font-size: 0.52rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink3); border: 1px solid var(--border);
+      padding: 2px 8px; background: var(--bg);
+    }
+    .chart-conn { display: flex; flex-direction: column; align-items: center; }
+    .chart-vline { width: 1px; height: 14px; background: var(--border); }
+    .chart-gate-pill {
+      border: 1px solid rgba(200,37,26,0.25); padding: 4px 14px;
+      font-size: 0.54rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--red); background: var(--bg); white-space: nowrap;
+    }
+    .chart-gate-pill.lock {
+      background: rgba(200,37,26,0.06); border-color: rgba(200,37,26,0.5);
+    }
+    .chart-terminal {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--red); opacity: 0.45; margin-top: 14px;
+    }
+    .chart-note {
+      margin-top: 0.75rem; font-size: 0.7rem; font-style: italic;
+      color: var(--ink3); text-align: center; font-family: var(--serif);
+    }
+
+    /* Flowchart in modal */
+    .flow-chart { display: flex; flex-direction: column; }
+
+    .flow-phase {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+    }
+    .flow-phase-left {
+      padding: 1.75rem 0.5rem;
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-start;
+      text-align: center; gap: 0.25rem;
+    }
+    .flow-phase-num {
+      font-family: var(--serif); font-style: italic;
+      font-size: 2rem; line-height: 1; color: var(--red); display: block;
+    }
+    .flow-phase-word {
+      font-size: 0.48rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--ink3); line-height: 1.4; display: block;
+    }
+    .flow-phase-right { padding: 1.75rem 2rem; }
+    .flow-phase-label {
+      font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--red); display: block; margin-bottom: 0.45rem;
+    }
+    .flow-phase-name {
+      font-family: var(--serif); font-size: 1.15rem; font-weight: 400;
+      color: var(--ink); margin-bottom: 0.6rem; line-height: 1.25;
+    }
+    .flow-phase-desc {
+      font-size: 0.82rem; color: var(--ink3); line-height: 1.78; margin-bottom: 0.8rem;
+    }
+    .flow-phase-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+    .flow-phase-bullets li {
+      font-size: 0.78rem; color: var(--ink2); line-height: 1.65;
+      padding-left: 1rem; position: relative;
+    }
+    .flow-phase-bullets li::before {
+      content: '·'; position: absolute; left: 0;
+      color: var(--red); font-weight: bold; font-size: 1rem; line-height: 1.4;
+    }
+    .flow-io {
+      display: flex; flex-direction: column; gap: 0.35rem;
+      margin-top: 0.9rem; padding-top: 0.9rem;
+      border-top: 1px solid var(--border);
+    }
+    .flow-io-row { display: flex; align-items: flex-start; gap: 0.65rem; }
+    .flow-io-label {
+      font-size: 0.5rem; letter-spacing: 0.17em; text-transform: uppercase;
+      color: var(--ink3); min-width: 1.6rem; padding-top: 0.18rem;
+      line-height: 1.5; flex-shrink: 0;
+    }
+    .flow-io-files { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .flow-io-file {
+      font-size: 0.6rem; font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+      color: var(--ink2); background: rgba(0,0,0,0.035);
+      border: 1px solid var(--border); padding: 2px 8px;
+      letter-spacing: 0.02em; line-height: 1.6;
+    }
+    .flow-io-file.out {
+      color: var(--red); background: rgba(200,37,26,0.04);
+      border-color: rgba(200,37,26,0.22);
+    }
+
+    .flow-connector {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      min-height: 40px;
+    }
+    .flow-connector-left {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 0;
+    }
+    .flow-connector-line { width: 1px; flex: 1; background: var(--border); }
+    .flow-connector-right {
+      display: flex; align-items: center;
+      padding: 8px 0 8px 2rem;
+    }
+    .flow-connector-right { display: flex; flex-direction: column; align-items: flex-start; }
+    .flow-gate-badge {
+      display: inline-flex; align-items: center;
+      border: 1px solid rgba(200,37,26,0.22); padding: 5px 14px;
+      font-size: 0.57rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--red); background: var(--bg);
+    }
+    .flow-gate-badge.lock {
+      background: rgba(200,37,26,0.05);
+      border-color: rgba(200,37,26,0.45);
+      font-size: 0.55rem;
+    }
+    .flow-end {
+      display: grid; grid-template-columns: 76px 1fr;
+    }
+    .flow-end-left {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0.75rem 0;
+    }
+    .flow-end-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--red); opacity: 0.5;
+    }
+    .flow-end-right {
+      display: flex; align-items: center; padding: 0.75rem 0 0.75rem 2rem;
+    }
+    .flow-end-label {
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--ink3);
+    }
+
+    /* Principles grid */
+    .flow-principles { margin-top: 3rem; }
+    .modal-section-title {
+      font-family: var(--serif); font-size: 1rem;
+      font-weight: 400; color: var(--ink);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .principles-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+      background: var(--border); border: 1px solid var(--border);
+    }
+    .principle-card {
+      background: var(--bg); padding: 1.4rem 1.6rem;
+    }
+    .principle-card-title {
+      font-family: var(--serif); font-size: 0.95rem;
+      font-weight: 400; color: var(--ink);
+      margin-bottom: 0.45rem; line-height: 1.35;
+    }
+    .principle-card-desc {
+      font-size: 0.8rem; color: var(--ink3); line-height: 1.75;
+    }
+
+    /* Why section */
+    .why-section {
+      margin-top: 3rem;
+      padding: 1.6rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .why-section p {
+      font-family: var(--serif); font-size: 1.05rem;
+      color: var(--ink); line-height: 1.9; font-weight: 300;
+    }
+
+    /* Collab chart */
+    .collab-section { margin-top: 3rem; }
+    .collab-table { border: 1px solid var(--border); width: 100%; }
+    .collab-table-header {
+      display: grid; grid-template-columns: 1fr 1.9fr;
+      border-bottom: 1px solid var(--border); background: var(--bg2);
+    }
+    .collab-table-header span {
+      padding: 0.55rem 1.2rem;
+      font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red);
+    }
+    .collab-table-header span:first-child { border-right: 1px solid var(--border); }
+    .collab-table-row {
+      display: grid; grid-template-columns: 1fr 1.9fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .collab-table-row:last-child { border-bottom: none; }
+    .collab-you {
+      padding: 1.1rem 1.2rem; border-right: 1px solid var(--border);
+    }
+    .collab-agents {
+      padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 1rem;
+    }
+    .collab-gate-label {
+      font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--red); display: block; margin-bottom: 0.22rem;
+    }
+    .collab-gate-q { font-size: 0.76rem; color: var(--ink2); line-height: 1.62; }
+    .collab-gate-lock {
+      display: block; margin-top: 0.35rem;
+      font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red);
+      opacity: 0.7;
+    }
+    .collab-you-note {
+      font-size: 0.72rem; color: var(--ink3); line-height: 1.65; font-style: italic;
+    }
+    .agent-block-name {
+      display: block; font-size: 0.77rem; color: var(--ink);
+      font-weight: 400; margin-bottom: 0.2rem;
+    }
+    .agent-block-silent {
+      font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--ink3); margin-left: 0.5rem;
+    }
+    .agent-block-desc { font-size: 0.74rem; color: var(--ink3); line-height: 1.72; }
+
+    /* Review table (PDLC benchmark) */
+    .review-table { border: 1px solid var(--border); width: 100%; }
+    .review-table-header {
+      display: grid; grid-template-columns: 1fr 2fr;
+      border-bottom: 1px solid var(--border); background: var(--bg2);
+    }
+    .review-table-header span {
+      padding: 0.55rem 1.2rem;
+      font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red);
+    }
+    .review-table-header span:first-child { border-right: 1px solid var(--border); }
+    .review-table-row {
+      display: grid; grid-template-columns: 1fr 2fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .review-table-row:last-child { border-bottom: none; }
+    .review-phase {
+      padding: 1rem 1.2rem; border-right: 1px solid var(--border);
+    }
+    .review-phase-name {
+      font-size: 0.72rem; color: var(--ink); font-weight: 400; display: block; margin-bottom: 0.2rem;
+    }
+    .review-phase-tag {
+      font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink3);
+    }
+    .review-reality { padding: 1rem 1.2rem; }
+    .review-status {
+      display: inline-block; font-size: 0.48rem; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 2px 8px; margin-bottom: 0.4rem;
+    }
+    .review-status.done { color: var(--ink2); border: 1px solid var(--border); background: var(--bg2); }
+    .review-status.partial { color: #8a6000; border: 1px solid rgba(138,96,0,0.3); background: rgba(138,96,0,0.05); }
+    .review-status.skipped { color: var(--red); border: 1px solid rgba(200,37,26,0.25); background: rgba(200,37,26,0.04); }
+    .review-reality-text { font-size: 0.78rem; color: var(--ink3); line-height: 1.72; display: block; }
+
+    /* Feature chips for todo modal */
+    .feature-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+    .feature-chip {
+      font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink2); border: 1px solid var(--border);
+      padding: 4px 12px; background: var(--bg2);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      section { padding: 5rem 1.5rem; }
+      #hero { padding: 6rem 1.5rem 4rem; }
+      .art-masonry { columns: 2; }
+      .about-wrap { grid-template-columns: 1fr; gap: 3rem; }
+      .about-photo { max-width: 260px; }
+      footer { padding: 2rem 1.5rem; }
+      .modal-header { padding: 2rem 1.5rem 1.5rem; }
+      .modal-body { padding: 1.5rem 1.5rem 2.5rem; }
+      .flow-phase { grid-template-columns: 56px 1fr; }
+      .flow-phase-left { padding: 1.25rem 0.4rem; }
+      .flow-phase-right { padding: 1.25rem 1.25rem; }
+      .flow-connector { grid-template-columns: 56px 1fr; }
+      .flow-end { grid-template-columns: 56px 1fr; }
+      .flow-connector-right { padding-left: 1.25rem; }
+      .flow-end-right { padding-left: 1.25rem; }
+      .principles-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) { .art-masonry { columns: 1; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" onclick="showPage('hero'); return false;" class="nav-logo">
+    <svg viewBox="0 0 32 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M26 8.5a5.5 5.5 0 00-10.6-2A4 4 0 0014 6.5a4 4 0 000 8h12a4 4 0 000-8z"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('work'); return false;">Projects</a></li>
+    <li><a href="#" onclick="showPage('art'); return false;">Art</a></li>
+    <li><a href="#" onclick="showPage('writing'); return false;">Writing</a></li>
+    <li><a href="#" onclick="showPage('about'); return false;">About</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <p class="hero-eyebrow">Product Manager · Artist · Writer · Austin, TX</p>
+  <h1 class="hero-title">
+    Call me Ashley.<br>
+    <em>Or <span class="red">Yeseul.</span></em>
+  </h1>
+  <p class="hero-subtitle">Both feel like home.</p>
+  <p class="hero-tagline">I turned "I like building things" and "I like making things" into a whole personality.</p>
+  <div class="hero-tags">
+    <span class="hero-tag">Product Management</span>
+    <span class="hero-tag">AI & Tech</span>
+    <span class="hero-tag">Oil Pastel</span>
+    <span class="hero-tag">Watercolor</span>
+    <span class="hero-tag">Wandering</span>
+    <span class="hero-tag">CrossFit</span>
+    <span class="hero-tag">Essay Writing</span>
+  </div>
+  <div class="hero-cta">
+    <a href="#" onclick="showPage('work'); return false;" class="btn btn-primary">See my projects</a>
+    <a href="#" onclick="showPage('art'); return false;" class="btn btn-ghost">View art</a>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="work">
+  <div class="reveal">
+    <p class="section-eyebrow">01 — Projects</p>
+    <h2 class="section-title">Things I've made <em>& shipped</em></h2>
+    <p class="section-sub">Product management, AI-powered tools, and personal projects at the intersection of tech and creativity.</p>
+    <div class="divider"></div>
+  </div>
+  <div class="work-grid">
+
+    <!-- PDLC PROJECT -->
+    <div class="work-card clickable reveal" onclick="openModal('pdlc')">
+      <span class="work-num">01</span>
+      <h3>Product Development Life Cycle</h3>
+      <p>Designed and built a structured AI-powered pipeline that takes a raw idea through five phases, from brainstorm to clickable prototype, with human approval gates at every step.</p>
+      <span class="work-tag">Process Design</span>
+      <span class="work-tag">AI Systems</span>
+      <span class="work-tag">Product Thinking</span>
+      <span class="work-card-hint">Click to see the framework →</span>
+    </div>
+
+    <div class="work-card clickable reveal" onclick="openModal('todo')">
+      <span class="work-num">02</span>
+      <h3>Ashley's Todo — Personal Task Manager</h3>
+      <p>A self-contained Kanban board for personal task management. The first project benchmarked against the PDLC pipeline — a real test of what the process gets right and where gaps show up in practice.</p>
+      <span class="work-tag">Personal Productivity</span>
+      <span class="work-tag">Kanban</span>
+      <span class="work-tag">PDLC Benchmark</span>
+      <span class="work-card-hint">Click to see the retrospective →</span>
+    </div>
+    <div class="work-card reveal">
+      <span class="work-num">03</span>
+      <h3>Project 3</h3>
+      <p>Coming soon.</p>
+    </div>
+    <div class="work-card reveal">
+      <span class="work-num">04</span>
+      <h3>Project 4</h3>
+      <p>Coming soon.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ART -->
+<section id="art">
+  <div class="reveal">
+    <p class="section-eyebrow">02 — Art</p>
+    <h2 class="section-title">What I make <em>by hand</em></h2>
+    <p class="section-sub">Watercolor and oil pastel. Mostly botanicals, figures, and things that catch the light.</p>
+    <div class="divider"></div>
+  </div>
+  <p style="font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: var(--ink3);">TBD — images coming soon.</p>
+</section>
+
+<!-- WRITING -->
+<section id="writing">
+  <div class="reveal">
+    <p class="section-eyebrow">03 — Writing</p>
+    <h2 class="section-title">What I <em>think about</em></h2>
+    <p class="section-sub">Essays on creativity, systems, self, and everything in between. Published on Substack.</p>
+    <div class="divider"></div>
+  </div>
+  <p style="font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: var(--ink3);">TBD — essays coming soon.</p>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <p class="section-eyebrow">04 — About</p>
+    <h2 class="section-title">Nice to <em>meet you</em></h2>
+    <div class="divider"></div>
+  </div>
+  <p style="font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: var(--ink3);">TBD — coming soon.</p>
+</section>
+
+<footer>
+  <span class="footer-left">A space by Yeseul</span>
+  <span class="footer-right">© 2026 — Austin, TX</span>
+</footer>
+
+<!-- ══════════════════════════════ MODAL ══════════════════════════════ -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal" id="modal-pdlc" style="display:none;">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <div class="modal-header">
+      <p class="modal-eyebrow">Process Design · AI Systems · Product Thinking</p>
+      <h2 class="modal-title">Product Development <em>Life Cycle</em></h2>
+      <p class="modal-desc">
+        Most personal projects die in the gap between "I have an idea" and "I know what to build."
+        I designed a five-phase pipeline, powered by purpose-built AI agents, that closes that gap.
+        Each phase produces a real output. Each handoff requires human approval before moving forward.
+      </p>
+      <div class="modal-tags">
+        <span class="work-tag">Process Design</span>
+        <span class="work-tag">AI Agents</span>
+        <span class="work-tag">Product Thinking</span>
+        <span class="work-tag">UX Research</span>
+        <span class="work-tag">Prototyping</span>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- PIPELINE OVERVIEW CHART -->
+      <p class="modal-section-title" style="margin-top:0;">The Pipeline</p>
+      <div class="pipeline-chart">
+        <div class="chart-track">
+
+          <div class="chart-node">
+            <div class="chart-node-left">
+              <span class="chart-node-num">01</span>
+              <span class="chart-node-cat">Ideate</span>
+            </div>
+            <div class="chart-node-right">
+              <p class="chart-node-name">Brainstorm &amp; Clarify</p>
+              <div class="chart-agents">
+                <span class="chart-agent">Brainstorm Copilot</span>
+                <span class="chart-agent">Intake Clarifier</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-conn">
+            <div class="chart-vline"></div>
+            <div class="chart-gate-pill">Gate 1 &nbsp;·&nbsp; Human approval</div>
+            <div class="chart-vline"></div>
+          </div>
+
+          <div class="chart-node">
+            <div class="chart-node-left">
+              <span class="chart-node-num">02</span>
+              <span class="chart-node-cat">Define</span>
+            </div>
+            <div class="chart-node-right">
+              <p class="chart-node-name">Brief &amp; First Draft Product Requirements Document</p>
+              <div class="chart-agents">
+                <span class="chart-agent">Requirements Agent</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-conn">
+            <div class="chart-vline"></div>
+            <div class="chart-vline"></div>
+          </div>
+
+          <div class="chart-node">
+            <div class="chart-node-left">
+              <span class="chart-node-num">03</span>
+              <span class="chart-node-cat">Research</span>
+            </div>
+            <div class="chart-node-right">
+              <p class="chart-node-name">Parallel Research &amp; Requirements Refine</p>
+              <div class="chart-agents">
+                <span class="chart-agent">Research Agent</span>
+                <span class="chart-agent">Requirements Agent</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-conn">
+            <div class="chart-vline"></div>
+            <div class="chart-gate-pill">Gate 1.5 &nbsp;·&nbsp; Research review &nbsp;·&nbsp; Gate 2 &nbsp;·&nbsp; Requirements approval</div>
+            <div class="chart-vline"></div>
+          </div>
+
+          <div class="chart-node">
+            <div class="chart-node-left">
+              <span class="chart-node-num">04</span>
+              <span class="chart-node-cat">UX &amp; Design</span>
+            </div>
+            <div class="chart-node-right">
+              <p class="chart-node-name">Flows, Architecture &amp; Visual Direction</p>
+              <div class="chart-agents">
+                <span class="chart-agent">UX Research Agent</span>
+                <span class="chart-agent">Requirements Agent (conflicts)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-conn">
+            <div class="chart-vline"></div>
+            <div class="chart-gate-pill lock">Gate 3 &nbsp;·&nbsp; Requirements + UX locked &nbsp;·&nbsp; no changes after this</div>
+            <div class="chart-vline"></div>
+          </div>
+
+          <div class="chart-node">
+            <div class="chart-node-left">
+              <span class="chart-node-num">05</span>
+              <span class="chart-node-cat">Prototype</span>
+            </div>
+            <div class="chart-node-right">
+              <p class="chart-node-name">First-Pass Design Ideation</p>
+              <div class="chart-agents">
+                <span class="chart-agent">Prototype Agent</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-conn">
+            <div class="chart-vline"></div>
+            <div class="chart-gate-pill">Gate 4 &nbsp;·&nbsp; Final review</div>
+            <div class="chart-vline"></div>
+          </div>
+
+          <div class="chart-terminal"></div>
+          <p class="chart-note">Each phase runs autonomously. Each gate requires your sign-off.</p>
+
+        </div>
+      </div>
+
+      <p class="modal-section-title">Phase by Phase</p>
+      <div class="flow-chart">
+
+        <!-- Phase 01 -->
+        <div class="flow-phase">
+          <div class="flow-phase-left">
+            <span class="flow-phase-num">01</span>
+            <span class="flow-phase-word">Ideate</span>
+          </div>
+          <div class="flow-phase-right">
+            <span class="flow-phase-label">Brainstorm &amp; Clarify</span>
+            <p class="flow-phase-name">The idea gets a real first test before anything gets written down</p>
+            <p class="flow-phase-desc">A conversational AI agent acts as a thinking partner before any documentation happens. It runs real-time web research to surface what already exists, adapts to the specific industry or domain the idea lives in, and helps shape a vague impulse into a clear direction. The goal is convergence: one sentence, one platform, a handful of scope decisions, and at least one thing that's explicitly not being built.</p>
+            <ul class="flow-phase-bullets">
+              <li>Grounds the conversation in what's actually been built before committing to anything</li>
+              <li>Industry and domain knowledge kicks in automatically once the context is established</li>
+              <li>Ends with a structured handoff: core idea, platform, scope, what's out, open questions</li>
+              <li>A separate silent agent converts the handoff into a clean, structured project brief</li>
+            </ul>
+            <div class="flow-io">
+              <div class="flow-io-row">
+                <span class="flow-io-label">In</span>
+                <div class="flow-io-files">
+                  <span class="flow-io-file">your idea</span>
+                </div>
+              </div>
+              <div class="flow-io-row">
+                <span class="flow-io-label">Out</span>
+                <div class="flow-io-files">
+                  <span class="flow-io-file out">project_brief.md</span>
+                  <span class="flow-io-file out">pipeline_state.md</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gate 1 -->
+        <div class="flow-connector">
+          <div class="flow-connector-left"><div class="flow-connector-line"></div></div>
+          <div class="flow-connector-right">
+            <span class="flow-gate-badge">Gate 1 &nbsp;&middot;&nbsp; Does this capture your idea?</span>
+          </div>
+        </div>
+
+        <!-- Phase 02 -->
+        <div class="flow-phase">
+          <div class="flow-phase-left">
+            <span class="flow-phase-num">02</span>
+            <span class="flow-phase-word">Define</span>
+          </div>
+          <div class="flow-phase-right">
+            <span class="flow-phase-label">Brief &amp; First Draft Product Requirements Document</span>
+            <p class="flow-phase-name">Raw vision, captured before research can change it</p>
+            <p class="flow-phase-desc">Before any external research happens, a requirements agent writes the first version of the product requirements from the brief alone. No competitive data, no market trends, no outside influence. This draft becomes the baseline that all research is measured against. It runs a second time after research, updating only what the findings genuinely change. The refined version also adds a User Snapshot: four lines synthesized from real user research that ground every UX decision that follows.</p>
+            <ul class="flow-phase-bullets">
+              <li>Who it's for, what it does, what it doesn't do, and why it's worth building</li>
+              <li>Must Have features separated from Nice to Have and Not Building from the start</li>
+              <li>Runs twice: once before research to capture raw vision, once after to refine with evidence</li>
+              <li>User Snapshot added on the second run: context, prior attempts, real intent, and what would cause abandonment</li>
+            </ul>
+            <div class="flow-io">
+              <div class="flow-io-row">
+                <span class="flow-io-label">In</span>
+                <div class="flow-io-files">
+                  <span class="flow-io-file">project_brief.md</span>
+                </div>
+              </div>
+              <div class="flow-io-row">
+                <span class="flow-io-label">Out</span>
+                <div class="flow-io-files">
+                  <span class="flow-io-file out">prd_draft.md</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 03 -->
+        <div class="flow-phase">
+          <div class="flow-phase-left">
+            <span class="flow-phase-num">03</span>
+            <span class="flow-phase-word">Research</span>
+          </div>
+          <div class="flow-phase-right">
+            <span class="flow-phase-label">Parallel Research &amp; Requirements Refine</span>
+            <p class="flow-phase-name">Every assumption gets pressure-tested, then the requirements update only where the evidence demands it</p>
+            <p class="flow-phase-desc">Research runs across four tiers in parallel pairs: direct competitors and community voice first, then industry landscape and emerging signals. Each tier cross-validates the others. When research completes, a compressed handoff goes to the requirements agent — not the full report, just what actually needs to change. The requirements document is then refined surgically. If research doesn't give a clear reason to change something, it stays as written.</p>
+            <ul class="flow-phase-bullets">
+              <li>Tiers 1 and 2 run in parallel, then Tiers 3 and 4 run in parallel</li>
+              <li>Each tier's findings are validated against the others before anything reaches the requirements document</li>
+              <li>The requirements agent receives a compressed summary, not the full report — only what should change</li>
+              <li>Findings that hold up the draft become evidence that the original instinct was right</li>
+            </ul>
+            <div class="flow-io">
+              <div class="flow-io-row">
+                <span class="flow-io-label">In</span>
+                <div class="flow-io-files">
+                  <span class="flow-io-file">project_brief.md</span>
+                  <span class="flow-io-file">prd_draft.md</span>
+                </div>
+              </div>
+              <div class="flow-io-row">
+                <span class="flow-io-label">Out</span>
+                <div class="flow-io-files">
+                  <span class="flow-io-file out">research.md</span>
+                  <span class="flow-io-file out">prd.md</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gates 1.5 + 2 -->
+        <div class="flow-connector">
+          <div class="flow-connector-left"><div class="flow-connector-line"></div></div>
+          <div class="flow-connector-right">
+            <span class="flow-gate-badge">Gate 1.5 &nbsp;&middot;&nbsp; Research reviewed</span>
+            <span class="flow-gate-badge" style="margin-top:0.35rem;">Gate 2 &nbsp;&middot;&nbsp; Requirements document approved</span>
+          </div>
+        </div>
+
+        <!-- Phase 04 -->
+        <div class="flow-phase">
+          <div class="flow-phase-left">
+            <span class="flow-phase-num">04</span>
+            <span class="flow-phase-word">UX &amp; Design</span>
+          </div>
+          <div class="flow-phase-right">
+            <span class="flow-phase-label">Flows, Architecture &amp; Visual Direction</span>
+            <p class="flow-phase-name">The full product experience is defined, and then locked</p>
+            <p class="flow-phase-desc">A UX research agent starts from a compressed handoff of the approved requirements, then defines every user flow, the information architecture, all component states, and the complete visual direction. Everything traces back to the intended feeling of the product. If anything contradicts the requirements document, a conflict is flagged and surfaced for review. The loop continues until zero conflicts remain. Only then do the requirements and UX lock together as the single source of truth for building.</p>
+            <ul class="flow-phase-bullets">
+              <li>Every user flow: happy path plus empty, error, loading, and first-time states</li>
+              <li>Platform-specific layout decisions: what works on mobile is not what works on desktop</li>
+              <li>Visual direction: palette, typography, motion, all rooted in the intended product feeling</li>
+              <li>Conflicts surfaced and resolved before this gate opens, never carried forward</li>
+            </ul>
+            <div class="flow-io">
+              <div class="flow-io-row">
+                <span class="flow-io-label">In</span>
+                <div class="flow-io-files">
+                  <span class="flow-io-file">prd.md</span>
+                  <span class="flow-io-file">project_brief.md</span>
+                </div>
+              </div>
+              <div class="flow-io-row">
+                <span class="flow-io-label">Out</span>
+                <div class="flow-io-files">
+                  <span class="flow-io-file out">ux_research.md</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gate 3 LOCK -->
+        <div class="flow-connector">
+          <div class="flow-connector-left"><div class="flow-connector-line"></div></div>
+          <div class="flow-connector-right">
+            <span class="flow-gate-badge lock">Gate 3 &nbsp;&middot;&nbsp; Requirements + UX locked &nbsp;&middot;&nbsp; no scope changes after this point</span>
+          </div>
+        </div>
+
+        <!-- Phase 05 -->
+        <div class="flow-phase">
+          <div class="flow-phase-left">
+            <span class="flow-phase-num">05</span>
+            <span class="flow-phase-word">Prototype</span>
+          </div>
+          <div class="flow-phase-right">
+            <span class="flow-phase-label">First-Pass Design Ideation</span>
+            <p class="flow-phase-name">Something tangible to react to, before committing to real code</p>
+            <p class="flow-phase-desc">A prototype agent reads a compressed handoff from the locked UX research: screens, palette, components, and interactions in a tight summary, with the full spec available for reference. It generates a single HTML file that opens directly in the browser. No setup, no build step, no accounts. Every must-have flow is navigable end to end. Every component state is visible. This is a design ideation artifact — concrete enough to get a real reaction, lightweight enough to throw away if the direction changes.</p>
+            <ul class="flow-phase-bullets">
+              <li>All must-have features are clickable and navigable end to end</li>
+              <li>Every component state visible: default, empty, loading, error, success</li>
+              <li>Exact visual spec from Phase 04 including hex codes, fonts, and motion</li>
+              <li>A starting point for high-fidelity work in Figma or handoff to a developer</li>
+            </ul>
+            <div class="flow-io">
+              <div class="flow-io-row">
+                <span class="flow-io-label">In</span>
+                <div class="flow-io-files">
+                  <span class="flow-io-file">ux_research.md</span>
+                  <span class="flow-io-file">prd.md</span>
+                </div>
+              </div>
+              <div class="flow-io-row">
+                <span class="flow-io-label">Out</span>
+                <div class="flow-io-files">
+                  <span class="flow-io-file out">prototype.html</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gate 4 -->
+        <div class="flow-connector">
+          <div class="flow-connector-left"><div class="flow-connector-line"></div></div>
+          <div class="flow-connector-right">
+            <span class="flow-gate-badge">Gate 4 &nbsp;&middot;&nbsp; Does the prototype feel right?</span>
+          </div>
+        </div>
+
+        <!-- End state -->
+        <div class="flow-end">
+          <div class="flow-end-left"><div class="flow-end-dot"></div></div>
+          <div class="flow-end-right"><span class="flow-end-label">Pipeline complete</span></div>
+        </div>
+
+      </div>
+
+      <div class="flow-principles">
+        <p class="modal-section-title">What makes it different</p>
+        <div class="principles-grid">
+          <div class="principle-card">
+            <p class="principle-card-title">Research validates the vision, not the other way around</p>
+            <p class="principle-card-desc">The draft requirements document is written before research runs. That way, findings are actually testing the idea rather than being reverse-engineered to support it. If research contradicts something, the product requirements document changes with evidence.</p>
+          </div>
+          <div class="principle-card">
+            <p class="principle-card-title">No phase starts until the previous one is approved</p>
+            <p class="principle-card-desc">Human approval gates sit between every phase. The pipeline never advances on its own. Every handoff is a deliberate decision point, and every output has to earn sign-off before becoming input for the next stage.</p>
+          </div>
+          <div class="principle-card">
+            <p class="principle-card-title">UX and requirements conflicts are surfaced and resolved, not ignored</p>
+            <p class="principle-card-desc">When UX research finds something the product requirements document got wrong, it flags a conflict. Both documents are updated until they agree. Gate 3 only opens when zero conflicts remain, so nothing contradictory makes it into the build.</p>
+          </div>
+          <div class="principle-card">
+            <p class="principle-card-title">Each agent receives only what it actually needs</p>
+            <p class="principle-card-desc">Agents pass compressed handoffs to each other, not full documents. The research agent's summary of what should change in the requirements is a fraction of the full report. The prototype agent gets the palette and screen list, not the entire UX spec. Full documents exist for human review at gates. Inter-agent communication stays lean.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="why-section">
+        <p>I have more ideas than I have systems to act on them. Every time an idea clicked, turning it into something real meant figuring out the same steps from scratch — what to research, how to write it down, what to build first, what to cut. I built this pipeline so that the moment I have an idea, I have somewhere to put it. Something that takes it where it needs to go without me having to invent the process every time.</p>
+      </div>
+
+      <div class="collab-section">
+        <p class="modal-section-title">How you and the agents work together</p>
+        <div class="collab-table">
+
+          <div class="collab-table-header">
+            <span>You</span>
+            <span>Agents</span>
+          </div>
+
+          <div class="collab-table-row">
+            <div class="collab-you">
+              <span class="collab-you-note">Share an idea — messy, half-formed, or fully thought through</span>
+            </div>
+            <div class="collab-agents">
+              <div>
+                <span class="agent-block-name">Brainstorm Copilot</span>
+                <span class="agent-block-desc">Acts like a thinking partner — does live research before every response, asks one question at a time, challenges vague scope, and suggests phases when the idea is genuinely large. Ends when the direction is clear.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="collab-table-row">
+            <div class="collab-you">
+              <span class="collab-gate-label">Gate 1</span>
+              <span class="collab-gate-q">Does this capture your idea?</span>
+            </div>
+            <div class="collab-agents">
+              <div>
+                <span class="agent-block-name">Intake Clarifier <span class="agent-block-silent">silent</span></span>
+                <span class="agent-block-desc">Converts the brainstorm handoff into a structured project brief. Runs invisibly — you never see it work. The brief is frozen the moment it's written and never touched again.</span>
+              </div>
+              <div>
+                <span class="agent-block-name">Requirements Draft</span>
+                <span class="agent-block-desc">Writes the first version of the requirements from the brief alone — before any research runs. Captures the raw vision so findings can genuinely test it rather than justify it.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="collab-table-row">
+            <div class="collab-you"></div>
+            <div class="collab-agents">
+              <div>
+                <span class="agent-block-name">Research Agent</span>
+                <span class="agent-block-desc">Runs four research tiers in parallel pairs: direct competitors and community voice first, then industry signals and emerging patterns. Each tier cross-validates the others. Hands off a compressed summary — not the full report.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="collab-table-row">
+            <div class="collab-you">
+              <span class="collab-gate-label">Gate 1.5</span>
+              <span class="collab-gate-q">Happy with the research?</span>
+              <span class="collab-gate-label" style="margin-top:0.65rem;">Gate 2</span>
+              <span class="collab-gate-q">Requirements approved?</span>
+            </div>
+            <div class="collab-agents">
+              <div>
+                <span class="agent-block-name">Requirements Refine</span>
+                <span class="agent-block-desc">Reads the compressed research handoff first. Updates only what the evidence actually changes. If the draft held up, it stays. Adds a User Snapshot — four lines grounded in real research findings, not invented.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="collab-table-row">
+            <div class="collab-you"></div>
+            <div class="collab-agents">
+              <div>
+                <span class="agent-block-name">UX Research Agent</span>
+                <span class="agent-block-desc">Defines every user flow, component state, and visual direction. If anything contradicts the approved requirements, it flags a conflict. That conflict routes back to the requirements agent. The loop continues until zero remain.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="collab-table-row">
+            <div class="collab-you">
+              <span class="collab-gate-label">Gate 3</span>
+              <span class="collab-gate-q">Experience feels right?</span>
+              <span class="collab-gate-lock">Requirements + UX locked together</span>
+            </div>
+            <div class="collab-agents">
+              <div>
+                <span class="agent-block-name">Prototype Agent</span>
+                <span class="agent-block-desc">Reads a compressed handoff from the locked UX research. Generates a single HTML file — opens in any browser, no setup. Every must-have flow is navigable. Every component state is visible. A design ideation artifact: concrete enough to react to, lightweight enough to throw away if the direction needs to change.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="collab-table-row">
+            <div class="collab-you">
+              <span class="collab-gate-label">Gate 4</span>
+              <span class="collab-gate-q">Does the prototype feel right?</span>
+            </div>
+            <div class="collab-agents">
+              <span class="agent-block-desc" style="padding-top:0.1rem;">Pipeline complete. The prototype is a starting point — for high-fidelity work in Figma, for developer handoff, or for deciding to go in a different direction entirely.</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── MODAL: ASHLEY'S TODO ── -->
+  <div class="modal" id="modal-todo" style="display:none;">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <div class="modal-header">
+      <p class="modal-eyebrow">Personal Productivity · Kanban · PDLC Benchmark</p>
+      <h2 class="modal-title">Ashley's Todo — <em>Personal Task Manager</em></h2>
+      <p class="modal-desc">
+        A self-contained Kanban board for personal task tracking — drag-and-drop columns,
+        subtasks, priority levels, a links manager, and a visual aesthetic that matches how it should
+        feel to use it. Built as a single HTML file. The first project evaluated against the PDLC
+        pipeline as a benchmark.
+      </p>
+      <div class="modal-tags">
+        <span class="work-tag">Personal Productivity</span>
+        <span class="work-tag">Kanban</span>
+        <span class="work-tag">Vanilla JS</span>
+        <span class="work-tag">localStorage</span>
+        <span class="work-tag">PDLC Benchmark</span>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <p class="modal-section-title" style="margin-top:0;">What was built</p>
+      <p style="font-size:0.88rem;color:var(--ink2);line-height:1.85;max-width:600px;">
+        A solo-use productivity app that lives entirely in one HTML file. No server, no accounts, no build step. All data persists in localStorage. The design leans into a specific feeling — rewarding, personal, and visually distinctive — rather than trying to look like every other task tool.
+      </p>
+      <div class="feature-chips">
+        <span class="feature-chip">4-column Kanban board</span>
+        <span class="feature-chip">Drag-and-drop</span>
+        <span class="feature-chip">Subtasks</span>
+        <span class="feature-chip">Priority + type filters</span>
+        <span class="feature-chip">Due date tracking</span>
+        <span class="feature-chip">Links manager</span>
+        <span class="feature-chip">Confetti on completion</span>
+        <span class="feature-chip">Rotating affirmations</span>
+        <span class="feature-chip">Real-time search</span>
+        <span class="feature-chip">Glassmorphism UI</span>
+      </div>
+
+      <div class="why-section" style="margin-top:2.5rem;">
+        <p>This project existed before the PDLC pipeline did. The idea went straight to building — no brainstorm gate, no research phase, no UX spec. Using it as a benchmark revealed exactly where an unstructured process creates drag, and what the pipeline is actually for.</p>
+      </div>
+
+      <div class="collab-section" style="margin-top:2.5rem;">
+        <p class="modal-section-title">Measured against the PDLC</p>
+        <div class="review-table">
+
+          <div class="review-table-header">
+            <span>PDLC Phase</span>
+            <span>What actually happened</span>
+          </div>
+
+          <div class="review-table-row">
+            <div class="review-phase">
+              <span class="review-phase-name">Phase 01 — Brainstorm & Clarify</span>
+              <span class="review-phase-tag">project_brief.md</span>
+            </div>
+            <div class="review-reality">
+              <span class="review-status skipped">Skipped</span>
+              <span class="review-reality-text">No structured brainstorm. The idea went directly to a PRD without a Brainstorm Copilot conversation. There was no explicit scope-setting, no "not building" list agreed upfront, and no platform decision documented before work began.</span>
+            </div>
+          </div>
+
+          <div class="review-table-row">
+            <div class="review-phase">
+              <span class="review-phase-name">Phase 02 — PRD Draft</span>
+              <span class="review-phase-tag">prd_draft.md</span>
+            </div>
+            <div class="review-reality">
+              <span class="review-status partial">Partial</span>
+              <span class="review-reality-text">A PRD exists and is detailed — but it was written as a living document that evolved alongside the build, not as a baseline written before research. There was no pre-research draft to test assumptions against. Future ideas (recurring tasks, export, keyboard shortcuts) ended up at the bottom as an afterthought rather than being decided as out-of-scope from day one.</span>
+            </div>
+          </div>
+
+          <div class="review-table-row">
+            <div class="review-phase">
+              <span class="review-phase-name">Phase 03 — Research</span>
+              <span class="review-phase-tag">research.md</span>
+            </div>
+            <div class="review-reality">
+              <span class="review-status skipped">Skipped</span>
+              <span class="review-reality-text">No competitive research, no community patterns, no user behavior data. A research phase would likely have surfaced that a Blocked column sees minimal use in solo personal task management — a finding that might have simplified the board. It also would have validated or challenged the decision to use month-based filtering over tag-based filtering.</span>
+            </div>
+          </div>
+
+          <div class="review-table-row">
+            <div class="review-phase">
+              <span class="review-phase-name">Phase 04 — UX Research</span>
+              <span class="review-phase-tag">ux_research.md</span>
+            </div>
+            <div class="review-reality">
+              <span class="review-status skipped">Skipped</span>
+              <span class="review-reality-text">The visual direction emerged through iteration. The changelog shows multiple rounds of font changes, header redesigns, and UI enhancements added post-build. A UX research document would have defined the feeling and visual spec before a single line was written — making confetti and affirmations part of the original design intent rather than reactive additions. The "princess" aesthetic was discovered, not designed.</span>
+            </div>
+          </div>
+
+          <div class="review-table-row">
+            <div class="review-phase">
+              <span class="review-phase-name">Phase 05 — Prototype</span>
+              <span class="review-phase-tag">prototype.html</span>
+            </div>
+            <div class="review-reality">
+              <span class="review-status done">Followed</span>
+              <span class="review-reality-text">Single HTML file, no build step, no accounts, opens directly in the browser. All data in localStorage. This matches the PDLC prototype spec exactly — the output format was right even without the pipeline to produce it.</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="flow-principles" style="margin-top:2.5rem;">
+        <p class="modal-section-title">What the PDLC would have changed</p>
+        <div class="principles-grid">
+          <div class="principle-card">
+            <p class="principle-card-title">The aesthetic would have been decided, not discovered</p>
+            <p class="principle-card-desc">A UX research document defines the feeling before building starts. The font changes and UI iterations in the changelog are exactly the kind of redesign a locked UX spec prevents. "Rewarding and personal" as a feeling gets translated into a palette, typography choices, and motion — all written down before code is written.</p>
+          </div>
+          <div class="principle-card">
+            <p class="principle-card-title">Research would have simplified the board</p>
+            <p class="principle-card-desc">A four-column Kanban including Blocked is standard in team workflows. For solo personal use, research into how individuals actually track tasks would have challenged that assumption before the board was built — and possibly produced a simpler, more accurate structure.</p>
+          </div>
+          <div class="principle-card">
+            <p class="principle-card-title">Out-of-scope decisions would have been explicit from day one</p>
+            <p class="principle-card-desc">Recurring tasks, CSV export, and keyboard shortcuts ended up as "Future Ideas" at the bottom of the PRD. With a structured brainstorm and a project brief, Not Building is a first-class section — decided intentionally, not accumulated over time.</p>
+          </div>
+          <div class="principle-card">
+            <p class="principle-card-title">Confetti would have been in the spec, not added later</p>
+            <p class="principle-card-desc">The completions experience — confetti, affirmations, the weekly accomplishments pill — are core to what makes the app feel right. A feeling-first UX spec would have defined these as requirements, not nice-to-haves discovered after the base build was done.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('#hero, section').forEach(el => el.classList.remove('active'));
+    document.querySelector('footer').style.display = 'none';
+
+    const target = document.getElementById(id);
+    if (target) {
+      target.classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    if (id === 'about') {
+      document.querySelector('footer').style.display = 'flex';
+    }
+
+    const nav = document.querySelector('nav');
+    if (id === 'hero') {
+      nav.classList.remove('scrolled');
+    } else {
+      nav.classList.add('scrolled');
+    }
+
+    const reveals = target ? target.querySelectorAll('.reveal') : [];
+    reveals.forEach((el, i) => {
+      el.classList.remove('visible');
+      setTimeout(() => el.classList.add('visible'), i * 100 + 80);
+    });
+  }
+
+  function openModal(id) {
+    document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+    document.getElementById('modal-' + id).style.display = 'block';
+    document.getElementById('modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeModalOnOverlay(e) {
+    if (e.target === document.getElementById('modal-overlay')) closeModal();
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  showPage('hero');
+</script>
+</body>
+</html>
