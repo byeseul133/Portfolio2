@@ -366,7 +366,7 @@
     }
     .modal-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1.5rem; }
 
-    .modal-body { padding: 2.5rem 3rem 3rem; }
+    .modal-body { padding: 1.5rem 2.25rem 1.75rem; }
 
     /* Pipeline overview chart */
     .pipeline-chart { display: flex; flex-direction: column; align-items: center; margin-bottom: 3.5rem; }
@@ -417,6 +417,91 @@
       margin-top: 0.75rem; font-size: 0.7rem; font-style: italic;
       color: var(--ink3); text-align: center; font-family: var(--serif);
     }
+
+    /* Proper flowchart */
+    .fc { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 480px; margin: 0 auto 2.5rem; }
+    .fc-vconn { display: flex; flex-direction: column; align-items: center; }
+    .fc-vconn-line { width: 1px; height: 18px; background: var(--border); }
+    .fc-vconn-head { width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid var(--border); }
+    .fc-term { border: 1px solid var(--border); border-radius: 999px; padding: 0.28rem 1.4rem; font-size: 0.5rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink3); background: var(--bg2); }
+    .fc-decision-wrap { position: relative; width: 200px; height: 96px; display: flex; align-items: center; justify-content: center; }
+    .fc-decision-wrap::before { content: ''; position: absolute; inset: 0; background: var(--border); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0 50%); }
+    .fc-decision-wrap::after { content: ''; position: absolute; inset: 1.5px; background: var(--bg2); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0 50%); }
+    .fc-decision-text { position: relative; z-index: 1; font-size: 0.52rem; letter-spacing: 0.06em; line-height: 1.55; text-align: center; color: var(--ink2); padding: 0 1rem; }
+    .fc-branch-wrap { width: 100%; }
+    .fc-bsplit { display: flex; }
+    .fc-bsplit-l { flex: 1; height: 22px; border-top: 1px solid var(--border); border-left: 1px solid var(--border); }
+    .fc-bsplit-r { flex: 1; height: 22px; border-top: 1px solid var(--border); border-right: 1px solid var(--border); }
+    .fc-bcols { display: flex; }
+    .fc-bcol-no { flex: 1; border-left: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; padding: 0 12px 10px; gap: 0; }
+    .fc-bcol-yes { flex: 1; border-right: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; padding: 0 12px 10px; gap: 0; }
+    .fc-bmerge { display: flex; }
+    .fc-bmerge-l { flex: 1; height: 22px; border-bottom: 1px solid var(--border); border-left: 1px solid var(--border); }
+    .fc-bmerge-r { flex: 1; height: 22px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
+    .fc-path-lbl { font-size: 0.48rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink3); padding: 6px 0 5px; }
+    .fc-node { width: 100%; background: var(--bg2); border: 1px solid var(--border); border-left: 2px solid var(--red); padding: 0.55rem 0.85rem; }
+    .fc-node-name { font-family: var(--serif); font-size: 0.85rem; font-weight: 400; color: var(--ink); line-height: 1.3; }
+    .fc-node-detail { font-size: 0.56rem; color: var(--ink3); line-height: 1.6; margin-top: 0.15rem; }
+    .fc-gate-pill { width: 100%; text-align: center; border: 1px solid rgba(200,37,26,0.25); padding: 0.3rem 0.75rem; font-size: 0.48rem; letter-spacing: 0.17em; text-transform: uppercase; color: var(--red); background: var(--bg); }
+    .fc-gate-pill.fc-lock { background: rgba(200,37,26,0.05); border-color: rgba(200,37,26,0.5); }
+    .fc-branch-node { width: 100%; background: var(--bg2); border: 1px solid var(--border); border-left: 2px solid var(--border); padding: 0.45rem 0.7rem; }
+    .fc-branch-node-name { font-size: 0.72rem; font-family: var(--serif); color: var(--ink2); line-height: 1.3; }
+    .fc-branch-node-detail { font-size: 0.5rem; color: var(--ink3); margin-top: 0.1rem; line-height: 1.5; }
+    .fc-branch-gate { width: 100%; text-align: center; border: 1px solid rgba(200,37,26,0.2); padding: 0.25rem 0.5rem; font-size: 0.44rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); background: var(--bg); }
+    .fc-note { margin-top: 0.5rem; font-size: 0.66rem; font-style: italic; color: var(--ink3); text-align: center; font-family: var(--serif); }
+
+    /* Story layout */
+    .story-hook { padding: 1.1rem 0 1.25rem; border-bottom: 1px solid var(--border); margin-bottom: 1.1rem; }
+    .story-hook-q { font-family: var(--serif); font-style: italic; font-size: 1.45rem; line-height: 1.45; color: var(--ink); margin-bottom: 0.65rem; }
+    .story-hook-body { font-size: 0.72rem; line-height: 1.85; color: var(--ink2); max-width: 520px; }
+
+    /* Entry fork */
+    .pl-fork { display: flex; gap: 10px; margin-bottom: 0; }
+    .pl-fork-card { flex: 1; border: 1px solid var(--border); padding: 0.9rem 1rem; background: var(--bg2); display: flex; flex-direction: column; gap: 0.3rem; }
+    .pl-fork-if { font-size: 0.44rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); }
+    .pl-fork-agent-name { font-family: var(--serif); font-size: 0.95rem; color: var(--ink); line-height: 1.25; }
+    .pl-fork-desc { font-size: 0.58rem; color: var(--ink3); line-height: 1.7; flex: 1; }
+    .pl-fork-gate-lbl { font-size: 0.48rem; color: var(--red); letter-spacing: 0.03em; padding-top: 0.15rem; border-top: 1px solid rgba(200,37,26,0.18); margin-top: 0.15rem; }
+
+    /* Convergence */
+    .pl-merge { display: flex; flex-direction: column; align-items: center; padding: 10px 0 6px; gap: 5px; }
+    .pl-merge-line { width: 1px; height: 14px; background: var(--border); }
+    .pl-merge-label { font-size: 0.44rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink3); }
+    .pl-merge-arrow { width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid var(--border); }
+
+    /* Steps spine */
+    .pl-steps { border-left: 1px solid var(--border); margin-left: 8px; display: flex; flex-direction: column; }
+
+    /* Agent card */
+    .pl-agent { padding: 1rem 1.1rem 1rem 1.3rem; border-bottom: 1px solid var(--border); background: var(--bg2); border-left: 2px solid var(--red); margin-left: -1px; }
+    .pl-agent-role { font-size: 0.43rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); margin-bottom: 0.22rem; }
+    .pl-agent-name { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); line-height: 1.25; margin-bottom: 0.28rem; }
+    .pl-agent-desc { font-size: 0.62rem; color: var(--ink2); line-height: 1.75; margin-bottom: 0.38rem; }
+    .pl-agent-outs { display: flex; flex-wrap: wrap; gap: 4px; }
+    .pl-agent-outs span { font-size: 0.44rem; letter-spacing: 0.07em; color: var(--ink3); background: var(--bg); border: 1px solid var(--border); padding: 0.1rem 0.48rem; }
+
+    /* Gate card */
+    .pl-gate { padding: 0.85rem 1.1rem 0.85rem 1.3rem; border-bottom: 1px solid var(--border); background: var(--bg); margin-left: -1px; }
+    .pl-gate-label { font-size: 0.43rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); opacity: 0.75; margin-bottom: 0.2rem; }
+    .pl-gate-q { font-family: var(--serif); font-style: italic; font-size: 0.98rem; color: var(--ink); line-height: 1.35; margin-bottom: 0.22rem; }
+    .pl-gate-hint { font-size: 0.56rem; color: var(--ink3); line-height: 1.65; }
+    .pl-gate-lock { background: rgba(200,37,26,0.04); border-top: 1px solid rgba(200,37,26,0.3); border-bottom: 1px solid rgba(200,37,26,0.3); }
+    .pl-gate-lock .pl-gate-label { opacity: 1; }
+    .pl-gate-lock .pl-gate-q { color: var(--red); }
+    .pl-gate-lock-note { font-family: var(--serif); font-style: italic; font-size: 0.68rem; color: var(--red); margin-top: 0.5rem; opacity: 0.8; line-height: 1.5; }
+
+    /* Principles */
+    .story-principles { border: 1px solid var(--border); margin-bottom: 1.25rem; }
+    .story-principle { padding: 1.1rem 1.25rem; border-bottom: 1px solid var(--border); }
+    .story-principle:last-child { border-bottom: none; }
+    .story-principle-n { font-size: 0.44rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); margin-bottom: 0.3rem; }
+    .story-principle-title { font-family: var(--serif); font-size: 1rem; color: var(--ink); line-height: 1.4; margin-bottom: 0.3rem; }
+    .story-principle-desc { font-size: 0.62rem; color: var(--ink2); line-height: 1.78; }
+
+    /* Why */
+    .story-why { padding: 1rem 0 0.5rem; border-top: 1px solid var(--border); }
+    .story-why-title { font-size: 0.44rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); margin-bottom: 0.5rem; display: block; }
+    .story-why p { font-family: var(--serif); font-style: italic; font-size: 1rem; line-height: 1.85; color: var(--ink2); }
 
     /* Flowchart in modal */
     .flow-chart { display: flex; flex-direction: column; }
@@ -535,8 +620,8 @@
     .modal-section-title {
       font-family: var(--serif); font-size: 1rem;
       font-weight: 400; color: var(--ink);
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.4rem;
       border-bottom: 1px solid var(--border);
     }
     .principles-grid {
@@ -656,39 +741,27 @@
       padding: 4px 12px; background: var(--bg2);
     }
 
-    /* Bloom modal — three act structure */
-    .bloom-acts { max-width: 620px; }
-    .bloom-act { margin-bottom: 2.8rem; }
-    .bloom-act-num {
-      font-size: 0.58rem; letter-spacing: 0.24em; text-transform: uppercase;
-      color: var(--red); font-weight: 600; margin-bottom: 0.55rem;
-    }
-    .bloom-act-heading {
-      font-size: 0.95rem; font-weight: 600; color: var(--ink);
-      margin-bottom: 0.9rem; line-height: 1.45;
-    }
-    .bloom-act-text {
-      font-size: 0.86rem; color: var(--ink2); line-height: 1.9;
-      margin-bottom: 0.75rem;
-    }
-    .bloom-act-text:last-child { margin-bottom: 0; }
-    .bloom-divider {
-      border: none; border-top: 1px solid var(--border); margin: 2.5rem 0;
-    }
-    .bloom-changes { margin-top: 1.5rem; }
-    .bloom-change {
-      border-top: 1px solid var(--border);
-      padding: 1.4rem 0;
-    }
-    .bloom-change:last-child { border-bottom: 1px solid var(--border); }
-    .bloom-change-title {
-      font-size: 0.86rem; font-weight: 600; color: var(--ink);
-      margin-bottom: 0.55rem; line-height: 1.4;
-    }
-    .bloom-change-text {
-      font-size: 0.84rem; color: var(--ink2); line-height: 1.88;
-    }
-    .bloom-change-text strong { color: var(--ink); font-weight: 600; }
+    /* Bloom modal */
+    .b2-hook { padding: 1.1rem 0 1.25rem; border-bottom: 1px solid var(--border); margin-bottom: 1.1rem; }
+    .b2-hook-q { font-family: var(--serif); font-style: italic; font-size: 1.45rem; line-height: 1.45; color: var(--ink); margin-bottom: 0.65rem; }
+    .b2-hook-body { font-size: 0.72rem; line-height: 1.85; color: var(--ink2); max-width: 520px; }
+    .b2-block { margin-bottom: 1.25rem; }
+    .b2-block-eyebrow { font-size: 0.44rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); margin-bottom: 0.4rem; display: block; }
+    .b2-block-body { font-size: 0.72rem; color: var(--ink2); line-height: 1.85; }
+    .b2-block-body p { margin-bottom: 0.55rem; }
+    .b2-block-body p:last-child { margin-bottom: 0; }
+    .b2-insight { font-family: var(--serif); font-style: italic; font-size: 1.15rem; line-height: 1.55; color: var(--ink); padding: 0.85rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 1.1rem; }
+    .b2-changes { border-left: 1px solid var(--border); margin-left: 8px; display: flex; flex-direction: column; margin-bottom: 1.5rem; }
+    .b2-change { padding: 0.9rem 1.1rem 0.9rem 1.3rem; border-bottom: 1px solid var(--border); background: var(--bg2); border-left: 2px solid var(--red); margin-left: -1px; }
+    .b2-change-title { font-family: var(--serif); font-size: 1rem; color: var(--ink); line-height: 1.35; margin-bottom: 0.3rem; }
+    .b2-change-finding { font-size: 0.43rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); margin-bottom: 0.3rem; display: block; }
+    .b2-change-stat { font-size: 0.62rem; color: var(--ink); background: rgba(200,37,26,0.05); border-left: 2px solid var(--red); padding: 0.22rem 0.65rem; margin-bottom: 0.35rem; display: block; line-height: 1.6; }
+    .b2-change-text { font-size: 0.62rem; color: var(--ink2); line-height: 1.75; }
+    .b2-links { display: flex; gap: 0.75rem; flex-wrap: wrap; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+    .b2-link { font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; border: 1px solid var(--border); padding: 0.55rem 1.25rem; text-decoration: none; color: var(--ink2); transition: background 0.2s; }
+    .b2-link:hover { background: var(--bg2); }
+    .b2-link-primary { color: var(--red); border-color: rgba(200,37,26,0.3); }
+    .b2-link-primary:hover { background: rgba(200,37,26,0.05); }
 
     /* ANIMATIONS */
     @keyframes fadeUp {
@@ -776,7 +849,7 @@
     <div class="work-card clickable reveal" onclick="openModal('pdlc')">
       <span class="work-num">01</span>
       <h3>Product Development Life Cycle</h3>
-      <p>Designed and built a structured AI-powered pipeline that takes a raw idea through five phases, from brainstorm to clickable prototype, with human approval gates at every step.</p>
+      <p>Designed and built a structured AI-powered pipeline that starts with one question: do you have an idea? If yes, it sharpens and validates it through five phases. If not, a Discovery Agent finds one first. Either way, the output is a research-backed, UX-specced, clickable prototype.</p>
       <span class="work-tag">Process Design</span>
       <span class="work-tag">AI Systems</span>
       <span class="work-tag">Product Thinking</span>
@@ -792,10 +865,14 @@
       <span class="work-tag">PDLC Pipeline</span>
       <span class="work-card-hint">Click to see what changed →</span>
     </div>
-    <div class="work-card reveal">
+    <div class="work-card clickable reveal" onclick="openModal('gstack')">
       <span class="work-num">03</span>
-      <h3>Project 3</h3>
-      <p>Coming soon.</p>
+      <h3>gstack x PDLC: Auditing the Pipeline</h3>
+      <p>The PDLC was built to take ideas through a structured process. But the pipeline itself had never been audited. This is what happened when five gstack skills ran against it: what each role found, what changed, and what the audit left alone.</p>
+      <span class="work-tag">Process Audit</span>
+      <span class="work-tag">gstack</span>
+      <span class="work-tag">AI Systems</span>
+      <span class="work-card-hint">Click to see the audit →</span>
     </div>
     <div class="work-card reveal">
       <span class="work-num">04</span>
@@ -851,9 +928,7 @@
       <p class="modal-eyebrow">Process Design · AI Systems · Product Thinking</p>
       <h2 class="modal-title">Product Development <em>Life Cycle</em></h2>
       <p class="modal-desc">
-        Most personal projects die in the gap between "I have an idea" and "I know what to build."
-        I designed a five-phase pipeline, powered by purpose-built AI agents, that closes that gap.
-        Each phase produces a real output. Each handoff requires human approval before moving forward.
+        A structured pipeline for turning any idea into a research-grounded, UX-defined, clickable prototype. Six specialist agents. Five human approval gates. Everything documents what the next stage needs.
       </p>
       <div class="modal-tags">
         <span class="work-tag">Process Design</span>
@@ -866,452 +941,141 @@
 
     <div class="modal-body">
 
-      <!-- PIPELINE OVERVIEW CHART -->
-      <p class="modal-section-title" style="margin-top:0;">The Pipeline</p>
-      <div class="pipeline-chart">
-        <div class="chart-track">
+      <!-- HOOK -->
+      <div class="story-hook">
+        <p class="story-hook-q">You already know how this goes.</p>
+        <p class="story-hook-body">An idea lands. It feels right. You start building. Three weeks in, the scope has grown, the problem has shifted, and the thing you're building isn't quite what you meant to build. You finish it anyway. Or you don't. Either way, you've learned what you should have known at the start. This pipeline moves that learning to before the first line of code. It starts from wherever you are: a clear idea, or nothing yet. It ends with a clickable prototype grounded in research, defined requirements, and a resolved UX spec. Everything in between is documented. Every stage is gated.</p>
+      </div>
 
-          <div class="chart-node">
-            <div class="chart-node-left">
-              <span class="chart-node-num">01</span>
-              <span class="chart-node-cat">Ideate</span>
-            </div>
-            <div class="chart-node-right">
-              <p class="chart-node-name">Brainstorm &amp; Clarify</p>
-              <div class="chart-agents">
-                <span class="chart-agent">Brainstorm Copilot</span>
-                <span class="chart-agent">Intake Clarifier</span>
-              </div>
-            </div>
-          </div>
+      <!-- INSIGHT -->
+      <p class="b2-insight">Research tests the vision. Not the other way around.</p>
 
-          <div class="chart-conn">
-            <div class="chart-vline"></div>
-            <div class="chart-gate-pill">Gate 1 &nbsp;·&nbsp; Human approval</div>
-            <div class="chart-vline"></div>
-          </div>
+      <!-- PIPELINE -->
+      <p class="modal-section-title">How it runs</p>
 
-          <div class="chart-node">
-            <div class="chart-node-left">
-              <span class="chart-node-num">02</span>
-              <span class="chart-node-cat">Define</span>
-            </div>
-            <div class="chart-node-right">
-              <p class="chart-node-name">Brief &amp; First Draft Product Requirements Document</p>
-              <div class="chart-agents">
-                <span class="chart-agent">Requirements Agent</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="chart-conn">
-            <div class="chart-vline"></div>
-            <div class="chart-vline"></div>
-          </div>
-
-          <div class="chart-node">
-            <div class="chart-node-left">
-              <span class="chart-node-num">03</span>
-              <span class="chart-node-cat">Research</span>
-            </div>
-            <div class="chart-node-right">
-              <p class="chart-node-name">Parallel Research &amp; Requirements Refine</p>
-              <div class="chart-agents">
-                <span class="chart-agent">Research Agent</span>
-                <span class="chart-agent">Requirements Agent</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="chart-conn">
-            <div class="chart-vline"></div>
-            <div class="chart-gate-pill">Gate 1.5 &nbsp;·&nbsp; Research review &nbsp;·&nbsp; Gate 2 &nbsp;·&nbsp; Requirements approval</div>
-            <div class="chart-vline"></div>
-          </div>
-
-          <div class="chart-node">
-            <div class="chart-node-left">
-              <span class="chart-node-num">04</span>
-              <span class="chart-node-cat">UX &amp; Design</span>
-            </div>
-            <div class="chart-node-right">
-              <p class="chart-node-name">Flows, Architecture &amp; Visual Direction</p>
-              <div class="chart-agents">
-                <span class="chart-agent">UX Research Agent</span>
-                <span class="chart-agent">Requirements Agent (conflicts)</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="chart-conn">
-            <div class="chart-vline"></div>
-            <div class="chart-gate-pill lock">Gate 3 &nbsp;·&nbsp; Requirements + UX locked &nbsp;·&nbsp; no changes after this</div>
-            <div class="chart-vline"></div>
-          </div>
-
-          <div class="chart-node">
-            <div class="chart-node-left">
-              <span class="chart-node-num">05</span>
-              <span class="chart-node-cat">Prototype</span>
-            </div>
-            <div class="chart-node-right">
-              <p class="chart-node-name">First-Pass Design Ideation</p>
-              <div class="chart-agents">
-                <span class="chart-agent">Prototype Agent</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="chart-conn">
-            <div class="chart-vline"></div>
-            <div class="chart-gate-pill">Gate 4 &nbsp;·&nbsp; Final review</div>
-            <div class="chart-vline"></div>
-          </div>
-
-          <div class="chart-terminal"></div>
-          <p class="chart-note">Each phase runs autonomously. Each gate requires your sign-off.</p>
-
+      <!-- Entry fork -->
+      <div class="pl-fork">
+        <div class="pl-fork-card">
+          <div class="pl-fork-if">If you have an idea</div>
+          <div class="pl-fork-agent-name">Brainstorm Copilot</div>
+          <div class="pl-fork-desc">A conversational thinking partner. Does live web research before every response. Asks one question at a time. Challenges vague scope. Ends when the direction is clear: one idea, one platform, a scope, and at least one explicit not-building.</div>
+          <div class="pl-fork-gate-lbl">Gate 1 · Does this capture your idea?</div>
+        </div>
+        <div class="pl-fork-card">
+          <div class="pl-fork-if">If you don't have one</div>
+          <div class="pl-fork-agent-name">Discovery Agent</div>
+          <div class="pl-fork-desc">Four steps: define the person, surface pain points from real community signals, map what exists and where it falls short, then propose three idea candidates. Safe bet, unexpected angle, ambitious. You pick one.</div>
+          <div class="pl-fork-gate-lbl">Idea selected · Brainstorm is skipped entirely</div>
         </div>
       </div>
 
-      <p class="modal-section-title">Phase by Phase</p>
-      <div class="flow-chart">
+      <div class="pl-merge">
+        <div class="pl-merge-line"></div>
+        <div class="pl-merge-label">Both paths arrive here</div>
+        <div class="pl-merge-arrow"></div>
+      </div>
 
-        <!-- Phase 01 -->
-        <div class="flow-phase">
-          <div class="flow-phase-left">
-            <span class="flow-phase-num">01</span>
-            <span class="flow-phase-word">Ideate</span>
-          </div>
-          <div class="flow-phase-right">
-            <span class="flow-phase-label">Brainstorm &amp; Clarify</span>
-            <p class="flow-phase-name">The idea gets a real first test before anything gets written down</p>
-            <p class="flow-phase-desc">A conversational AI agent acts as a thinking partner before any documentation happens. It runs real-time web research to surface what already exists, adapts to the specific industry or domain the idea lives in, and helps shape a vague impulse into a clear direction. The goal is convergence: one sentence, one platform, a handful of scope decisions, and at least one thing that's explicitly not being built.</p>
-            <ul class="flow-phase-bullets">
-              <li>Grounds the conversation in what's actually been built before committing to anything</li>
-              <li>Industry and domain knowledge kicks in automatically once the context is established</li>
-              <li>Ends with a structured handoff: core idea, platform, scope, what's out, open questions</li>
-              <li>A separate silent agent converts the handoff into a clean, structured project brief</li>
-            </ul>
-            <div class="flow-io">
-              <div class="flow-io-row">
-                <span class="flow-io-label">In</span>
-                <div class="flow-io-files">
-                  <span class="flow-io-file">your idea</span>
-                </div>
-              </div>
-              <div class="flow-io-row">
-                <span class="flow-io-label">Out</span>
-                <div class="flow-io-files">
-                  <span class="flow-io-file out">project_brief.md</span>
-                  <span class="flow-io-file out">pipeline_state.md</span>
-                </div>
-              </div>
-            </div>
-          </div>
+      <!-- Steps spine -->
+      <div class="pl-steps">
+
+        <div class="pl-agent">
+          <div class="pl-agent-role">Structural formatter · silent</div>
+          <div class="pl-agent-name">Intake Clarifier</div>
+          <div class="pl-agent-desc">Converts the handoff into a structured project brief. Runs invisibly between the idea step and everything else. You never interact with it. The brief is frozen the moment it is written and never touched again.</div>
+          <div class="pl-agent-outs"><span>project_brief.md</span></div>
         </div>
 
-        <!-- Gate 1 -->
-        <div class="flow-connector">
-          <div class="flow-connector-left"><div class="flow-connector-line"></div></div>
-          <div class="flow-connector-right">
-            <span class="flow-gate-badge">Gate 1 &nbsp;&middot;&nbsp; Does this capture your idea?</span>
-          </div>
+        <div class="pl-agent">
+          <div class="pl-agent-role">Vision writer</div>
+          <div class="pl-agent-name">PRD Draft</div>
+          <div class="pl-agent-desc">Writes the first version of the product requirements from the brief alone, before any research runs. This is intentional. Capturing the raw vision first means research can genuinely test the idea rather than being reverse-engineered to justify it.</div>
+          <div class="pl-agent-outs"><span>prd_draft.md</span></div>
         </div>
 
-        <!-- Phase 02 -->
-        <div class="flow-phase">
-          <div class="flow-phase-left">
-            <span class="flow-phase-num">02</span>
-            <span class="flow-phase-word">Define</span>
-          </div>
-          <div class="flow-phase-right">
-            <span class="flow-phase-label">Brief &amp; First Draft Product Requirements Document</span>
-            <p class="flow-phase-name">Raw vision, captured before research can change it</p>
-            <p class="flow-phase-desc">Before any external research happens, a requirements agent writes the first version of the product requirements from the brief alone. No competitive data, no market trends, no outside influence. This draft becomes the baseline that all research is measured against. It runs a second time after research, updating only what the findings genuinely change. The refined version also adds a User Snapshot: four lines synthesized from real user research that ground every UX decision that follows.</p>
-            <ul class="flow-phase-bullets">
-              <li>Who it's for, what it does, what it doesn't do, and why it's worth building</li>
-              <li>Must Have features separated from Nice to Have and Not Building from the start</li>
-              <li>Runs twice: once before research to capture raw vision, once after to refine with evidence</li>
-              <li>User Snapshot added on the second run: context, prior attempts, real intent, and what would cause abandonment</li>
-            </ul>
-            <div class="flow-io">
-              <div class="flow-io-row">
-                <span class="flow-io-label">In</span>
-                <div class="flow-io-files">
-                  <span class="flow-io-file">project_brief.md</span>
-                </div>
-              </div>
-              <div class="flow-io-row">
-                <span class="flow-io-label">Out</span>
-                <div class="flow-io-files">
-                  <span class="flow-io-file out">prd_draft.md</span>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="pl-agent">
+          <div class="pl-agent-role">Adversarial analyst</div>
+          <div class="pl-agent-name">Research</div>
+          <div class="pl-agent-desc">Four research tiers in parallel pairs. Direct competitors and community voice first, then industry signals and emerging patterns. Each tier cross-validates the others. The output is a compressed summary flagging only what the draft PRD got wrong, not the full report.</div>
+          <div class="pl-agent-outs"><span>research.md</span></div>
         </div>
 
-        <!-- Phase 03 -->
-        <div class="flow-phase">
-          <div class="flow-phase-left">
-            <span class="flow-phase-num">03</span>
-            <span class="flow-phase-word">Research</span>
-          </div>
-          <div class="flow-phase-right">
-            <span class="flow-phase-label">Parallel Research &amp; Requirements Refine</span>
-            <p class="flow-phase-name">Every assumption gets pressure-tested, then the requirements update only where the evidence demands it</p>
-            <p class="flow-phase-desc">Research runs across four tiers in parallel pairs: direct competitors and community voice first, then industry landscape and emerging signals. Each tier cross-validates the others. When research completes, a compressed handoff goes to the requirements agent: not the full report, just what actually needs to change. The requirements document is then refined surgically. If research doesn't give a clear reason to change something, it stays as written.</p>
-            <ul class="flow-phase-bullets">
-              <li>Tiers 1 and 2 run in parallel, then Tiers 3 and 4 run in parallel</li>
-              <li>Each tier's findings are validated against the others before anything reaches the requirements document</li>
-              <li>The requirements agent receives a compressed summary, not the full report. Only what should change.</li>
-              <li>Findings that hold up the draft become evidence that the original instinct was right</li>
-            </ul>
-            <div class="flow-io">
-              <div class="flow-io-row">
-                <span class="flow-io-label">In</span>
-                <div class="flow-io-files">
-                  <span class="flow-io-file">project_brief.md</span>
-                  <span class="flow-io-file">prd_draft.md</span>
-                </div>
-              </div>
-              <div class="flow-io-row">
-                <span class="flow-io-label">Out</span>
-                <div class="flow-io-files">
-                  <span class="flow-io-file out">research.md</span>
-                  <span class="flow-io-file out">prd.md</span>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="pl-gate">
+          <div class="pl-gate-label">Gate 1.5 · Your call</div>
+          <div class="pl-gate-q">Happy with the research?</div>
+          <div class="pl-gate-hint">Yes → continue. No → name what to dig into, and research reruns that section only, then Gate 1.5 again.</div>
         </div>
 
-        <!-- Gates 1.5 + 2 -->
-        <div class="flow-connector">
-          <div class="flow-connector-left"><div class="flow-connector-line"></div></div>
-          <div class="flow-connector-right">
-            <span class="flow-gate-badge">Gate 1.5 &nbsp;&middot;&nbsp; Research reviewed</span>
-            <span class="flow-gate-badge" style="margin-top:0.35rem;">Gate 2 &nbsp;&middot;&nbsp; Requirements document approved</span>
-          </div>
+        <div class="pl-agent">
+          <div class="pl-agent-role">Evidence editor</div>
+          <div class="pl-agent-name">PRD Refine</div>
+          <div class="pl-agent-desc">Reads the compressed research handoff. Updates only what the evidence actually changes. If the draft held up, it stays as written. Adds a User Snapshot: four lines synthesized from real research findings, not invented. It covers the person's context, what they have tried before, what they actually want, and what would make them abandon it.</div>
+          <div class="pl-agent-outs"><span>prd.md</span></div>
         </div>
 
-        <!-- Phase 04 -->
-        <div class="flow-phase">
-          <div class="flow-phase-left">
-            <span class="flow-phase-num">04</span>
-            <span class="flow-phase-word">UX &amp; Design</span>
-          </div>
-          <div class="flow-phase-right">
-            <span class="flow-phase-label">Flows, Architecture &amp; Visual Direction</span>
-            <p class="flow-phase-name">The full product experience is defined, and then locked</p>
-            <p class="flow-phase-desc">A UX research agent starts from a compressed handoff of the approved requirements, then defines every user flow, the information architecture, all component states, and the complete visual direction. Everything traces back to the intended feeling of the product. If anything contradicts the requirements document, a conflict is flagged and surfaced for review. The loop continues until zero conflicts remain. Only then do the requirements and UX lock together as the single source of truth for building.</p>
-            <ul class="flow-phase-bullets">
-              <li>Every user flow: happy path plus empty, error, loading, and first-time states</li>
-              <li>Platform-specific layout decisions: what works on mobile is not what works on desktop</li>
-              <li>Visual direction: palette, typography, motion, all rooted in the intended product feeling</li>
-              <li>Conflicts surfaced and resolved before this gate opens, never carried forward</li>
-            </ul>
-            <div class="flow-io">
-              <div class="flow-io-row">
-                <span class="flow-io-label">In</span>
-                <div class="flow-io-files">
-                  <span class="flow-io-file">prd.md</span>
-                  <span class="flow-io-file">project_brief.md</span>
-                </div>
-              </div>
-              <div class="flow-io-row">
-                <span class="flow-io-label">Out</span>
-                <div class="flow-io-files">
-                  <span class="flow-io-file out">ux_research.md</span>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="pl-gate">
+          <div class="pl-gate-label">Gate 2 · Your call</div>
+          <div class="pl-gate-q">Requirements approved?</div>
+          <div class="pl-gate-hint">Yes → continue. Feedback → PRD reruns with targeted changes only, then Gate 2 again.</div>
         </div>
 
-        <!-- Gate 3 LOCK -->
-        <div class="flow-connector">
-          <div class="flow-connector-left"><div class="flow-connector-line"></div></div>
-          <div class="flow-connector-right">
-            <span class="flow-gate-badge lock">Gate 3 &nbsp;&middot;&nbsp; Requirements + UX locked &nbsp;&middot;&nbsp; no scope changes after this point</span>
-          </div>
+        <div class="pl-agent">
+          <div class="pl-agent-role">Experience designer</div>
+          <div class="pl-agent-name">UX Research</div>
+          <div class="pl-agent-desc">Defines every user flow, information architecture, component state, and visual direction, all traceable back to the intended feeling of the product. If anything contradicts the approved requirements, it flags a conflict and routes back to the PRD agent. That loop runs until zero conflicts remain.</div>
+          <div class="pl-agent-outs"><span>ux_research.md</span></div>
         </div>
 
-        <!-- Phase 05 -->
-        <div class="flow-phase">
-          <div class="flow-phase-left">
-            <span class="flow-phase-num">05</span>
-            <span class="flow-phase-word">Prototype</span>
-          </div>
-          <div class="flow-phase-right">
-            <span class="flow-phase-label">First-Pass Design Ideation</span>
-            <p class="flow-phase-name">Something tangible to react to, before committing to real code</p>
-            <p class="flow-phase-desc">A prototype agent reads a compressed handoff from the locked UX research: screens, palette, components, and interactions in a tight summary, with the full spec available for reference. It generates a single HTML file that opens directly in the browser. No setup, no build step, no accounts. Every must-have flow is navigable end to end. Every component state is visible. This is a design ideation artifact — concrete enough to get a real reaction, lightweight enough to throw away if the direction changes.</p>
-            <ul class="flow-phase-bullets">
-              <li>All must-have features are clickable and navigable end to end</li>
-              <li>Every component state visible: default, empty, loading, error, success</li>
-              <li>Exact visual spec from Phase 04 including hex codes, fonts, and motion</li>
-              <li>A starting point for high-fidelity work in Figma or handoff to a developer</li>
-            </ul>
-            <div class="flow-io">
-              <div class="flow-io-row">
-                <span class="flow-io-label">In</span>
-                <div class="flow-io-files">
-                  <span class="flow-io-file">ux_research.md</span>
-                  <span class="flow-io-file">prd.md</span>
-                </div>
-              </div>
-              <div class="flow-io-row">
-                <span class="flow-io-label">Out</span>
-                <div class="flow-io-files">
-                  <span class="flow-io-file out">prototype.html</span>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="pl-gate pl-gate-lock">
+          <div class="pl-gate-label">Gate 3 · Hard lock</div>
+          <div class="pl-gate-q">Does the full experience feel right?</div>
+          <div class="pl-gate-hint">Yes → requirements and UX lock together as the single source of truth. No scope changes, no flow changes after this point. If it doesn't feel right, say what changed and it routes to the right agent.</div>
+          <div class="pl-gate-lock-note">After Gate 3: the prototype is not a test of the design. It is an execution of it.</div>
         </div>
 
-        <!-- Gate 4 -->
-        <div class="flow-connector">
-          <div class="flow-connector-left"><div class="flow-connector-line"></div></div>
-          <div class="flow-connector-right">
-            <span class="flow-gate-badge">Gate 4 &nbsp;&middot;&nbsp; Does the prototype feel right?</span>
-          </div>
+        <div class="pl-agent">
+          <div class="pl-agent-role">Builder</div>
+          <div class="pl-agent-name">Prototype</div>
+          <div class="pl-agent-desc">Reads a compressed handoff from the locked UX spec: screens, palette, components, interactions. Generates a single HTML file that opens in any browser, no setup, no build step. Every must-have flow is navigable end to end. Every component state is visible. Concrete enough to get a real reaction, lightweight enough to throw away if the direction needs to change.</div>
+          <div class="pl-agent-outs"><span>prototype.html</span></div>
         </div>
 
-        <!-- End state -->
-        <div class="flow-end">
-          <div class="flow-end-left"><div class="flow-end-dot"></div></div>
-          <div class="flow-end-right"><span class="flow-end-label">Pipeline complete</span></div>
+        <div class="pl-gate">
+          <div class="pl-gate-label">Gate 4 · Your call</div>
+          <div class="pl-gate-q">Does the prototype feel right?</div>
+          <div class="pl-gate-hint">Yes → pipeline complete. Visual or flow issue → UX reruns, Gate 3 reopens, re-locks, prototype regenerates. Feature or scope issue → PRD reruns, then UX, then prototype.</div>
         </div>
 
       </div>
 
-      <div class="flow-principles">
-        <p class="modal-section-title">What makes it different</p>
-        <div class="principles-grid">
-          <div class="principle-card">
-            <p class="principle-card-title">Research validates the vision, not the other way around</p>
-            <p class="principle-card-desc">The draft requirements document is written before research runs. That way, findings are actually testing the idea rather than being reverse-engineered to support it. If research contradicts something, the product requirements document changes with evidence.</p>
-          </div>
-          <div class="principle-card">
-            <p class="principle-card-title">No phase starts until the previous one is approved</p>
-            <p class="principle-card-desc">Human approval gates sit between every phase. The pipeline never advances on its own. Every handoff is a deliberate decision point, and every output has to earn sign-off before becoming input for the next stage.</p>
-          </div>
-          <div class="principle-card">
-            <p class="principle-card-title">UX and requirements conflicts are surfaced and resolved, not ignored</p>
-            <p class="principle-card-desc">When UX research finds something the product requirements document got wrong, it flags a conflict. Both documents are updated until they agree. Gate 3 only opens when zero conflicts remain, so nothing contradictory makes it into the build.</p>
-          </div>
-          <div class="principle-card">
-            <p class="principle-card-title">Each agent receives only what it actually needs</p>
-            <p class="principle-card-desc">Agents pass compressed handoffs to each other, not full documents. The research agent's summary of what should change in the requirements is a fraction of the full report. The prototype agent gets the palette and screen list, not the entire UX spec. Full documents exist for human review at gates. Inter-agent communication stays lean.</p>
-          </div>
+      <!-- PRINCIPLES -->
+      <p class="modal-section-title" style="margin-top:1.5rem;">What makes it different</p>
+      <div class="story-principles">
+        <div class="story-principle">
+          <div class="story-principle-n">01</div>
+          <div class="story-principle-title">Research tests the vision. Not the other way around.</div>
+          <div class="story-principle-desc">The draft requirements are written before research runs. That means findings are actually testing the idea rather than being reverse-engineered to support it. If research contradicts something, the PRD changes with evidence. If the draft held up, that's evidence too.</div>
+        </div>
+        <div class="story-principle">
+          <div class="story-principle-n">02</div>
+          <div class="story-principle-title">Nothing moves without your sign-off.</div>
+          <div class="story-principle-desc">Human approval gates sit between every phase. The pipeline never advances on its own. Every output earns sign-off before it becomes input for the next stage. Autonomous work, deliberate handoffs.</div>
+        </div>
+        <div class="story-principle">
+          <div class="story-principle-n">03</div>
+          <div class="story-principle-title">UX conflicts are resolved before Gate 3. Never after.</div>
+          <div class="story-principle-desc">When UX finds something the requirements got wrong, it flags a conflict. Both documents update until they agree. Gate 3 only opens when zero conflicts remain, so nothing contradictory makes it into the prototype.</div>
+        </div>
+        <div class="story-principle">
+          <div class="story-principle-n">04</div>
+          <div class="story-principle-title">Agents pass summaries to each other, not documents.</div>
+          <div class="story-principle-desc">The research handoff to PRD Refine is a fraction of the full report. The UX handoff to Prototype is a tight summary: screens, palette hex codes, component list. Full documents exist for human review at gates. Inter-agent communication stays lean so nothing gets hallucinated from context overload.</div>
         </div>
       </div>
 
-      <div class="why-section">
+      <!-- WHY -->
+      <div class="story-why">
+        <span class="story-why-title">Why I built it</span>
         <p>I have more ideas than I have systems to act on them. Every time an idea clicked, turning it into something real meant figuring out the same steps from scratch: what to research, how to write it down, what to build first, what to cut. I built this pipeline so that the moment I have an idea, I have somewhere to put it. Something that takes it where it needs to go without me having to invent the process every time.</p>
-      </div>
-
-      <div class="collab-section">
-        <p class="modal-section-title">How you and the agents work together</p>
-        <div class="collab-table">
-
-          <div class="collab-table-header">
-            <span>You</span>
-            <span>Agents</span>
-          </div>
-
-          <div class="collab-table-row">
-            <div class="collab-you">
-              <span class="collab-you-note">Share an idea, messy, half-formed, or fully thought through</span>
-            </div>
-            <div class="collab-agents">
-              <div>
-                <span class="agent-block-name">Brainstorm Copilot</span>
-                <span class="agent-block-desc">Acts like a thinking partner. Does live research before every response, asks one question at a time, challenges vague scope, and suggests phases when the idea is genuinely large. Ends when the direction is clear.</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="collab-table-row">
-            <div class="collab-you">
-              <span class="collab-gate-label">Gate 1</span>
-              <span class="collab-gate-q">Does this capture your idea?</span>
-            </div>
-            <div class="collab-agents">
-              <div>
-                <span class="agent-block-name">Intake Clarifier <span class="agent-block-silent">silent</span></span>
-                <span class="agent-block-desc">Converts the brainstorm handoff into a structured project brief. Runs invisibly; you never see it work. The brief is frozen the moment it's written and never touched again.</span>
-              </div>
-              <div>
-                <span class="agent-block-name">Requirements Draft</span>
-                <span class="agent-block-desc">Writes the first version of the requirements from the brief alone — before any research runs. Captures the raw vision so findings can genuinely test it rather than justify it.</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="collab-table-row">
-            <div class="collab-you"></div>
-            <div class="collab-agents">
-              <div>
-                <span class="agent-block-name">Research Agent</span>
-                <span class="agent-block-desc">Runs four research tiers in parallel pairs: direct competitors and community voice first, then industry signals and emerging patterns. Each tier cross-validates the others. Hands off a compressed summary, not the full report.</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="collab-table-row">
-            <div class="collab-you">
-              <span class="collab-gate-label">Gate 1.5</span>
-              <span class="collab-gate-q">Happy with the research?</span>
-              <span class="collab-gate-label" style="margin-top:0.65rem;">Gate 2</span>
-              <span class="collab-gate-q">Requirements approved?</span>
-            </div>
-            <div class="collab-agents">
-              <div>
-                <span class="agent-block-name">Requirements Refine</span>
-                <span class="agent-block-desc">Reads the compressed research handoff first. Updates only what the evidence actually changes. If the draft held up, it stays. Adds a User Snapshot: four lines grounded in real research findings, not invented.</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="collab-table-row">
-            <div class="collab-you"></div>
-            <div class="collab-agents">
-              <div>
-                <span class="agent-block-name">UX Research Agent</span>
-                <span class="agent-block-desc">Defines every user flow, component state, and visual direction. If anything contradicts the approved requirements, it flags a conflict. That conflict routes back to the requirements agent. The loop continues until zero remain.</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="collab-table-row">
-            <div class="collab-you">
-              <span class="collab-gate-label">Gate 3</span>
-              <span class="collab-gate-q">Experience feels right?</span>
-              <span class="collab-gate-lock">Requirements + UX locked together</span>
-            </div>
-            <div class="collab-agents">
-              <div>
-                <span class="agent-block-name">Prototype Agent</span>
-                <span class="agent-block-desc">Reads a compressed handoff from the locked UX research. Generates a single HTML file that opens in any browser, no setup. Every must-have flow is navigable. Every component state is visible. A design ideation artifact: concrete enough to react to, lightweight enough to throw away if the direction needs to change.</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="collab-table-row">
-            <div class="collab-you">
-              <span class="collab-gate-label">Gate 4</span>
-              <span class="collab-gate-q">Does the prototype feel right?</span>
-            </div>
-            <div class="collab-agents">
-              <span class="agent-block-desc" style="padding-top:0.1rem;">Pipeline complete. The prototype is a starting point: high-fidelity work in Figma, developer handoff, or a direction change entirely.</span>
-            </div>
-          </div>
-
-        </div>
       </div>
 
     </div>
@@ -1326,7 +1090,7 @@
       <h2 class="modal-title">Bloom: <em>Personal Task Board</em></h2>
       <p class="modal-desc">
         Built twice. V1 went straight from idea to code: no research, no UX spec, no defined scope.
-        V2 ran the full PDLC pipeline — brainstorm, brief, PRD, research, UX spec, then prototype.
+        V2 ran the full PDLC pipeline: brainstorm, brief, PRD, research, UX spec, then prototype.
         Same product. Completely different result.
       </p>
       <div class="modal-tags">
@@ -1340,78 +1104,164 @@
 
     <div class="modal-body">
 
-      <div style="margin-bottom:2.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
-        <a href="bloom-v1.html" target="_blank" style="display:inline-block; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink2); border:1px solid var(--border); padding:0.6rem 1.4rem; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='var(--bg2)'" onmouseout="this.style.background='transparent'">View v1 →</a>
-        <a href="bloom-prototype.html" target="_blank" style="display:inline-block; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--red); border:1px solid rgba(200,37,26,0.3); padding:0.6rem 1.4rem; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='rgba(200,37,26,0.06)'" onmouseout="this.style.background='transparent'">View v2 prototype →</a>
+      <!-- HOOK -->
+      <div class="b2-hook">
+        <p class="b2-hook-q">What actually changes when you run the same product through a real process?</p>
+        <p class="b2-hook-body">Bloom V1 was built on instinct. No research, no UX spec, no scope defined upfront. Just an idea and a code editor. V2 ran every phase of the PDLC pipeline. Same product. Completely different result.</p>
       </div>
 
-      <div class="bloom-acts">
+      <!-- ORIGIN -->
+      <div class="b2-block">
+        <span class="b2-block-eyebrow">Origin</span>
+        <p class="b2-block-body">Bloom started as something I built for myself. I wanted a personal task board that lived in one HTML file, opened instantly, and kept everything in the browser with no accounts or syncing. It worked well enough that I kept using it. When the PDLC pipeline was ready, I needed a real product to test it on. Something that already existed, with actual decisions baked in. V1 was the obvious choice. So V2 wasn't a redesign for its own sake. It was the same product rebuilt from scratch through every pipeline phase, to see what a structured process actually changes.</p>
+      </div>
 
-        <div class="bloom-act">
-          <p class="bloom-act-num">Act 01 — Where V1 came from</p>
-          <p class="bloom-act-text">
-            Bloom started as something I built for myself. I wanted a personal task board that lived in one HTML file, opened instantly, and kept everything in the browser with no accounts or syncing. So I built it. It worked well enough that I kept using it.
-          </p>
-          <p class="bloom-act-text">
-            When the PDLC pipeline was ready, I wanted a real product to test it on. Something that already existed, with actual decisions baked in, so the agents had something to push against. Bloom V1 was the obvious choice. The idea was solid. But it had been built on instinct alone, no research, no UX spec, no scope defined upfront. That's exactly the kind of baseline the pipeline is meant to improve.
-          </p>
-          <p class="bloom-act-text">
-            So V2 wasn't a redesign for its own sake. It was the same product rebuilt from scratch through every pipeline phase, to see what a structured process actually changes.
-          </p>
+      <!-- INSIGHT -->
+      <p class="b2-insight">The pipeline didn't add more work. It moved decisions earlier.</p>
+
+      <!-- WHAT SHIFTED -->
+      <div class="b2-block">
+        <span class="b2-block-eyebrow">What shifted</span>
+        <p class="b2-block-body">In V1, questions came up mid-build. What should the palette be? Which features get cut? What does completing a task feel like? In V2, those questions were answered before a single line of code was written. Research runs before the PRD. The UX spec is locked before the build starts. Scope is agreed on before the prototype begins. By the time I opened a code editor for V2, the decisions that had cost me the most time in V1 were already made.</p>
+      </div>
+
+      <!-- CHANGES -->
+      <p class="modal-section-title" style="margin-top:1.5rem;">What it actually changed</p>
+
+      <div class="b2-changes">
+
+        <div class="b2-change">
+          <span class="b2-change-finding">Retention research</span>
+          <p class="b2-change-title">Today became the front door, not a filter</p>
+          <span class="b2-change-stat">73% of people stop using a productivity tool within 30 days. The top reason: no clear starting point each morning.</span>
+          <p class="b2-change-text">In V1, Today was a filter pill. You opened the app, saw the full board, and clicked if you wanted just today's tasks. V2 makes Today the default screen. It's the first thing you see when you open Bloom. That came directly from a research finding, not from using the app and noticing something felt off.</p>
         </div>
 
-        <hr class="bloom-divider">
-
-        <div class="bloom-act">
-          <p class="bloom-act-num">Act 02 — What the pipeline changed</p>
-          <p class="bloom-act-text">
-            The PDLC didn't add more work to the process. It moved decisions earlier.
-          </p>
-          <p class="bloom-act-text">
-            Research runs before the PRD is written. The UX spec is finished before any code starts. Scope gets agreed on before the build begins. By the time I was writing the prototype for V2, the questions that kept coming up mid-build in V1 were already answered. What should the palette be? Locked in UX research. What does completing a task feel like? Defined in the spec. Which features get cut? Settled in the PRD.
-          </p>
-          <p class="bloom-act-text">
-            In V1, those decisions happened during the build. In V2, they happened before it. That's the whole difference.
-          </p>
+        <div class="b2-change">
+          <span class="b2-change-finding">UX research phase</span>
+          <p class="b2-change-title">The visual direction was decided before any code was written</p>
+          <span class="b2-change-stat">Warm off-white (#F5F3EF) / deep slate blue (#2D4A6B) / Inter throughout. The feeling had a name: quiet authority.</span>
+          <p class="b2-change-text">V1's aesthetic landed through iteration. I tried fonts, adjusted the palette, reworked the header layout. The final version felt right but I got there by trying things. The UX research phase in V2 produced a complete spec before anything was built. When I opened a code editor to write the prototype, the aesthetic was already done.</p>
         </div>
 
-        <hr class="bloom-divider">
-
-        <div class="bloom-act">
-          <p class="bloom-act-num">Act 03 — What it actually changed</p>
-          <div class="bloom-changes">
-
-            <div class="bloom-change">
-              <p class="bloom-change-title">Today became the front door, not a filter</p>
-              <p class="bloom-change-text">
-                In V1, Today was a filter pill. You opened the app, saw the full board, and clicked if you wanted just today's tasks. Research changed that. <strong>73% of people stop using a productivity tool within 30 days.</strong> The main reason isn't missing features. It's that the tool doesn't give them a clear starting point each morning. So in V2, Today is the default screen. It's the first thing you see when you open Bloom. That came directly from a research finding, not from using the app and noticing something felt wrong.
-              </p>
-            </div>
-
-            <div class="bloom-change">
-              <p class="bloom-change-title">The visual direction was decided before any code was written</p>
-              <p class="bloom-change-text">
-                V1's aesthetic landed through iteration. I tried different fonts, adjusted the palette, reworked the header layout. The final version felt right but I got there by trying things. The UX research phase in V2 produced a spec before anything was built: <strong>warm off-white (#F5F3EF), deep slate blue (#2D4A6B), Inter typeface throughout.</strong> The feeling had a name: quiet authority. Like picking up a well-made notebook. When I opened a code editor to write the prototype, the aesthetic was already done.
-              </p>
-            </div>
-
-            <div class="bloom-change">
-              <p class="bloom-change-title">Research cut an entire feature I thought was useful</p>
-              <p class="bloom-change-text">
-                V1 had a dedicated Links tab. Save URLs, bookmarks, references alongside your tasks. It seemed like a good idea. Research looked at every major personal task app and found that <strong>none of them have a separate links section.</strong> Links belong with the task they relate to. So V2 replaced the whole Links manager with a URL field on each task card. The feature didn't disappear. It moved to where it actually makes sense. I wouldn't have cut it without the research phase.
-              </p>
-            </div>
-
-            <div class="bloom-change">
-              <p class="bloom-change-title">Problems that were invisible in V1 got built into V2</p>
-              <p class="bloom-change-text">
-                V1 had no safeguards for when tasks piled up. Research identified <strong>overdue task accumulation as the top reason people stop using task apps.</strong> Not bad design. Just tasks building up until opening the app starts to feel like a guilt trip. V2 has three things V1 didn't: an overdue indicator in the Today view, a soft WIP limit that flags when In Progress goes above three cards, and a nudge when you haven't backed up in over a week. The problem was real in V1. It just wasn't visible because nobody had looked for it yet.
-              </p>
-            </div>
-
-          </div>
+        <div class="b2-change">
+          <span class="b2-change-finding">Competitive analysis</span>
+          <p class="b2-change-title">Research cut an entire feature I thought was useful</p>
+          <span class="b2-change-stat">None of the major personal task apps have a separate links section. Links belong with the task they relate to.</span>
+          <p class="b2-change-text">V1 had a dedicated Links tab. It seemed useful. Research looked at every major personal task app and found zero of them do this. So V2 replaced the whole Links manager with a URL field on each task card. The feature didn't disappear. It moved to where it actually makes sense. I wouldn't have cut it without the research phase.</p>
         </div>
 
+        <div class="b2-change">
+          <span class="b2-change-finding">Drop-off pattern research</span>
+          <p class="b2-change-title">Problems that were invisible in V1 got built into V2</p>
+          <span class="b2-change-stat">Overdue task accumulation is the top reason people stop using task apps. Not bad design. Just tasks building up until the app feels like a guilt trip.</span>
+          <p class="b2-change-text">V1 had no safeguards for when tasks piled up. V2 has three things V1 didn't: an overdue indicator in the Today view, a soft WIP limit that flags when In Progress goes above three cards, and a nudge when you haven't backed up in over a week. The problem was real in V1. It just wasn't visible because nobody had looked for it yet.</p>
+        </div>
+
+      </div>
+
+      <!-- LINKS -->
+      <div class="b2-links">
+        <a href="bloom-v1.html" target="_blank" class="b2-link">View V1</a>
+        <a href="bloom-prototype.html" target="_blank" class="b2-link b2-link-primary">View V2 prototype</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── MODAL: GSTACK x PDLC ── -->
+  <div class="modal" id="modal-gstack" style="display:none;">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <div class="modal-header">
+      <p class="modal-eyebrow">Process Audit · AI Systems · gstack</p>
+      <h2 class="modal-title">gstack x PDLC: <em>Auditing the Pipeline</em></h2>
+      <p class="modal-desc">
+        Five gstack skills. Three phases. The same methodology the PDLC uses on products, turned back on the pipeline itself.
+      </p>
+      <div class="modal-tags">
+        <span class="work-tag">Process Audit</span>
+        <span class="work-tag">gstack</span>
+        <span class="work-tag">AI Systems</span>
+        <span class="work-tag">Product Thinking</span>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- HOOK -->
+      <div class="b2-hook">
+        <p class="b2-hook-q">What does your own pipeline miss about itself?</p>
+        <p class="b2-hook-body">The PDLC was built to take ideas through a structured process before anything gets built. But the pipeline itself was built without one. No forcing questions, no external review, no one pushing back on the assumptions baked in. gstack is Garry Tan's open-source AI sprint toolkit: five skills, three phases, each one running a different kind of audit. I ran them against the PDLC the same way the PDLC runs against a product idea.</p>
+      </div>
+
+      <!-- INSIGHT -->
+      <p class="b2-insight">The audit found six things the pipeline couldn't find about itself. Five of them were structural.</p>
+
+      <!-- THE METHOD -->
+      <div class="b2-block">
+        <span class="b2-block-eyebrow">The method</span>
+        <p class="b2-block-body">gstack's front-end sprint runs three phases in sequence. 구상 (Concept): /office-hours produces a design document through six forcing questions. 기획 (Plan): /plan-ceo-review, /plan-eng-review, and /plan-design-review run in parallel against that document, each from a different lens: strategy, architecture, design quality. 설계 (Design): /design-consultation closes the phase with a complete design system. Together they cover every angle the builder is too close to see.</p>
+      </div>
+
+      <!-- WHAT CHANGED -->
+      <p class="modal-section-title" style="margin-top:1.5rem;">What changed</p>
+
+      <div class="b2-changes">
+
+        <div class="b2-change">
+          <span class="b2-change-finding">/office-hours · 구상</span>
+          <p class="b2-change-title">A pipeline that can't say no will always say yes</p>
+          <span class="b2-change-stat">The pipeline can now stop. If research shows the idea doesn't hold up, it routes back to brainstorm — not forward to the plan.</span>
+          <p class="b2-change-text">If research proved the idea wrong, the old pipeline kept going anyway — updating the plan and moving on. That's backwards for a tool built to test ideas. The fix adds a real off-ramp. Gate 1 now also requires two questions before it opens: what already exists today, and what would make this idea not worth building?</p>
+        </div>
+
+        <div class="b2-change">
+          <span class="b2-change-finding">/plan-ceo-review · 기획</span>
+          <p class="b2-change-title">Research could agree with everything and no one would notice</p>
+          <span class="b2-change-stat">Gate 1.5 now shows you exactly what the research changed in the plan — and flags it clearly if research changed nothing at all. It doesn't block the gate. It just makes the question visible.</span>
+          <p class="b2-change-text">The plan is written before research runs on purpose — that's how you capture a real vision before the data starts shaping it. But there was no way to see how much the research actually challenged it. If everything came back confirmed, was the research really testing the idea, or just agreeing with it? Now you can see the difference before moving on.</p>
+        </div>
+
+        <div class="b2-change">
+          <span class="b2-change-finding">/plan-eng-review · 기획 · architecture</span>
+          <p class="b2-change-title">The UX conflict loop had no exit</p>
+          <span class="b2-change-stat">The conflict resolution loop now stops after 3 rounds. If 3 rounds don't resolve it, the process pauses and a human decides what happens next.</span>
+          <p class="b2-change-text">When the UX agent finds a problem with the plan, it goes back and forth until it's resolved. But there was no limit on how many times that could happen. Each fix could create a new conflict, and the loop had no way to end on its own. Three rounds is enough for real conflicts. If it takes more, the problem is bigger than the agents can handle — and that's a decision for a person, not a loop.</p>
+        </div>
+
+        <div class="b2-change">
+          <span class="b2-change-finding">/plan-eng-review · 기획 · failure modes</span>
+          <p class="b2-change-title">The deepest research layer was skipped automatically</p>
+          <span class="b2-change-stat">You now choose how deep the research goes. Thorough is the default. Skipping the deepest layer is a decision you make explicitly — the system no longer makes it for you.</span>
+          <p class="b2-change-text">The old system would quietly skip the deepest research layer if it found nothing in the first two tries. That layer is where the most useful signals tend to live, because most builders skip it too. The fast mode still exists — you just have to choose it. Every research output now also requires a Failure Modes section.</p>
+        </div>
+
+        <div class="b2-change">
+          <span class="b2-change-finding">/plan-design-review · 기획</span>
+          <p class="b2-change-title">The pipeline had agents. It didn't have a team.</p>
+          <span class="b2-change-stat">Every agent now has a name: Structural formatter, Vision writer, Adversarial analyst, Evidence editor, Experience designer, Builder.</span>
+          <p class="b2-change-text">The pipeline had six agents, all described by what they produce: PRD Writer, Research Agent. gstack names its agents CEO, Engineering Manager, Senior Designer. The difference matters. A label tells you what something makes. A name tells you how to read what it makes — and how much to push back on it.</p>
+        </div>
+
+        <div class="b2-change">
+          <span class="b2-change-finding">/design-consultation · 설계</span>
+          <p class="b2-change-title">Every prototype made its own visual decisions from scratch</p>
+          <span class="b2-change-stat">Every prototype now starts from the same visual rulebook. One file — DESIGN.md — captures the design decisions once. Every future prototype reads it first instead of starting from zero.</span>
+          <p class="b2-change-text">Before this, each project's prototype made its own choices about colors, spacing, and type. Nothing was written down — it was all implied. The audit didn't change what the pipeline looks like. It wrote down what was already there and made it reusable. Now adding a new feature means deciding whether it fits what already exists — not choosing what color it should be.</p>
+        </div>
+
+      </div>
+
+      <!-- WHAT IT VALIDATED -->
+      <div class="b2-block" style="margin-top:1.5rem;">
+        <span class="b2-block-eyebrow">What it validated</span>
+        <p class="b2-block-body">Not everything changed. Three things came back untouched. The two-file output system (brief frozen at creation, state append-only) confirmed as correct architecture by /plan-eng-review. The handoff format (summaries between agents, not full documents) confirmed as the right call for context management. Gate 3 as a hard lock confirmed by /plan-ceo-review: any pipeline that allows scope changes after the UX spec is approved will always find a reason to make one more change.</p>
+      </div>
+
+      <!-- LINKS -->
+      <div class="b2-links">
+        <a href="https://github.com/garrytan/gstack" target="_blank" class="b2-link b2-link-primary">View gstack on GitHub</a>
       </div>
 
     </div>
