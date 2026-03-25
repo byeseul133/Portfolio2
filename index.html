@@ -755,6 +755,8 @@
     .b2-change { padding: 0.9rem 1.1rem 0.9rem 1.3rem; border-bottom: 1px solid var(--border); background: var(--bg2); border-left: 2px solid var(--red); margin-left: -1px; }
     .b2-change-title { font-family: var(--serif); font-size: 1rem; color: var(--ink); line-height: 1.35; margin-bottom: 0.3rem; }
     .b2-change-finding { font-size: 0.43rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); margin-bottom: 0.3rem; display: block; }
+    .b2-change-loc { font-size: 0.55rem; letter-spacing: 0.1em; font-family: var(--sans); color: var(--ink3); margin-top: 0.7rem; display: block; opacity: 0.65; }
+    .b2-change-loc::before { content: '↳ '; }
     .b2-change-stat { font-size: 0.62rem; color: var(--ink); background: rgba(200,37,26,0.05); border-left: 2px solid var(--red); padding: 0.22rem 0.65rem; margin-bottom: 0.35rem; display: block; line-height: 1.6; }
     .b2-change-text { font-size: 0.62rem; color: var(--ink2); line-height: 1.75; }
     .b2-links { display: flex; gap: 0.75rem; flex-wrap: wrap; padding-top: 1.25rem; border-top: 1px solid var(--border); }
@@ -1214,6 +1216,7 @@
           <p class="b2-change-title">A pipeline that can't say no will always say yes</p>
           <span class="b2-change-stat">The pipeline can now stop. If research shows the idea doesn't hold up, it routes back to brainstorm — not forward to the plan.</span>
           <p class="b2-change-text">If research proved the idea wrong, the old pipeline kept going anyway — updating the plan and moving on. That's backwards for a tool built to test ideas. The fix adds a real off-ramp. Gate 1 now also requires two questions before it opens: what already exists today, and what would make this idea not worth building?</p>
+          <span class="b2-change-loc">Gate 1.5 · brainstorm.md · orchestrator.md</span>
         </div>
 
         <div class="b2-change">
@@ -1221,6 +1224,7 @@
           <p class="b2-change-title">Research could agree with everything and no one would notice</p>
           <span class="b2-change-stat">Gate 1.5 now shows you exactly what the research changed in the plan — and flags it clearly if research changed nothing at all. It doesn't block the gate. It just makes the question visible.</span>
           <p class="b2-change-text">The plan is written before research runs on purpose — that's how you capture a real vision before the data starts shaping it. But there was no way to see how much the research actually challenged it. If everything came back confirmed, was the research really testing the idea, or just agreeing with it? Now you can see the difference before moving on.</p>
+          <span class="b2-change-loc">Gate 1.5 · prd.md · orchestrator.md</span>
         </div>
 
         <div class="b2-change">
@@ -1228,6 +1232,7 @@
           <p class="b2-change-title">The UX conflict loop had no exit</p>
           <span class="b2-change-stat">The conflict resolution loop now stops after 3 rounds. If 3 rounds don't resolve it, the process pauses and a human decides what happens next.</span>
           <p class="b2-change-text">When the UX agent finds a problem with the plan, it goes back and forth until it's resolved. But there was no limit on how many times that could happen. Each fix could create a new conflict, and the loop had no way to end on its own. Three rounds is enough for real conflicts. If it takes more, the problem is bigger than the agents can handle — and that's a decision for a person, not a loop.</p>
+          <span class="b2-change-loc">UX Research → Gate 3 loop · ux_research.md</span>
         </div>
 
         <div class="b2-change">
@@ -1235,6 +1240,7 @@
           <p class="b2-change-title">The deepest research layer was skipped automatically</p>
           <span class="b2-change-stat">You now choose how deep the research goes. Thorough is the default. Skipping the deepest layer is a decision you make explicitly — the system no longer makes it for you.</span>
           <p class="b2-change-text">The old system would quietly skip the deepest research layer if it found nothing in the first two tries. That layer is where the most useful signals tend to live, because most builders skip it too. The fast mode still exists — you just have to choose it. Every research output now also requires a Failure Modes section.</p>
+          <span class="b2-change-loc">Research Agent · research.md</span>
         </div>
 
         <div class="b2-change">
@@ -1242,6 +1248,7 @@
           <p class="b2-change-title">The pipeline had agents. It didn't have a team.</p>
           <span class="b2-change-stat">Every agent now has a name: Structural formatter, Vision writer, Adversarial analyst, Evidence editor, Experience designer, Builder.</span>
           <p class="b2-change-text">The pipeline had six agents, all described by what they produce: PRD Writer, Research Agent. gstack names its agents CEO, Engineering Manager, Senior Designer. The difference matters. A label tells you what something makes. A name tells you how to read what it makes — and how much to push back on it.</p>
+          <span class="b2-change-loc">All 6 agent specs · brainstorm.md · prd.md · research.md · ux_research.md · prototype.md</span>
         </div>
 
         <div class="b2-change">
@@ -1249,6 +1256,7 @@
           <p class="b2-change-title">Every prototype made its own visual decisions from scratch</p>
           <span class="b2-change-stat">Every prototype now starts from the same visual rulebook. One file — DESIGN.md — captures the design decisions once. Every future prototype reads it first instead of starting from zero.</span>
           <p class="b2-change-text">Before this, each project's prototype made its own choices about colors, spacing, and type. Nothing was written down — it was all implied. The audit didn't change what the pipeline looks like. It wrote down what was already there and made it reusable. Now adding a new feature means deciding whether it fits what already exists — not choosing what color it should be.</p>
+          <span class="b2-change-loc">Prototype Agent · prototype.md · DESIGN.md (new file)</span>
         </div>
 
       </div>
