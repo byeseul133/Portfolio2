@@ -9,39 +9,34 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
   <style>
-    .essay-wrap {
-      display: grid;
-      grid-template-columns: 160px 1fr;
-      gap: 4.5rem;
-      padding: 7rem 3.5rem 6rem;
-    }
+    .essay-page { padding: 7rem 3.5rem 6rem; }
 
-    /* ── SIDEBAR ── */
-    .essay-sidebar {
-      position: sticky;
-      top: 6rem;
-      align-self: start;
+    .essay-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 3rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
     }
     .essay-back {
-      display: block; font-size: 0.62rem; letter-spacing: 0.18em;
+      font-size: 0.62rem; letter-spacing: 0.18em;
       text-transform: uppercase; color: var(--ink3);
       text-decoration: none; transition: color 0.2s;
-      margin-bottom: 1.75rem;
     }
     .essay-back::before { content: '← '; }
     .essay-back:hover { color: var(--red); }
-    .sidebar-rule { border: none; border-top: 1px solid var(--border); margin-bottom: 1.25rem; }
-    .sidebar-date {
+    .essay-topbar-meta { text-align: right; }
+    .essay-topbar-date {
       font-family: var(--serif); font-style: italic;
-      font-size: 0.82rem; color: var(--ink3); line-height: 1.6;
-      margin-bottom: 0.4rem;
+      font-size: 0.82rem; color: var(--ink3); display: block;
     }
-    .sidebar-cat {
-      font-size: 0.54rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--ink3); opacity: 0.55;
+    .essay-topbar-cat {
+      font-size: 0.54rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--ink3); opacity: 0.5;
     }
 
-    /* ── CONTENT ── */
+    .essay-header { max-width: 720px; margin-bottom: 2rem; }
     .essay-eyebrow {
       font-size: 0.62rem; letter-spacing: 0.3em;
       text-transform: uppercase; color: var(--red);
@@ -49,32 +44,36 @@
     }
     .essay-title {
       font-family: var(--serif);
-      font-size: clamp(1.8rem, 3vw, 2.8rem);
-      font-weight: 300; line-height: 1.12; color: var(--ink);
-      margin-bottom: 1.75rem; letter-spacing: -0.01em;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300; line-height: 1.1; color: var(--ink);
+      letter-spacing: -0.01em;
     }
-    .essay-divider { width: 40px; height: 2px; background: var(--red); margin-bottom: 2rem; }
 
-    .essay-list { list-style: none; display: flex; flex-direction: column; }
+    .essay-divider { width: 40px; height: 2px; background: var(--red); margin: 2rem 0 2.5rem; }
+
+    .essay-list { list-style: none; display: flex; flex-direction: column; max-width: 640px; }
     .essay-list li {
       display: grid; grid-template-columns: 2.5rem 1fr;
-      gap: 1.5rem; padding: 1.5rem 0;
+      gap: 1.5rem; padding: 1.75rem 0;
       border-bottom: 1px solid var(--border);
       align-items: start;
     }
     .essay-list li:first-child { border-top: 1px solid var(--border); }
     .essay-list-num {
       font-family: var(--serif); font-style: italic;
-      font-size: 1rem; color: var(--red); padding-top: 2px;
+      font-size: 1.1rem; color: var(--red); padding-top: 2px;
     }
     .essay-list-text {
-      font-size: 0.9rem; color: var(--ink2); line-height: 1.9;
+      font-size: 0.95rem; color: var(--ink2); line-height: 1.95;
+    }
+    .essay-list-text code {
+      font-size: 0.85em; background: var(--bg3);
+      padding: 1px 5px; border-radius: 2px;
     }
 
-    @media (max-width: 860px) {
-      .essay-wrap { grid-template-columns: 1fr; gap: 0; padding: 5rem 1.5rem 4rem; }
-      .essay-sidebar { position: static; display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2.5rem; }
-      .sidebar-rule, .sidebar-date, .sidebar-cat { display: none; }
+    @media (max-width: 700px) {
+      .essay-page { padding: 5rem 1.5rem 4rem; }
+      .essay-topbar-cat { display: none; }
     }
   </style>
 </head>
@@ -94,61 +93,62 @@
   </ul>
 </nav>
 
-<div class="essay-wrap">
+<div class="essay-page">
 
-  <aside class="essay-sidebar">
+  <div class="essay-topbar">
     <a href="./" class="essay-back">All writing</a>
-    <hr class="sidebar-rule">
-    <p class="sidebar-date">April 2026</p>
-    <p class="sidebar-cat">Tech · AI</p>
-  </aside>
+    <div class="essay-topbar-meta">
+      <span class="essay-topbar-date">April 2026</span>
+      <span class="essay-topbar-cat">Tech · AI</span>
+    </div>
+  </div>
 
-  <article class="essay-content">
+  <div class="essay-header">
     <span class="essay-eyebrow">03 — Writing</span>
     <h1 class="essay-title">Things I learned from building AI agents</h1>
-    <div class="essay-divider"></div>
+  </div>
 
-    <ol class="essay-list">
-      <li>
-        <span class="essay-list-num">1</span>
-        <p class="essay-list-text">Let AI figure out the gaps. Do not try to dictate every single detail.</p>
-      </li>
-      <li>
-        <span class="essay-list-num">2</span>
-        <p class="essay-list-text">Learn how to build the overall architecture of agents, especially if you are building workflows.</p>
-      </li>
-      <li>
-        <span class="essay-list-num">3</span>
-        <p class="essay-list-text">If you are a non-developer like me, understand the directory route. Know where the inputs and outputs are stored, what reads what, and what should be stored where. Dictate that clearly in the <code>.md</code> files.</p>
-      </li>
-      <li>
-        <span class="essay-list-num">4</span>
-        <p class="essay-list-text">Think about token efficiency because the more you type into prompts, the more tokens you use. But the point is not to write less, it is to write cleaner prompts.</p>
-      </li>
-      <li>
-        <span class="essay-list-num">5</span>
-        <p class="essay-list-text">Clear role, clear input, clear task, clear output format, and clear constraints matter more than long instructions.</p>
-      </li>
-      <li>
-        <span class="essay-list-num">6</span>
-        <p class="essay-list-text">Before letting AI write the entire <code>.md</code> file, start with a flowchart first and tweak it little by little, especially if you are using lighter or cheaper AI tools like Claude, Gen AI, etc.</p>
-      </li>
-      <li>
-        <span class="essay-list-num">7</span>
-        <p class="essay-list-text">Role-play with the agents to make sure you get the desired outputs.</p>
-      </li>
-      <li>
-        <span class="essay-list-num">8</span>
-        <p class="essay-list-text">Once you have a solid <code>.md</code> file, test it with different tools like Claude, OpenAI, and others. Each model has different training, reasoning patterns, context handling, and instruction-following behavior.</p>
-      </li>
-      <li>
-        <span class="essay-list-num">9</span>
-        <p class="essay-list-text">GitHub with Claude Code is a godsend. It reduces so much time, and once it is connected, it is much easier to work with, even for non-developers.</p>
-      </li>
-    </ol>
-  </article>
+  <div class="essay-divider"></div>
+
+  <ol class="essay-list">
+    <li>
+      <span class="essay-list-num">1</span>
+      <p class="essay-list-text">Let AI figure out the gaps. Do not try to dictate every single detail.</p>
+    </li>
+    <li>
+      <span class="essay-list-num">2</span>
+      <p class="essay-list-text">Learn how to build the overall architecture of agents, especially if you are building workflows.</p>
+    </li>
+    <li>
+      <span class="essay-list-num">3</span>
+      <p class="essay-list-text">If you are a non-developer like me, understand the directory route. Know where the inputs and outputs are stored, what reads what, and what should be stored where. Dictate that clearly in the <code>.md</code> files.</p>
+    </li>
+    <li>
+      <span class="essay-list-num">4</span>
+      <p class="essay-list-text">Think about token efficiency because the more you type into prompts, the more tokens you use. But the point is not to write less, it is to write cleaner prompts.</p>
+    </li>
+    <li>
+      <span class="essay-list-num">5</span>
+      <p class="essay-list-text">Clear role, clear input, clear task, clear output format, and clear constraints matter more than long instructions.</p>
+    </li>
+    <li>
+      <span class="essay-list-num">6</span>
+      <p class="essay-list-text">Before letting AI write the entire <code>.md</code> file, start with a flowchart first and tweak it little by little, especially if you are using lighter or cheaper AI tools like Claude, Gen AI, etc.</p>
+    </li>
+    <li>
+      <span class="essay-list-num">7</span>
+      <p class="essay-list-text">Role-play with the agents to make sure you get the desired outputs.</p>
+    </li>
+    <li>
+      <span class="essay-list-num">8</span>
+      <p class="essay-list-text">Once you have a solid <code>.md</code> file, test it with different tools like Claude, OpenAI, and others. Each model has different training, reasoning patterns, context handling, and instruction-following behavior.</p>
+    </li>
+    <li>
+      <span class="essay-list-num">9</span>
+      <p class="essay-list-text">GitHub with Claude Code is a godsend. It reduces so much time, and once it is connected, it is much easier to work with, even for non-developers.</p>
+    </li>
+  </ol>
 
 </div>
-
 </body>
 </html>
