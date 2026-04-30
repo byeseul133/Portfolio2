@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Things I learned from building AI agents — A space by Yeseul</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .essay-page { max-width: 680px; padding: 8rem 3.5rem 6rem; }
+    .essay-meta { margin-bottom: 3rem; }
+    .essay-meta-eyebrow {
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 0.75rem;
+    }
+    .essay-meta-title {
+      font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300; line-height: 1.1; color: var(--ink);
+      margin-bottom: 0.75rem; letter-spacing: -0.01em;
+    }
+    .essay-meta-date {
+      font-family: var(--serif); font-style: italic;
+      font-size: 0.85rem; color: var(--ink3);
+    }
+    .essay-divider { width: 40px; height: 2px; background: var(--red); margin: 2rem 0; }
+    .essay-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .essay-list li {
+      display: grid; grid-template-columns: 2.5rem 1fr;
+      gap: 1.25rem; padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .essay-list li:first-child { border-top: 1px solid var(--border); }
+    .essay-list-num {
+      font-family: var(--serif); font-style: italic;
+      font-size: 1rem; color: var(--red); padding-top: 2px;
+    }
+    .essay-list-text {
+      font-size: 0.92rem; color: var(--ink2); line-height: 1.85;
+    }
+    .essay-back {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-bottom: 2rem; font-size: 0.65rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--ink3);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .essay-back:hover { color: var(--red); }
+    .essay-back::before { content: '←'; }
+    @media (max-width: 860px) {
+      .essay-page { padding: 6rem 1.5rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="scrolled">
+  <a href="../" class="nav-logo">
+    <svg viewBox="0 0 32 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M26 8.5a5.5 5.5 0 00-10.6-2A4 4 0 0014 6.5a4 4 0 000 8h12a4 4 0 000-8z"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../projects/">Projects</a></li>
+    <li><a href="../art/">Art</a></li>
+    <li><a href="../writing/">Writing</a></li>
+    <li><a href="../about/">About</a></li>
+  </ul>
+</nav>
+
+<div class="essay-page">
+  <a href="./" class="essay-back">All writing</a>
+  <div class="essay-meta">
+    <p class="essay-meta-eyebrow">03 — Writing</p>
+    <h1 class="essay-meta-title">Things I learned from building AI agents</h1>
+    <p class="essay-meta-date">April 2025</p>
+  </div>
+  <div class="essay-divider"></div>
+  <ol class="essay-list">
+    <li>
+      <span class="essay-list-num">1</span>
+      <p class="essay-list-text">Let AI figure out the gaps. Do not try to dictate every single detail.</p>
+    </li>
+    <li>
+      <span class="essay-list-num">2</span>
+      <p class="essay-list-text">Learn how to build the overall architecture of agents, especially if you are building workflows.</p>
+    </li>
+    <li>
+      <span class="essay-list-num">3</span>
+      <p class="essay-list-text">If you are a non-developer like me, understand the directory route. Know where the inputs and outputs are stored, what reads what, and what should be stored where. Dictate that clearly in the <code>.md</code> files.</p>
+    </li>
+    <li>
+      <span class="essay-list-num">4</span>
+      <p class="essay-list-text">Think about token efficiency because the more you type into prompts, the more tokens you use. But the point is not to write less, it is to write cleaner prompts.</p>
+    </li>
+    <li>
+      <span class="essay-list-num">5</span>
+      <p class="essay-list-text">Clear role, clear input, clear task, clear output format, and clear constraints matter more than long instructions.</p>
+    </li>
+    <li>
+      <span class="essay-list-num">6</span>
+      <p class="essay-list-text">Before letting AI write the entire <code>.md</code> file, start with a flowchart first and tweak it little by little, especially if you are using lighter or cheaper AI tools like Claude, Gen AI, etc.</p>
+    </li>
+    <li>
+      <span class="essay-list-num">7</span>
+      <p class="essay-list-text">Role-play with the agents to make sure you get the desired outputs.</p>
+    </li>
+    <li>
+      <span class="essay-list-num">8</span>
+      <p class="essay-list-text">Once you have a solid <code>.md</code> file, test it with different tools like Claude, OpenAI, and others. Each model has different training, reasoning patterns, context handling, and instruction-following behavior.</p>
+    </li>
+    <li>
+      <span class="essay-list-num">9</span>
+      <p class="essay-list-text">GitHub with Claude Code is a godsend. It reduces so much time, and once it is connected, it is much easier to work with, even for non-developers.</p>
+    </li>
+  </ol>
+</div>
+
+</body>
+</html>
