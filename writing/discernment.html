@@ -9,7 +9,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
   <style>
-    .essay-page { padding: 7rem 3.5rem 6rem; }
+    .essay-page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 7rem 3.5rem 6rem;
+    }
 
     .essay-topbar {
       display: flex;
@@ -36,7 +40,6 @@
       text-transform: uppercase; color: var(--ink3); opacity: 0.5;
     }
 
-    .essay-header { max-width: 720px; margin-bottom: 2rem; }
     .essay-eyebrow {
       font-size: 0.62rem; letter-spacing: 0.3em;
       text-transform: uppercase; color: var(--red);
@@ -44,27 +47,23 @@
     }
     .essay-title {
       font-family: var(--serif);
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 300; line-height: 1.1; color: var(--ink);
-      letter-spacing: -0.01em; margin-bottom: 0.6rem;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 300; line-height: 1.08; color: var(--ink);
+      letter-spacing: -0.02em; margin-bottom: 0.6rem;
     }
     .essay-subtitle {
       font-family: var(--serif); font-style: italic;
-      font-size: 1.05rem; color: var(--ink3);
+      font-size: 1.1rem; color: var(--ink3); margin-bottom: 2rem;
     }
 
-    .essay-divider { width: 40px; height: 2px; background: var(--red); margin: 2rem 0 2.5rem; }
+    .essay-divider { width: 40px; height: 2px; background: var(--red); margin-bottom: 2.5rem; }
 
-    .essay-body {
-      max-width: 640px;
-      display: flex; flex-direction: column; gap: 1.5rem;
-    }
-    .essay-body p {
-      font-size: 0.95rem; color: var(--ink2); line-height: 2;
-    }
+    .essay-body { display: flex; flex-direction: column; gap: 1.5rem; }
+    .essay-body p { font-size: 1rem; color: var(--ink2); line-height: 2; }
+
     .essay-section-head {
-      font-family: var(--serif); font-size: 1.4rem;
-      font-weight: 400; color: var(--ink); line-height: 1.25;
+      font-family: var(--serif); font-size: 1.5rem;
+      font-weight: 400; color: var(--ink); line-height: 1.2;
       padding-left: 1rem; border-left: 2px solid var(--red);
       margin-top: 0.75rem;
     }
@@ -101,12 +100,9 @@
     </div>
   </div>
 
-  <div class="essay-header">
-    <span class="essay-eyebrow">03 — Writing</span>
-    <h1 class="essay-title">In the Age of AI, Why your ability to call BS is your biggest asset</h1>
-    <p class="essay-subtitle">Spoiler Alert: Your Greatest Edge Is Discernment</p>
-  </div>
-
+  <span class="essay-eyebrow">03 — Writing</span>
+  <h1 class="essay-title">In the Age of AI, Why your ability to call BS is your biggest asset</h1>
+  <p class="essay-subtitle">Spoiler Alert: Your Greatest Edge Is Discernment</p>
   <div class="essay-divider"></div>
 
   <div class="essay-body">
