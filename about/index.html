@@ -8,6 +8,167 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    /* ── PHOTO + INTRO ── */
+    .about-intro {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 5rem;
+      align-items: start;
+      margin-bottom: 4rem;
+    }
+
+    .about-photo-wrap {
+      position: relative;
+    }
+    .about-photo-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--red);
+    }
+    .about-photo-img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      display: block;
+      border: 1px solid var(--border);
+    }
+    .about-photo-ph {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.4rem;
+      color: var(--ink3);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    .about-intro-text { padding-top: 0.5rem; }
+
+    .about-intro-role {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+
+    .about-intro-name {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+    .about-intro-name em { font-style: italic; color: var(--red); }
+
+    .about-intro-bio {
+      font-size: 0.9rem;
+      color: var(--ink2);
+      line-height: 1.95;
+      margin-bottom: 2rem;
+      max-width: 460px;
+    }
+
+    .about-intro-links { display: flex; flex-direction: column; gap: 0.55rem; }
+    .about-intro-links a {
+      font-size: 0.8rem; color: var(--ink2); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      transition: color 0.2s;
+    }
+    .about-intro-links a::before { content: '→'; color: var(--red); font-size: 0.72rem; }
+    .about-intro-links a:hover { color: var(--red); }
+
+    /* ── SECTION RULE ── */
+    .about-rule {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3.5rem 0;
+    }
+
+    /* ── TWO WAYS ── */
+    .two-ways-eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 2.5rem;
+    }
+
+    .two-ways-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .two-ways-col {
+      padding: 0 3.5rem 2.5rem 0;
+    }
+    .two-ways-col:last-child {
+      padding: 0 0 2.5rem 3.5rem;
+      border-left: 1px solid var(--border);
+    }
+
+    .two-ways-heading { line-height: 1.15; margin-bottom: 1.5rem; }
+
+    .two-ways-name {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 4vw, 3.8rem);
+      font-weight: 300;
+      display: inline;
+      letter-spacing: -0.01em;
+    }
+    .two-ways-name.ashley { color: #2a3f5f; }
+    .two-ways-name.yeseul { color: var(--red); }
+
+    .two-ways-verb {
+      font-family: var(--script);
+      font-size: 1.15rem;
+      color: var(--ink3);
+      margin-left: 0.6rem;
+      display: inline;
+    }
+
+    .two-ways-body {
+      font-size: 0.875rem;
+      color: var(--ink2);
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+      max-width: 400px;
+    }
+
+    .two-ways-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .two-ways-tag {
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      border: 1px solid var(--border);
+      padding: 4px 13px;
+      border-radius: 999px;
+      transition: all 0.2s;
+    }
+    .two-ways-tag:hover { border-color: var(--red); color: var(--red); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .about-intro { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-photo-wrap { max-width: 240px; }
+      .two-ways-grid { grid-template-columns: 1fr; }
+      .two-ways-col { padding: 2rem 0 !important; border-left: none !important; }
+      .two-ways-col:last-child { border-top: 1px solid var(--border); }
+    }
+  </style>
 </head>
 <body>
 
@@ -26,12 +187,81 @@
 </nav>
 
 <section id="about">
+
   <div class="reveal visible">
     <p class="section-eyebrow">04 — About</p>
     <h2 class="section-title">Nice to <em>meet you</em></h2>
     <div class="divider"></div>
   </div>
-  <p style="font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: var(--ink3);">TBD — coming soon.</p>
+
+  <!-- PHOTO + INTRO -->
+  <div class="about-intro">
+
+    <div class="about-photo-wrap">
+      <!--
+        TO ADD YOUR PHOTO:
+        Replace the <div class="about-photo-ph"> below with:
+        <img src="../image/your-photo.jpg" alt="Yeseul" class="about-photo-img">
+      -->
+      <div class="about-photo-ph">
+        <span>Photo</span>
+        <span>coming soon</span>
+      </div>
+    </div>
+
+    <div class="about-intro-text">
+      <p class="about-intro-role">Product Manager · Artist · Writer · Austin, TX</p>
+      <h2 class="about-intro-name">
+        Ashley Byeon.<br>
+        <em>Yeseul.</em>
+      </h2>
+      <p class="about-intro-bio">Both feel like home. Six years turning fuzzy ideas into shipped product, and the other half of my brain making things by hand — oil pastels, watercolor, long walks, longer essays. I'm based in Austin, TX.</p>
+      <div class="about-intro-links">
+        <a href="mailto:ashhh0120@gmail.com">ashhh0120@gmail.com</a>
+        <a href="https://www.linkedin.com/in/yeseulbyeon" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="about-rule">
+
+  <!-- TWO WAYS TO READ ME -->
+  <p class="two-ways-eyebrow">01 — Two ways to read me</p>
+
+  <div class="two-ways-grid">
+
+    <div class="two-ways-col">
+      <div class="two-ways-heading">
+        <span class="two-ways-name ashley">Ashley</span>
+        <span class="two-ways-verb">builds things</span>
+      </div>
+      <p class="two-ways-body">Six years turning fuzzy ideas into shipped product. I like the part where a vague feeling becomes a one-line problem statement, and the part where a one-line problem statement becomes a thing people actually use.</p>
+      <div class="two-ways-tags">
+        <span class="two-ways-tag">Product Management</span>
+        <span class="two-ways-tag">AI &amp; Tech</span>
+        <span class="two-ways-tag">Systems Thinking</span>
+        <span class="two-ways-tag">Roadmaps</span>
+      </div>
+    </div>
+
+    <div class="two-ways-col">
+      <div class="two-ways-heading">
+        <span class="two-ways-name yeseul">Yeseul</span>
+        <span class="two-ways-verb">makes things</span>
+      </div>
+      <p class="two-ways-body">The other half. Studio, sketchbook, long walks, longer essays. Most of my best product instincts come from this side — I just don't put it on the resume.</p>
+      <div class="two-ways-tags">
+        <span class="two-ways-tag">Oil Pastel</span>
+        <span class="two-ways-tag">Watercolor</span>
+        <span class="two-ways-tag">Essay Writing</span>
+        <span class="two-ways-tag">Wandering</span>
+        <span class="two-ways-tag">CrossFit</span>
+      </div>
+    </div>
+
+  </div>
+
 </section>
 
 <footer style="display:flex;">
