@@ -8,6 +8,78 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .essay-list { display: flex; flex-direction: column; }
+
+    .essay-card {
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      align-items: start;
+      gap: 2.5rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.25s;
+      position: relative;
+    }
+    .essay-card:first-child { border-top: 1px solid var(--border); }
+    .essay-card::before {
+      content: '';
+      position: absolute;
+      left: -3.5rem; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--red);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .essay-card:hover::before { opacity: 1; }
+    .essay-card:hover .essay-card-title { color: var(--red); }
+    .essay-card:hover .essay-card-arrow { transform: translateX(4px); color: var(--red); }
+
+    .essay-card-date {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.82rem;
+      color: var(--red);
+      padding-top: 6px;
+      line-height: 1.4;
+    }
+
+    .essay-card-content { display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .essay-card-title {
+      font-family: var(--serif);
+      font-size: clamp(1.25rem, 2vw, 1.7rem);
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.2;
+      transition: color 0.25s;
+    }
+
+    .essay-card-desc {
+      font-size: 0.82rem;
+      color: var(--ink3);
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    .essay-card-arrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      padding-top: 8px;
+      transition: transform 0.25s, color 0.25s;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 700px) {
+      .essay-card { grid-template-columns: 1fr; gap: 0.6rem; }
+      .essay-card::before { left: -1.5rem; }
+      .essay-card-arrow { display: none; }
+    }
+  </style>
 </head>
 <body>
 
@@ -32,31 +104,36 @@
     <p class="section-sub">Essays on creativity, systems, self, and everything in between.</p>
     <div class="divider"></div>
   </div>
-  <div class="writing-list">
-    <a href="good-enough.html" class="essay-item">
-      <div class="essay-date">Mar 2026</div>
-      <div class="essay-body">
-        <h3>How do you know you are never good enough?</h3>
-        <p>The baseline was already: not good enough, not smart enough, not skinny enough. On external validation, quiet exhaustion, and finally having yourself.</p>
-        <span class="essay-arrow">Read →</span>
+
+  <div class="essay-list">
+
+    <a href="good-enough.html" class="essay-card">
+      <div class="essay-card-date">Mar 4<br>2026</div>
+      <div class="essay-card-content">
+        <h3 class="essay-card-title">How do you know you are never good enough?</h3>
+        <p class="essay-card-desc">The baseline was already: not good enough, not smart enough, not skinny enough. On external validation, quiet exhaustion, and finally having yourself.</p>
       </div>
+      <span class="essay-card-arrow">Read →</span>
     </a>
-    <a href="discernment.html" class="essay-item">
-      <div class="essay-date">Mar 2026</div>
-      <div class="essay-body">
-        <h3>In the Age of AI, Why your ability to call BS is your biggest asset</h3>
-        <p>AI is not coming for the people who can think. On discernment — the one skill that matters more than any prompt.</p>
-        <span class="essay-arrow">Read →</span>
+
+    <a href="discernment.html" class="essay-card">
+      <div class="essay-card-date">Mar 3<br>2026</div>
+      <div class="essay-card-content">
+        <h3 class="essay-card-title">In the Age of AI, Why your ability to call BS is your biggest asset</h3>
+        <p class="essay-card-desc">AI is not coming for the people who can think. On discernment — the one skill that matters more than any prompt.</p>
       </div>
+      <span class="essay-card-arrow">Read →</span>
     </a>
-    <a href="ai-agents.html" class="essay-item">
-      <div class="essay-date">Apr 2025</div>
-      <div class="essay-body">
-        <h3>Things I learned from building AI agents</h3>
-        <p>Nine things I wish I knew before I started — on prompts, architecture, token efficiency, and why GitHub with Claude Code changes everything.</p>
-        <span class="essay-arrow">Read →</span>
+
+    <a href="ai-agents.html" class="essay-card">
+      <div class="essay-card-date">Apr<br>2025</div>
+      <div class="essay-card-content">
+        <h3 class="essay-card-title">Things I learned from building AI agents</h3>
+        <p class="essay-card-desc">Nine things I wish I knew before I started — on prompts, architecture, token efficiency, and why GitHub with Claude Code changes everything.</p>
       </div>
+      <span class="essay-card-arrow">Read →</span>
     </a>
+
   </div>
 </section>
 
