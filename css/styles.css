@@ -254,14 +254,16 @@ section { padding: 7rem 3.5rem; min-height: 100vh; }
 
 /* FOOTER */
 footer {
-  background: var(--ink); padding: 2.5rem 3.5rem;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 2rem 3.5rem;
   display: flex; justify-content: space-between; align-items: center;
 }
 .footer-left {
-  font-family: var(--script); font-size: 1.6rem;
-  color: #fff; opacity: 0.9;
+  font-family: var(--script); font-size: 1.4rem;
+  color: var(--ink2); opacity: 0.75;
 }
-.footer-right { font-size: 0.65rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.4); }
+.footer-right { font-size: 0.6rem; letter-spacing: 0.15em; color: var(--ink3); opacity: 0.6; }
 
 /* MODAL */
 .modal-overlay {
