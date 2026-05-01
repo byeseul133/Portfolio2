@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gstack x PDLC: Auditing the Pipeline — A space by Yeseul</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .project-page { padding: 7rem 3.5rem 6rem; }
+    .project-topbar {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 3rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border);
+    }
+    .project-back {
+      font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--ink3); text-decoration: none; transition: color 0.2s;
+    }
+    .project-back::before { content: '← '; }
+    .project-back:hover { color: var(--red); }
+    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+    .project-eyebrow {
+      font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 0.75rem; display: block;
+    }
+    .project-title {
+      font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 300; line-height: 1.1; color: var(--ink);
+      letter-spacing: -0.01em; margin-bottom: 0.75rem;
+    }
+    .project-title em { font-style: italic; }
+    .project-desc {
+      font-size: 0.9rem; color: var(--ink2); line-height: 1.85;
+      max-width: 640px; margin-bottom: 2rem;
+    }
+    .project-divider { width: 40px; height: 2px; background: var(--red); margin-bottom: 2.5rem; }
+    @media (max-width: 700px) {
+      .project-page { padding: 5rem 1.5rem 4rem; }
+      .project-tags { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="scrolled">
+  <a href="../" class="nav-logo">
+    <svg viewBox="0 0 32 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M26 8.5a5.5 5.5 0 00-10.6-2A4 4 0 0014 6.5a4 4 0 000 8h12a4 4 0 000-8z"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../projects/">Projects</a></li>
+    <li><a href="../art/">Art</a></li>
+    <li><a href="../writing/">Writing</a></li>
+    <li><a href="../about/">About</a></li>
+  </ul>
+</nav>
+
+<div class="project-page">
+
+  <div class="project-topbar">
+    <a href="./" class="project-back">All projects</a>
+    <div class="project-tags">
+      <span class="work-tag">Process Audit</span>
+      <span class="work-tag">gstack</span>
+      <span class="work-tag">AI Systems</span>
+    </div>
+  </div>
+
+  <span class="project-eyebrow">01 — Projects</span>
+  <h1 class="project-title">gstack x PDLC: <em>Auditing the Pipeline</em></h1>
+  <p class="project-desc">Five gstack skills. Three phases. The same methodology the PDLC uses on products, turned back on the pipeline itself.</p>
+  <div class="project-divider"></div>
+
+  <div class="modal-body" style="padding:0;">
+
+    <div class="b2-hook">
+      <p class="b2-hook-q">What does your own pipeline miss about itself?</p>
+      <p class="b2-hook-body">The PDLC was built to take ideas through a structured process before anything gets built. But the pipeline itself was built without one. No forcing questions, no external review, no one pushing back on the assumptions baked in. gstack is Garry Tan's open-source AI sprint toolkit: five skills, three phases, each one running a different kind of audit. I ran them against the PDLC the same way the PDLC runs against a product idea.</p>
+    </div>
+
+    <p class="b2-insight">The audit found six things the pipeline couldn't find about itself. Five of them were structural.</p>
+
+    <div class="b2-block">
+      <span class="b2-block-eyebrow">The method</span>
+      <p class="b2-block-body">gstack's front-end sprint runs three phases in sequence. 구상 (Concept): /office-hours produces a design document through six forcing questions. 기획 (Plan): /plan-ceo-review, /plan-eng-review, and /plan-design-review run in parallel, each from a different lens: strategy, architecture, design quality. 설계 (Design): /design-consultation closes the phase with a complete design system. Together they cover every angle the builder is too close to see.</p>
+    </div>
+
+    <p class="modal-section-title" style="margin-top:1.5rem;">What changed</p>
+
+    <div class="b2-changes">
+      <div class="b2-change">
+        <span class="b2-change-finding">/office-hours · 구상</span>
+        <p class="b2-change-title">A pipeline that can't say no will always say yes</p>
+        <span class="b2-change-stat">The pipeline can now stop. If research shows the idea doesn't hold up, it routes back to brainstorm — not forward to the plan.</span>
+        <p class="b2-change-text">If research proved the idea wrong, the old pipeline kept going anyway. The fix adds a real off-ramp. Gate 1 now also requires two questions before it opens: what already exists today, and what would make this idea not worth building?</p>
+        <span class="b2-change-loc">Gate 1.5 · brainstorm.md · orchestrator.md</span>
+      </div>
+      <div class="b2-change">
+        <span class="b2-change-finding">/plan-ceo-review · 기획</span>
+        <p class="b2-change-title">Research could agree with everything and no one would notice</p>
+        <span class="b2-change-stat">Gate 1.5 now shows you exactly what the research changed in the plan — and flags it clearly if research changed nothing at all.</span>
+        <p class="b2-change-text">The plan is written before research runs on purpose. But there was no way to see how much the research actually challenged it. Now you can see the difference before moving on.</p>
+        <span class="b2-change-loc">Gate 1.5 · prd.md · orchestrator.md</span>
+      </div>
+      <div class="b2-change">
+        <span class="b2-change-finding">/plan-eng-review · 기획 · architecture</span>
+        <p class="b2-change-title">The UX conflict loop had no exit</p>
+        <span class="b2-change-stat">The conflict resolution loop now stops after 3 rounds. If 3 rounds don't resolve it, the process pauses and a human decides what happens next.</span>
+        <p class="b2-change-text">Each fix could create a new conflict, and the loop had no way to end on its own. Three rounds is enough for real conflicts. If it takes more, the problem is bigger than the agents can handle.</p>
+        <span class="b2-change-loc">UX Research → Gate 3 loop · ux_research.md</span>
+      </div>
+      <div class="b2-change">
+        <span class="b2-change-finding">/plan-eng-review · 기획 · failure modes</span>
+        <p class="b2-change-title">The deepest research layer was skipped automatically</p>
+        <span class="b2-change-stat">You now choose how deep the research goes. Thorough is the default. Skipping the deepest layer is a decision you make explicitly.</span>
+        <p class="b2-change-text">The old system would quietly skip the deepest research layer if it found nothing in the first two tries. That layer is where the most useful signals tend to live. Every research output now also requires a Failure Modes section.</p>
+        <span class="b2-change-loc">Research Agent · research.md</span>
+      </div>
+      <div class="b2-change">
+        <span class="b2-change-finding">/plan-design-review · 기획</span>
+        <p class="b2-change-title">The pipeline had agents. It didn't have a team.</p>
+        <span class="b2-change-stat">Every agent now has a name: Structural formatter, Vision writer, Adversarial analyst, Evidence editor, Experience designer, Builder.</span>
+        <p class="b2-change-text">A label tells you what something makes. A name tells you how to read what it makes — and how much to push back on it.</p>
+        <span class="b2-change-loc">All 6 agent specs · brainstorm.md · prd.md · research.md · ux_research.md · prototype.md</span>
+      </div>
+      <div class="b2-change">
+        <span class="b2-change-finding">/design-consultation · 설계</span>
+        <p class="b2-change-title">Every prototype made its own visual decisions from scratch</p>
+        <span class="b2-change-stat">Every prototype now starts from the same visual rulebook. One file — DESIGN.md — captures the design decisions once.</span>
+        <p class="b2-change-text">The audit didn't change what the pipeline looks like. It wrote down what was already there and made it reusable. Now adding a new feature means deciding whether it fits what already exists.</p>
+        <span class="b2-change-loc">Prototype Agent · prototype.md · DESIGN.md (new file)</span>
+      </div>
+    </div>
+
+    <div class="b2-block" style="margin-top:1.5rem;">
+      <span class="b2-block-eyebrow">What it validated</span>
+      <p class="b2-block-body">Not everything changed. Three things came back untouched. The two-file output system confirmed as correct architecture. The handoff format (summaries between agents, not full documents) confirmed as the right call for context management. Gate 3 as a hard lock confirmed: any pipeline that allows scope changes after the UX spec is approved will always find a reason to make one more change.</p>
+    </div>
+
+    <div class="b2-links">
+      <a href="https://github.com/garrytan/gstack" target="_blank" class="b2-link b2-link-primary">View gstack on GitHub</a>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
