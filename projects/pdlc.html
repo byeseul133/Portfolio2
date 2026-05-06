@@ -34,34 +34,16 @@
     .proj-section-right > p { font-size:0.95rem; color:var(--ink2); line-height:1.95; }
     .proj-section-right strong { color:var(--ink); font-weight:500; }
 
-    /* Flowchart */
-    .flow-fork { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:0.25rem; }
-    .flow-fork-card { border:1px solid var(--border); padding:1.5rem; }
-    .flow-fork-if { font-size:0.54rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink3); display:block; margin-bottom:0.6rem; }
-    .flow-fork-name { font-family:var(--serif); font-size:1.05rem; color:var(--ink); display:block; margin-bottom:0.6rem; }
-    .flow-fork-desc { font-size:0.82rem; color:var(--ink2); line-height:1.75; }
-    .flow-fork-gate { font-size:0.54rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--red); display:block; margin-top:1rem; padding-top:0.75rem; border-top:1px solid var(--border); }
-    .flow-merge { text-align:center; padding:0.85rem 0; font-size:0.56rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink3); }
-    .flow-step { display:grid; grid-template-columns:2.5rem 1fr auto; gap:1.5rem; align-items:start; padding:1.5rem 0; border-top:1px solid var(--border); }
-    .flow-step-num { font-family:var(--serif); font-style:italic; font-size:1.1rem; color:var(--ink3); padding-top:1px; }
-    .flow-step-role { font-size:0.54rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink3); display:block; margin-bottom:0.3rem; }
-    .flow-step-name { font-family:var(--serif); font-size:1.05rem; color:var(--ink); display:block; margin-bottom:0.5rem; }
-    .flow-step-desc { font-size:0.82rem; color:var(--ink2); line-height:1.75; }
-    .flow-step-out { font-size:0.66rem; color:var(--ink3); background:var(--bg3); padding:3px 9px; border-radius:2px; white-space:nowrap; margin-top:2px; font-family:monospace; }
-    .flow-gate { padding:1rem 1.25rem; border-left:2px solid var(--red); margin:0.25rem 0 0.25rem 2.5rem; }
-    .flow-gate-label { font-size:0.54rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--red); display:block; margin-bottom:0.25rem; }
-    .flow-gate-q { font-family:var(--serif); font-size:0.95rem; color:var(--ink); display:block; margin-bottom:0.35rem; }
-    .flow-gate-hint { font-size:0.78rem; color:var(--ink3); line-height:1.65; display:block; }
-    .flow-gate-lock { border-left-color:var(--ink); background:var(--bg2); margin-left:0; padding:1.25rem 1.5rem; }
-    .flow-gate-lock .flow-gate-label { color:var(--ink); }
-    .flow-gate-lock-note { font-family:var(--serif); font-style:italic; font-size:0.8rem; color:var(--ink3); display:block; margin-top:0.5rem; }
-    .flow-orchestrator { border:1px solid var(--ink); padding:1.25rem 1.5rem; margin-bottom:1.25rem; }
-    .flow-orchestrator-label { font-size:0.54rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink3); display:block; margin-bottom:0.35rem; }
-    .flow-orchestrator-name { font-family:var(--serif); font-size:1.1rem; color:var(--ink); display:block; margin-bottom:0.45rem; }
-    .flow-orchestrator-desc { font-size:0.82rem; color:var(--ink2); line-height:1.75; }
-    .flow-orchestrator-desc code { font-size:0.8em; background:var(--bg3); padding:1px 5px; border-radius:2px; }
-    .flow-orchestrator-routes { display:flex; gap:1.5rem; margin-top:0.85rem; padding-top:0.75rem; border-top:1px solid var(--border); font-size:0.75rem; color:var(--ink3); flex-wrap:wrap; }
-    .flow-orchestrator-routes span + span::before { content:'·'; margin-right:1.5rem; }
+    /* Mermaid diagram */
+    .mermaid-wrap { background:var(--bg2); padding:2rem 1.5rem; border-radius:3px; overflow-x:auto; }
+    .mermaid-wrap svg { max-width:100%; height:auto; display:block; margin:0 auto; }
+
+    /* Agent grid */
+    .flow-agents { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem 2.5rem; padding-top:1.5rem; border-top:1px solid var(--border); }
+    .flow-agent-role { font-size:0.52rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink3); display:block; margin-bottom:0.2rem; }
+    .flow-agent-name { font-family:var(--serif); font-size:0.95rem; color:var(--ink); display:block; margin-bottom:0.2rem; }
+    .flow-agent-desc { font-size:0.78rem; color:var(--ink2); line-height:1.65; display:block; }
+    .flow-agent-out { font-size:0.63rem; color:var(--ink3); background:var(--bg3); padding:2px 7px; border-radius:2px; font-family:monospace; margin-top:0.3rem; display:inline-block; }
 
     @media (max-width:768px) {
       .proj-wrap { padding:5rem 1.5rem 5rem; }
@@ -69,6 +51,7 @@
       .proj-section { grid-template-columns:1fr; gap:1.5rem; }
       .proj-meta { flex-wrap:wrap; gap:1.25rem; }
       .proj-meta-item { flex:0 0 45%; }
+      .flow-agents { grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -101,7 +84,7 @@
   </div>
 
   <h1 class="proj-title">Product Development<br><em>Life Cycle.</em></h1>
-  <p class="proj-title-desc">A structured pipeline for turning any idea into a research-grounded, UX-defined, clickable prototype. Validate first. Plan second. Build last. Five human approval gates.</p>
+  <p class="proj-title-desc">A structured pipeline for turning any idea into a research-grounded, UX-defined, clickable prototype. Validate first. Plan second. Build last. Five human approval checkpoints.</p>
 
   <div class="proj-meta">
     <div class="proj-meta-item">
@@ -138,7 +121,7 @@
     </div>
     <div class="proj-section-right">
       <p>An idea lands. It feels right. You start building. Three weeks in, the scope has grown, the problem has shifted, and the thing you're building isn't quite what you meant to build. You finish it anyway. Or you don't.</p>
-      <p>Either way, you've learned what you should have known at the start. <strong>This pipeline moves that learning to before the first line of code.</strong> It starts from wherever you are: a clear idea, or nothing yet. It ends with a clickable prototype grounded in research, defined requirements, and a resolved UX spec. Everything in between is documented. Every stage is gated.</p>
+      <p>Either way, you've learned what you should have known at the start. <strong>This pipeline moves that learning to before the first line of code.</strong> It starts from wherever you are: a clear idea, or nothing yet. It ends with a clickable prototype grounded in research, defined requirements, and a resolved UX spec. Everything in between is documented. Every stage is checked.</p>
     </div>
   </div>
 
@@ -150,96 +133,83 @@
     </div>
     <div class="proj-section-right">
 
-      <div class="flow-orchestrator">
-        <span class="flow-orchestrator-label">Single entry point · always</span>
-        <span class="flow-orchestrator-name">Orchestrator</span>
-        <p class="flow-orchestrator-desc">The only door in. Reads <code>.state.md</code> on open — if a pipeline is already in progress, skips the intro and routes directly to the current gate. If starting fresh, asks one question to route you to the right entry agent.</p>
-        <div class="flow-orchestrator-routes">
-          <span>Resuming → routes to current gate in .state.md</span>
-          <span>New → "Do you have an idea to develop?"</span>
+      <div class="mermaid-wrap">
+        <div class="mermaid">
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'DM Sans, sans-serif', 'fontSize': '13px', 'lineColor': '#1a1a1a', 'edgeLabelBackground': '#EDEAE3', 'primaryColor': '#8B3A2A', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#6B2A1A'}}}%%
+flowchart TD
+    ORC([Orchestrator]):::orch
+    ORC --> D1{Have an idea?}:::dec
+    D1 -->|Yes| BC[Brainstorm Copilot]:::eag
+    D1 -->|No| DA[Discovery Agent]:::eag
+    BC --> D2{Brief approved?}:::dec
+    DA --> D2
+    D2 -->|No| ORC
+    D2 -->|Yes| RES[Research]:::pipe
+    RES --> D3{Idea hold up?}:::dec
+    D3 -->|No| ORC
+    D3 -->|Yes| PRD[PRD]:::pipe
+    PRD --> D4{Requirements approved?}:::dec
+    D4 -->|No| PRD
+    D4 -->|Yes| UX[UX Research]:::pipe
+    UX --> D5{Experience right?}:::lock
+    D5 -->|No| UX
+    D5 -->|Yes| PT[Prototype]:::pipe
+    PT --> D6{Feels right?}:::dec
+    D6 -->|Visual| UX
+    D6 -->|Scope| PRD
+    D6 -->|Yes| DONE((Complete)):::done
+
+    classDef orch fill:#1a1a1a,stroke:#1a1a1a,color:#fff
+    classDef eag fill:#2D4A2D,stroke:#1D3A1D,color:#fff
+    classDef pipe fill:#8B3A2A,stroke:#6B2A1A,color:#fff
+    classDef dec fill:#ffffff,stroke:#1a1a1a,color:#1a1a1a
+    classDef lock fill:#1a1a1a,stroke:#1a1a1a,color:#fff
+    classDef done fill:#1a1a1a,stroke:#1a1a1a,color:#fff
         </div>
       </div>
 
-      <div class="flow-fork">
-        <div class="flow-fork-card">
-          <span class="flow-fork-if">Yes — I have an idea</span>
-          <span class="flow-fork-name">Brainstorm Copilot</span>
-          <p class="flow-fork-desc">A conversational thinking partner. Does live web research before every response. Asks one question at a time. Challenges vague scope. Ends when the direction is clear — and produces a structured brief: one idea, one platform, defined scope, at least one explicit not-building.</p>
-          <span class="flow-fork-gate">Does this capture your idea? → output/brief.md</span>
+      <div class="flow-agents">
+        <div class="flow-agent-item">
+          <span class="flow-agent-role">Entry point · always</span>
+          <span class="flow-agent-name">Orchestrator</span>
+          <span class="flow-agent-desc">Reads .state.md on open. Resumes at the current step if returning, or routes to the right entry agent if starting fresh.</span>
         </div>
-        <div class="flow-fork-card">
-          <span class="flow-fork-if">No — help me find one</span>
-          <span class="flow-fork-name">Discovery Agent</span>
-          <p class="flow-fork-desc">Four steps: define the person, surface pain points from real community signals, map what exists and where it falls short, then propose three candidates — safe bet, unexpected angle, ambitious. You pick one. That selection becomes the structured brief.</p>
-          <span class="flow-fork-gate">Idea selected → output/brief.md</span>
+        <div class="flow-agent-item">
+          <span class="flow-agent-role">Entry agent · if you have an idea</span>
+          <span class="flow-agent-name">Brainstorm Copilot</span>
+          <span class="flow-agent-desc">Sharpens a raw idea into a structured brief: one idea, one platform, defined scope, at least one explicit not-building.</span>
+          <span class="flow-agent-out">output/brief.md</span>
         </div>
-      </div>
-
-      <div class="flow-merge">Both paths produce output/brief.md — frozen here ↓</div>
-
-      <div class="flow-step">
-        <span class="flow-step-num">01</span>
-        <div class="flow-step-body">
-          <span class="flow-step-role">Adversarial analyst</span>
-          <span class="flow-step-name">Research</span>
-          <p class="flow-step-desc">Validates the idea before anything is planned. The question is not what the product should be — it is whether this idea is worth building at all. Four research tiers: direct competitors, community voice, industry signals, emerging patterns. Output is a compressed verdict: what holds, what doesn't, and what would make this not worth building.</p>
+        <div class="flow-agent-item">
+          <span class="flow-agent-role">Entry agent · if you don't have one</span>
+          <span class="flow-agent-name">Discovery Agent</span>
+          <span class="flow-agent-desc">Surfaces pain points, maps the space, proposes three candidates — safe bet, unexpected angle, ambitious. You pick one.</span>
+          <span class="flow-agent-out">output/brief.md</span>
         </div>
-        <span class="flow-step-out">output/research.md</span>
-      </div>
-
-      <div class="flow-gate">
-        <span class="flow-gate-label">Your call</span>
-        <span class="flow-gate-q">Did the idea hold up?</span>
-        <span class="flow-gate-hint">Yes → continue to planning. No → pipeline stops here. Nothing gets planned for an idea the evidence didn't support. Route back to brainstorm with the findings in hand.</span>
-      </div>
-
-      <div class="flow-step">
-        <span class="flow-step-num">02</span>
-        <div class="flow-step-body">
-          <span class="flow-step-role">Vision writer</span>
-          <span class="flow-step-name">PRD</span>
-          <p class="flow-step-desc">Reads output/brief.md and output/research.md, then writes requirements once — informed from the start. No draft-then-revise cycle. Adds a User Snapshot: four lines synthesized from real research signals, covering context, prior attempts, what they actually want, and what would make them leave.</p>
+        <div class="flow-agent-item">
+          <span class="flow-agent-role">Adversarial analyst</span>
+          <span class="flow-agent-name">Research</span>
+          <span class="flow-agent-desc">Validates the idea before anything is planned. Four tiers: competitors, community voice, industry signals, emerging patterns. Outputs a verdict, not a report.</span>
+          <span class="flow-agent-out">output/research.md</span>
         </div>
-        <span class="flow-step-out">output/prd.md</span>
-      </div>
-
-      <div class="flow-gate">
-        <span class="flow-gate-label">Your call</span>
-        <span class="flow-gate-q">Requirements approved?</span>
-        <span class="flow-gate-hint">Yes → continue. Feedback → PRD reruns with targeted changes only, then back here.</span>
-      </div>
-
-      <div class="flow-step">
-        <span class="flow-step-num">03</span>
-        <div class="flow-step-body">
-          <span class="flow-step-role">Experience designer</span>
-          <span class="flow-step-name">UX Research</span>
-          <p class="flow-step-desc">Defines every user flow, information architecture, component state, and visual direction — all traceable to the approved requirements. If anything contradicts the PRD, it flags a conflict and routes back. Maximum three rounds. If three rounds don't resolve it, a human decides.</p>
+        <div class="flow-agent-item">
+          <span class="flow-agent-role">Vision writer</span>
+          <span class="flow-agent-name">PRD</span>
+          <span class="flow-agent-desc">Reads the brief and research verdict, then writes requirements once — informed from the start. No draft-then-revise cycle.</span>
+          <span class="flow-agent-out">output/prd.md</span>
         </div>
-        <span class="flow-step-out">output/ux_research.md</span>
-      </div>
-
-      <div class="flow-gate flow-gate-lock">
-        <span class="flow-gate-label">Hard lock</span>
-        <span class="flow-gate-q">Does the full experience feel right?</span>
-        <span class="flow-gate-hint">Yes → requirements and UX lock as the single source of truth. No scope changes, no flow changes after this point.</span>
-        <span class="flow-gate-lock-note">After this: the prototype is not a test of the design. It is an execution of it.</span>
-      </div>
-
-      <div class="flow-step">
-        <span class="flow-step-num">04</span>
-        <div class="flow-step-body">
-          <span class="flow-step-role">Builder</span>
-          <span class="flow-step-name">Prototype</span>
-          <p class="flow-step-desc">Reads a compressed handoff from the locked UX spec: screens, palette, components, interactions. Generates a single HTML file — no setup, no build step. Every must-have flow is navigable end to end. Concrete enough for a real reaction, lightweight enough to throw away.</p>
+        <div class="flow-agent-item">
+          <span class="flow-agent-role">Experience designer</span>
+          <span class="flow-agent-name">UX Research</span>
+          <span class="flow-agent-desc">Defines flows, IA, components, visual direction. Resolves conflicts with the PRD before the hard lock. Maximum three rounds.</span>
+          <span class="flow-agent-out">output/ux_research.md</span>
         </div>
-        <span class="flow-step-out">output/prototype.html</span>
-      </div>
-
-      <div class="flow-gate">
-        <span class="flow-gate-label">Your call</span>
-        <span class="flow-gate-q">Does the prototype feel right?</span>
-        <span class="flow-gate-hint">Yes → pipeline complete. Visual or flow issue → UX reruns, hard lock reopens. Feature or scope issue → PRD reruns, then UX, then prototype.</span>
+        <div class="flow-agent-item">
+          <span class="flow-agent-role">Builder</span>
+          <span class="flow-agent-name">Prototype</span>
+          <span class="flow-agent-desc">Executes the locked spec. One HTML file, no setup. Every must-have flow navigable end to end.</span>
+          <span class="flow-agent-out">output/prototype.html</span>
+        </div>
       </div>
 
     </div>
@@ -261,12 +231,12 @@
         <div class="story-principle">
           <div class="story-principle-n">02</div>
           <div class="story-principle-title">Each agent does one job with a clear handoff.</div>
-          <div class="story-principle-desc">Research validates. PRD plans. UX specifies. Prototype builds. No agent updates another agent's output. Each handoff is a compressed summary, not a full document — lean enough to keep context clean, specific enough to not lose anything.</div>
+          <div class="story-principle-desc">Research validates. PRD plans. UX specifies. Prototype builds. No agent updates another agent's output. Each handoff is a compressed summary — lean enough to keep context clean, specific enough to not lose anything.</div>
         </div>
         <div class="story-principle">
           <div class="story-principle-n">03</div>
           <div class="story-principle-title">Nothing moves without your sign-off.</div>
-          <div class="story-principle-desc">Five human approval gates sit between every phase. The pipeline never advances on its own. Autonomous work, deliberate handoffs.</div>
+          <div class="story-principle-desc">Human approval checkpoints sit between every phase. The pipeline never advances on its own. Autonomous work, deliberate handoffs.</div>
         </div>
         <div class="story-principle">
           <div class="story-principle-n">04</div>
@@ -290,5 +260,7 @@
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({ startOnLoad: true, securityLevel: 'loose' });</script>
 </body>
 </html>
