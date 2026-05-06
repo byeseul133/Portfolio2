@@ -40,7 +40,7 @@
 
     /* Mermaid diagram */
     .mermaid-wrap { background:var(--bg2); padding:2rem 1.5rem; border-radius:3px; overflow-x:auto; }
-    .mermaid-wrap svg { max-width:100%; height:auto; display:block; margin:0 auto; }
+    .mermaid-wrap svg { width:100%; max-width:420px; height:auto; display:block; margin:0 auto; }
 
     /* Agent grid */
     .flow-agents { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem 2.5rem; padding-top:1.5rem; border-top:1px solid var(--border); }
@@ -146,53 +146,41 @@
         <div class="mermaid">
 flowchart TD
     ORC([Orchestrator])
-    D1{Have an idea?}
-    BC[Brainstorm Copilot]
-    DA[Discovery Agent]
-    D2{Brief approved?}
+    D1{Idea?}
+    BC[Brainstorm]
+    DA[Discovery]
     RES[Research]
-    D3{Idea holds up?}
+    D3{Holds up?}
     PRD[PRD]
-    D4{Requirements approved?}
     UX[UX Research]
-    D5{Experience right?}
+    D5{UX locked?}
     PT[Prototype]
-    D6{Feels right?}
     DONE((Complete))
 
     ORC --> D1
     D1 -->|Yes| BC
     D1 -->|No| DA
-    BC --> D2
-    DA --> D2
-    D2 -->|No| ORC
-    D2 -->|Yes| RES
+    BC --> RES
+    DA --> RES
     RES --> D3
-    D3 -->|No| ORC
     D3 -->|Yes| PRD
-    PRD --> D4
-    D4 -->|No| PRD
-    D4 -->|Yes| UX
+    D3 -->|No — restart| ORC
+    PRD --> UX
     UX --> D5
-    D5 -->|No| UX
     D5 -->|Yes| PT
-    PT --> D6
-    D6 -->|Visual fix| UX
-    D6 -->|Scope change| PRD
-    D6 -->|Yes| DONE
+    D5 -->|No — revise| UX
+    PT --> DONE
 
     classDef orch fill:#1a1a1a,stroke:#1a1a1a,color:#fff
     classDef eag fill:#2D4A2D,stroke:#1D3A1D,color:#fff
     classDef pipe fill:#8B3A2A,stroke:#6B2A1A,color:#fff
     classDef dec fill:#f5f3ef,stroke:#1a1a1a,color:#1a1a1a
-    classDef lock fill:#3a2020,stroke:#1a1a1a,color:#fff
     classDef done fill:#1a1a1a,stroke:#1a1a1a,color:#fff
 
     class ORC orch
     class BC,DA eag
     class RES,PRD,UX,PT pipe
-    class D1,D2,D3,D4,D6 dec
-    class D5 lock
+    class D1,D3,D5 dec
     class DONE done
         </div>
       </div>
