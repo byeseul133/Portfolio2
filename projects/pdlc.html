@@ -137,36 +137,56 @@
 
       <div class="mermaid-wrap">
         <div class="mermaid">
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'DM Sans, sans-serif', 'fontSize': '13px', 'lineColor': '#1a1a1a', 'edgeLabelBackground': '#EDEAE3', 'primaryColor': '#8B3A2A', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#6B2A1A'}}}%%
 flowchart TD
-    ORC([Orchestrator]):::orch
-    ORC --> D1{Have an idea?}:::dec
-    D1 -->|Yes| BC[Brainstorm Copilot]:::eag
-    D1 -->|No| DA[Discovery Agent]:::eag
-    BC --> D2{Brief approved?}:::dec
+    ORC([Orchestrator])
+    D1{Have an idea?}
+    BC[Brainstorm Copilot]
+    DA[Discovery Agent]
+    D2{Brief approved?}
+    RES[Research]
+    D3{Idea holds up?}
+    PRD[PRD]
+    D4{Requirements approved?}
+    UX[UX Research]
+    D5{Experience right?}
+    PT[Prototype]
+    D6{Feels right?}
+    DONE((Complete))
+
+    ORC --> D1
+    D1 -->|Yes| BC
+    D1 -->|No| DA
+    BC --> D2
     DA --> D2
     D2 -->|No| ORC
-    D2 -->|Yes| RES[Research]:::pipe
-    RES --> D3{Idea hold up?}:::dec
+    D2 -->|Yes| RES
+    RES --> D3
     D3 -->|No| ORC
-    D3 -->|Yes| PRD[PRD]:::pipe
-    PRD --> D4{Requirements approved?}:::dec
+    D3 -->|Yes| PRD
+    PRD --> D4
     D4 -->|No| PRD
-    D4 -->|Yes| UX[UX Research]:::pipe
-    UX --> D5{Experience right?}:::lock
+    D4 -->|Yes| UX
+    UX --> D5
     D5 -->|No| UX
-    D5 -->|Yes| PT[Prototype]:::pipe
-    PT --> D6{Feels right?}:::dec
-    D6 -->|Visual| UX
-    D6 -->|Scope| PRD
-    D6 -->|Yes| DONE((Complete)):::done
+    D5 -->|Yes| PT
+    PT --> D6
+    D6 -->|Visual fix| UX
+    D6 -->|Scope change| PRD
+    D6 -->|Yes| DONE
 
     classDef orch fill:#1a1a1a,stroke:#1a1a1a,color:#fff
     classDef eag fill:#2D4A2D,stroke:#1D3A1D,color:#fff
     classDef pipe fill:#8B3A2A,stroke:#6B2A1A,color:#fff
-    classDef dec fill:#ffffff,stroke:#1a1a1a,color:#1a1a1a
-    classDef lock fill:#1a1a1a,stroke:#1a1a1a,color:#fff
+    classDef dec fill:#f5f3ef,stroke:#1a1a1a,color:#1a1a1a
+    classDef lock fill:#3a2020,stroke:#1a1a1a,color:#fff
     classDef done fill:#1a1a1a,stroke:#1a1a1a,color:#fff
+
+    class ORC orch
+    class BC,DA eag
+    class RES,PRD,UX,PT pipe
+    class D1,D2,D3,D4,D6 dec
+    class D5 lock
+    class DONE done
         </div>
       </div>
 
