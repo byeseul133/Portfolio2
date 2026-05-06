@@ -55,6 +55,13 @@
     .flow-gate-lock { border-left-color:var(--ink); background:var(--bg2); margin-left:0; padding:1.25rem 1.5rem; }
     .flow-gate-lock .flow-gate-label { color:var(--ink); }
     .flow-gate-lock-note { font-family:var(--serif); font-style:italic; font-size:0.8rem; color:var(--ink3); display:block; margin-top:0.5rem; }
+    .flow-orchestrator { border:1px solid var(--ink); padding:1.25rem 1.5rem; margin-bottom:1.25rem; }
+    .flow-orchestrator-label { font-size:0.54rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink3); display:block; margin-bottom:0.35rem; }
+    .flow-orchestrator-name { font-family:var(--serif); font-size:1.1rem; color:var(--ink); display:block; margin-bottom:0.45rem; }
+    .flow-orchestrator-desc { font-size:0.82rem; color:var(--ink2); line-height:1.75; }
+    .flow-orchestrator-desc code { font-size:0.8em; background:var(--bg3); padding:1px 5px; border-radius:2px; }
+    .flow-orchestrator-routes { display:flex; gap:1.5rem; margin-top:0.85rem; padding-top:0.75rem; border-top:1px solid var(--border); font-size:0.75rem; color:var(--ink3); flex-wrap:wrap; }
+    .flow-orchestrator-routes span + span::before { content:'·'; margin-right:1.5rem; }
 
     @media (max-width:768px) {
       .proj-wrap { padding:5rem 1.5rem 5rem; }
@@ -139,22 +146,32 @@
     </div>
     <div class="proj-section-right">
 
-      <div class="flow-fork">
-        <div class="flow-fork-card">
-          <span class="flow-fork-if">If you have an idea</span>
-          <span class="flow-fork-name">Brainstorm Copilot</span>
-          <p class="flow-fork-desc">A conversational thinking partner. Does live web research before every response. Asks one question at a time. Challenges vague scope. Ends when the direction is clear — and produces a structured brief: one idea, one platform, defined scope, at least one explicit not-building.</p>
-          <span class="flow-fork-gate">Gate 1 · Does this capture your idea? → Structured brief produced</span>
-        </div>
-        <div class="flow-fork-card">
-          <span class="flow-fork-if">If you don't have one</span>
-          <span class="flow-fork-name">Discovery Agent</span>
-          <p class="flow-fork-desc">Four steps: define the person, surface pain points from real community signals, map what exists and where it falls short, then propose three candidates — safe bet, unexpected angle, ambitious. You pick one. That selection becomes the structured brief.</p>
-          <span class="flow-fork-gate">Gate 1 · Idea selected → Structured brief produced</span>
+      <div class="flow-orchestrator">
+        <span class="flow-orchestrator-label">Single entry point · always</span>
+        <span class="flow-orchestrator-name">Orchestrator</span>
+        <p class="flow-orchestrator-desc">The only door in. Reads <code>.state.md</code> on open — if a pipeline is already in progress, skips the intro and routes directly to the current gate. If starting fresh, asks one question to route you to the right entry agent.</p>
+        <div class="flow-orchestrator-routes">
+          <span>Resuming → routes to current gate in .state.md</span>
+          <span>New → "Do you have an idea to develop?"</span>
         </div>
       </div>
 
-      <div class="flow-merge">Both paths produce the same structured brief ↓</div>
+      <div class="flow-fork">
+        <div class="flow-fork-card">
+          <span class="flow-fork-if">Yes — I have an idea</span>
+          <span class="flow-fork-name">Brainstorm Copilot</span>
+          <p class="flow-fork-desc">A conversational thinking partner. Does live web research before every response. Asks one question at a time. Challenges vague scope. Ends when the direction is clear — and produces a structured brief: one idea, one platform, defined scope, at least one explicit not-building.</p>
+          <span class="flow-fork-gate">Gate 1 · Does this capture your idea? → output/brief.md</span>
+        </div>
+        <div class="flow-fork-card">
+          <span class="flow-fork-if">No — help me find one</span>
+          <span class="flow-fork-name">Discovery Agent</span>
+          <p class="flow-fork-desc">Four steps: define the person, surface pain points from real community signals, map what exists and where it falls short, then propose three candidates — safe bet, unexpected angle, ambitious. You pick one. That selection becomes the structured brief.</p>
+          <span class="flow-fork-gate">Gate 1 · Idea selected → output/brief.md</span>
+        </div>
+      </div>
+
+      <div class="flow-merge">Both paths produce output/brief.md — frozen after Gate 1 ↓</div>
 
       <div class="flow-step">
         <span class="flow-step-num">01</span>
@@ -163,7 +180,7 @@
           <span class="flow-step-name">Research</span>
           <p class="flow-step-desc">Validates the idea before anything is planned. The question is not what the product should be — it is whether this idea is worth building at all. Four research tiers: direct competitors, community voice, industry signals, emerging patterns. Output is a compressed verdict: what holds, what doesn't, and what would make this not worth building.</p>
         </div>
-        <span class="flow-step-out">research.md</span>
+        <span class="flow-step-out">output/research.md</span>
       </div>
 
       <div class="flow-gate">
@@ -177,9 +194,9 @@
         <div class="flow-step-body">
           <span class="flow-step-role">Vision writer</span>
           <span class="flow-step-name">PRD</span>
-          <p class="flow-step-desc">Reads the structured brief and the research verdict, then writes requirements once — informed from the start. No draft-then-revise cycle. Adds a User Snapshot: four lines synthesized from real research signals, covering context, prior attempts, what they actually want, and what would make them leave.</p>
+          <p class="flow-step-desc">Reads output/brief.md and output/research.md, then writes requirements once — informed from the start. No draft-then-revise cycle. Adds a User Snapshot: four lines synthesized from real research signals, covering context, prior attempts, what they actually want, and what would make them leave.</p>
         </div>
-        <span class="flow-step-out">prd.md</span>
+        <span class="flow-step-out">output/prd.md</span>
       </div>
 
       <div class="flow-gate">
@@ -195,7 +212,7 @@
           <span class="flow-step-name">UX Research</span>
           <p class="flow-step-desc">Defines every user flow, information architecture, component state, and visual direction — all traceable to the approved requirements. If anything contradicts the PRD, it flags a conflict and routes back. Maximum three rounds. If three rounds don't resolve it, a human decides.</p>
         </div>
-        <span class="flow-step-out">ux_research.md</span>
+        <span class="flow-step-out">output/ux_research.md</span>
       </div>
 
       <div class="flow-gate flow-gate-lock">
@@ -212,7 +229,7 @@
           <span class="flow-step-name">Prototype</span>
           <p class="flow-step-desc">Reads a compressed handoff from the locked UX spec: screens, palette, components, interactions. Generates a single HTML file — no setup, no build step. Every must-have flow is navigable end to end. Concrete enough for a real reaction, lightweight enough to throw away.</p>
         </div>
-        <span class="flow-step-out">prototype.html</span>
+        <span class="flow-step-out">output/prototype.html</span>
       </div>
 
       <div class="flow-gate">
