@@ -71,7 +71,7 @@
   </div>
 
   <h1 class="proj-title">Product Development<br><em>Life Cycle.</em></h1>
-  <p class="proj-title-desc">A structured pipeline for turning any idea into a research-grounded, UX-defined, clickable prototype. Six specialist agents. Five human approval gates. Everything documents what the next stage needs.</p>
+  <p class="proj-title-desc">A structured pipeline for turning any idea into a research-grounded, UX-defined, clickable prototype. Validate first. Plan second. Build last. Five specialist agents. Five human approval gates.</p>
 
   <div class="proj-meta">
     <div class="proj-meta-item">
@@ -88,7 +88,7 @@
     </div>
     <div class="proj-meta-item">
       <span class="proj-meta-label">Status</span>
-      <span class="proj-meta-val">Live · v1.2</span>
+      <span class="proj-meta-val">Live · v1.3</span>
     </div>
     <div class="proj-meta-item">
       <span class="proj-meta-label">Output</span>
@@ -112,14 +112,14 @@
   <div class="proj-section">
     <div class="proj-section-left">
       <span class="proj-section-label">How It Runs</span>
-      <h2 class="proj-section-heading">Six phases.<br><em>Five gates.</em></h2>
+      <h2 class="proj-section-heading">Validate the idea.<br><em>Then write the plan.</em></h2>
     </div>
     <div class="proj-section-right">
       <div class="pl-fork">
         <div class="pl-fork-card">
           <div class="pl-fork-if">If you have an idea</div>
           <div class="pl-fork-agent-name">Brainstorm Copilot</div>
-          <div class="pl-fork-desc">A conversational thinking partner. Does live web research before every response. Asks one question at a time. Challenges vague scope. Ends when the direction is clear: one idea, one platform, a scope, and at least one explicit not-building.</div>
+          <div class="pl-fork-desc">A conversational thinking partner. Does live web research before every response. Asks one question at a time. Challenges vague scope. Ends when the direction is clear: one idea, one platform, a defined scope, and at least one explicit not-building.</div>
           <div class="pl-fork-gate-lbl">Gate 1 · Does this capture your idea?</div>
         </div>
         <div class="pl-fork-card">
@@ -135,63 +135,67 @@
         <div class="pl-merge-arrow"></div>
       </div>
       <div class="pl-steps">
+
         <div class="pl-agent">
           <div class="pl-agent-role">Structural formatter · silent</div>
           <div class="pl-agent-name">Intake Clarifier</div>
-          <div class="pl-agent-desc">Converts the handoff into a structured project brief. Runs invisibly between the idea step and everything else. The brief is frozen the moment it is written and never touched again.</div>
+          <div class="pl-agent-desc">Converts the handoff into a structured project brief. Runs invisibly — you never interact with it. The brief is frozen the moment it is written. It is the one document that never changes, regardless of what research or requirements say later.</div>
           <div class="pl-agent-outs"><span>project_brief.md</span></div>
         </div>
-        <div class="pl-agent">
-          <div class="pl-agent-role">Vision writer</div>
-          <div class="pl-agent-name">PRD Draft</div>
-          <div class="pl-agent-desc">Writes the first version of the product requirements from the brief alone, before any research runs. This is intentional. Capturing the raw vision first means research can genuinely test the idea rather than being reverse-engineered to justify it.</div>
-          <div class="pl-agent-outs"><span>prd_draft.md</span></div>
-        </div>
+
         <div class="pl-agent">
           <div class="pl-agent-role">Adversarial analyst</div>
           <div class="pl-agent-name">Research</div>
-          <div class="pl-agent-desc">Four research tiers in parallel pairs. Direct competitors and community voice first, then industry signals and emerging patterns. Each tier cross-validates the others. The output is a compressed summary flagging only what the draft PRD got wrong, not the full report.</div>
+          <div class="pl-agent-desc">Validates the idea before anything is planned. The question is not what the product should be — it is whether this idea is worth building at all. Four research tiers: direct competitors, community voice, industry signals, emerging patterns. Output is a compressed verdict: what holds up, what doesn't, and what would make this not worth building. This runs on the raw idea, not on a draft plan.</div>
           <div class="pl-agent-outs"><span>research.md</span></div>
         </div>
+
         <div class="pl-gate">
           <div class="pl-gate-label">Gate 1.5 · Your call</div>
-          <div class="pl-gate-q">Happy with the research?</div>
-          <div class="pl-gate-hint">Yes → continue. No → name what to dig into, and research reruns that section only, then Gate 1.5 again.</div>
+          <div class="pl-gate-q">Did the idea hold up?</div>
+          <div class="pl-gate-hint">Yes → continue to planning. No → the pipeline stops here. Nothing gets planned for an idea the evidence didn't support. Route back to brainstorm with the findings in hand.</div>
         </div>
+
         <div class="pl-agent">
-          <div class="pl-agent-role">Evidence editor</div>
-          <div class="pl-agent-name">PRD Refine</div>
-          <div class="pl-agent-desc">Reads the compressed research handoff. Updates only what the evidence actually changes. If the draft held up, it stays as written. Adds a User Snapshot: four lines synthesized from real research findings, not invented.</div>
+          <div class="pl-agent-role">Vision writer</div>
+          <div class="pl-agent-name">PRD</div>
+          <div class="pl-agent-desc">Reads the project brief and the research verdict, then writes requirements once — informed from the start. No draft-then-revise cycle. Every requirement is grounded in evidence before Gate 2 opens. Adds a User Snapshot: four lines synthesized from real research signals, covering context, prior attempts, what they actually want, and what would make them abandon it.</div>
           <div class="pl-agent-outs"><span>prd.md</span></div>
         </div>
+
         <div class="pl-gate">
           <div class="pl-gate-label">Gate 2 · Your call</div>
           <div class="pl-gate-q">Requirements approved?</div>
           <div class="pl-gate-hint">Yes → continue. Feedback → PRD reruns with targeted changes only, then Gate 2 again.</div>
         </div>
+
         <div class="pl-agent">
           <div class="pl-agent-role">Experience designer</div>
           <div class="pl-agent-name">UX Research</div>
-          <div class="pl-agent-desc">Defines every user flow, information architecture, component state, and visual direction. If anything contradicts the approved requirements, it flags a conflict and routes back to the PRD agent. That loop runs until zero conflicts remain.</div>
+          <div class="pl-agent-desc">Defines every user flow, information architecture, component state, and visual direction — all traceable back to the approved requirements. If anything contradicts the PRD, it flags a conflict and routes back. That loop runs a maximum of three rounds. If three rounds don't resolve it, a human decides what happens next.</div>
           <div class="pl-agent-outs"><span>ux_research.md</span></div>
         </div>
+
         <div class="pl-gate pl-gate-lock">
           <div class="pl-gate-label">Gate 3 · Hard lock</div>
           <div class="pl-gate-q">Does the full experience feel right?</div>
           <div class="pl-gate-hint">Yes → requirements and UX lock together as the single source of truth. No scope changes, no flow changes after this point.</div>
           <div class="pl-gate-lock-note">After Gate 3: the prototype is not a test of the design. It is an execution of it.</div>
         </div>
+
         <div class="pl-agent">
           <div class="pl-agent-role">Builder</div>
           <div class="pl-agent-name">Prototype</div>
-          <div class="pl-agent-desc">Reads a compressed handoff from the locked UX spec. Generates a single HTML file that opens in any browser, no setup, no build step. Every must-have flow is navigable end to end. Concrete enough to get a real reaction, lightweight enough to throw away if needed.</div>
+          <div class="pl-agent-desc">Reads a compressed handoff from the locked UX spec: screens, palette, components, interactions. Generates a single HTML file that opens in any browser — no setup, no build step. Every must-have flow is navigable end to end. Concrete enough to get a real reaction, lightweight enough to throw away if the direction needs to change.</div>
           <div class="pl-agent-outs"><span>prototype.html</span></div>
         </div>
+
         <div class="pl-gate">
           <div class="pl-gate-label">Gate 4 · Your call</div>
           <div class="pl-gate-q">Does the prototype feel right?</div>
           <div class="pl-gate-hint">Yes → pipeline complete. Visual or flow issue → UX reruns, Gate 3 reopens. Feature or scope issue → PRD reruns, then UX, then prototype.</div>
         </div>
+
       </div>
     </div>
   </div>
@@ -206,23 +210,23 @@
       <div class="story-principles">
         <div class="story-principle">
           <div class="story-principle-n">01</div>
-          <div class="story-principle-title">Research tests the vision. Not the other way around.</div>
-          <div class="story-principle-desc">The draft requirements are written before research runs. That means findings are actually testing the idea rather than being reverse-engineered to support it.</div>
+          <div class="story-principle-title">Validate the idea before you write the plan.</div>
+          <div class="story-principle-desc">Research runs on the raw idea, not on a draft requirements doc. You only write a plan for ideas that held up under evidence. If an idea fails at Gate 1.5, nothing has been built yet — so nothing has been wasted.</div>
         </div>
         <div class="story-principle">
           <div class="story-principle-n">02</div>
-          <div class="story-principle-title">Nothing moves without your sign-off.</div>
-          <div class="story-principle-desc">Human approval gates sit between every phase. The pipeline never advances on its own. Autonomous work, deliberate handoffs.</div>
+          <div class="story-principle-title">Each agent does one job with a clear handoff.</div>
+          <div class="story-principle-desc">Research validates. PRD plans. UX specifies. Prototype builds. No agent updates another agent's output. Each handoff is a compressed summary, not a full document — lean enough to keep context clean, specific enough to not lose anything.</div>
         </div>
         <div class="story-principle">
           <div class="story-principle-n">03</div>
-          <div class="story-principle-title">UX conflicts are resolved before Gate 3. Never after.</div>
-          <div class="story-principle-desc">Gate 3 only opens when zero conflicts remain, so nothing contradictory makes it into the prototype.</div>
+          <div class="story-principle-title">Nothing moves without your sign-off.</div>
+          <div class="story-principle-desc">Five human approval gates sit between every phase. The pipeline never advances on its own. Autonomous work, deliberate handoffs.</div>
         </div>
         <div class="story-principle">
           <div class="story-principle-n">04</div>
-          <div class="story-principle-title">Agents pass summaries to each other, not documents.</div>
-          <div class="story-principle-desc">Inter-agent communication stays lean so nothing gets hallucinated from context overload. Full documents exist for human review at gates.</div>
+          <div class="story-principle-title">Gate 3 is a hard lock. No exceptions.</div>
+          <div class="story-principle-desc">UX conflicts are fully resolved before Gate 3 opens. Any pipeline that allows scope changes after the UX spec is approved will always find a reason to make one more change. Gate 3 ends that.</div>
         </div>
       </div>
     </div>
