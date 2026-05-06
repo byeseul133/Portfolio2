@@ -161,17 +161,17 @@
           <span class="flow-fork-if">Yes — I have an idea</span>
           <span class="flow-fork-name">Brainstorm Copilot</span>
           <p class="flow-fork-desc">A conversational thinking partner. Does live web research before every response. Asks one question at a time. Challenges vague scope. Ends when the direction is clear — and produces a structured brief: one idea, one platform, defined scope, at least one explicit not-building.</p>
-          <span class="flow-fork-gate">Gate 1 · Does this capture your idea? → output/brief.md</span>
+          <span class="flow-fork-gate">Does this capture your idea? → output/brief.md</span>
         </div>
         <div class="flow-fork-card">
           <span class="flow-fork-if">No — help me find one</span>
           <span class="flow-fork-name">Discovery Agent</span>
           <p class="flow-fork-desc">Four steps: define the person, surface pain points from real community signals, map what exists and where it falls short, then propose three candidates — safe bet, unexpected angle, ambitious. You pick one. That selection becomes the structured brief.</p>
-          <span class="flow-fork-gate">Gate 1 · Idea selected → output/brief.md</span>
+          <span class="flow-fork-gate">Idea selected → output/brief.md</span>
         </div>
       </div>
 
-      <div class="flow-merge">Both paths produce output/brief.md — frozen after Gate 1 ↓</div>
+      <div class="flow-merge">Both paths produce output/brief.md — frozen here ↓</div>
 
       <div class="flow-step">
         <span class="flow-step-num">01</span>
@@ -184,7 +184,7 @@
       </div>
 
       <div class="flow-gate">
-        <span class="flow-gate-label">Gate 1.5 · Your call</span>
+        <span class="flow-gate-label">Your call</span>
         <span class="flow-gate-q">Did the idea hold up?</span>
         <span class="flow-gate-hint">Yes → continue to planning. No → pipeline stops here. Nothing gets planned for an idea the evidence didn't support. Route back to brainstorm with the findings in hand.</span>
       </div>
@@ -200,9 +200,9 @@
       </div>
 
       <div class="flow-gate">
-        <span class="flow-gate-label">Gate 2 · Your call</span>
+        <span class="flow-gate-label">Your call</span>
         <span class="flow-gate-q">Requirements approved?</span>
-        <span class="flow-gate-hint">Yes → continue. Feedback → PRD reruns with targeted changes only, then Gate 2 again.</span>
+        <span class="flow-gate-hint">Yes → continue. Feedback → PRD reruns with targeted changes only, then back here.</span>
       </div>
 
       <div class="flow-step">
@@ -216,10 +216,10 @@
       </div>
 
       <div class="flow-gate flow-gate-lock">
-        <span class="flow-gate-label">Gate 3 · Hard lock</span>
+        <span class="flow-gate-label">Hard lock</span>
         <span class="flow-gate-q">Does the full experience feel right?</span>
         <span class="flow-gate-hint">Yes → requirements and UX lock as the single source of truth. No scope changes, no flow changes after this point.</span>
-        <span class="flow-gate-lock-note">After Gate 3: the prototype is not a test of the design. It is an execution of it.</span>
+        <span class="flow-gate-lock-note">After this: the prototype is not a test of the design. It is an execution of it.</span>
       </div>
 
       <div class="flow-step">
@@ -233,9 +233,9 @@
       </div>
 
       <div class="flow-gate">
-        <span class="flow-gate-label">Gate 4 · Your call</span>
+        <span class="flow-gate-label">Your call</span>
         <span class="flow-gate-q">Does the prototype feel right?</span>
-        <span class="flow-gate-hint">Yes → pipeline complete. Visual or flow issue → UX reruns, Gate 3 reopens. Feature or scope issue → PRD reruns, then UX, then prototype.</span>
+        <span class="flow-gate-hint">Yes → pipeline complete. Visual or flow issue → UX reruns, hard lock reopens. Feature or scope issue → PRD reruns, then UX, then prototype.</span>
       </div>
 
     </div>
@@ -252,7 +252,7 @@
         <div class="story-principle">
           <div class="story-principle-n">01</div>
           <div class="story-principle-title">Validate the idea before you write the plan.</div>
-          <div class="story-principle-desc">Research runs on the raw idea, not on a draft requirements doc. You only write a plan for ideas that held up under evidence. If an idea fails at Gate 1.5, nothing has been built yet — so nothing has been wasted.</div>
+          <div class="story-principle-desc">Research runs on the raw idea, not on a draft requirements doc. You only write a plan for ideas that held up under evidence. If an idea doesn't survive the research check, nothing has been built yet — so nothing has been wasted.</div>
         </div>
         <div class="story-principle">
           <div class="story-principle-n">02</div>
@@ -266,8 +266,8 @@
         </div>
         <div class="story-principle">
           <div class="story-principle-n">04</div>
-          <div class="story-principle-title">Gate 3 is a hard lock. No exceptions.</div>
-          <div class="story-principle-desc">UX conflicts are fully resolved before Gate 3 opens. Any pipeline that allows scope changes after the UX spec is approved will always find a reason to make one more change. Gate 3 ends that.</div>
+          <div class="story-principle-title">The hard lock. No exceptions.</div>
+          <div class="story-principle-desc">UX conflicts are fully resolved before the hard lock opens. Any pipeline that allows scope changes after the UX spec is approved will always find a reason to make one more change. The hard lock ends that.</div>
         </div>
       </div>
     </div>
