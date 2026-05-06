@@ -7,7 +7,7 @@
   --ink:    #1a1714;
   --ink2:   #3d3530;
   --ink3:   #7a706a;
-  --border: rgba(26,23,20,0.1);
+  --border: rgba(26,23,20,0.14);
   --serif:  'Cormorant Garamond', Georgia, serif;
   --script: 'Caveat', cursive;
   --sans:   'DM Sans', sans-serif;
@@ -131,7 +131,7 @@ nav.scrolled .nav-links a.active { color: var(--red); }
 .btn-ghost:hover { color: #fff; border-color: #fff; }
 
 /* SECTIONS */
-section { padding: 7rem 3.5rem; min-height: 100vh; }
+section { padding: 5rem 3.5rem; min-height: 100vh; }
 
 .section-eyebrow {
   font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
@@ -154,7 +154,7 @@ section { padding: 7rem 3.5rem; min-height: 100vh; }
   font-family: var(--serif); font-style: italic;
   font-size: 1rem; color: var(--ink3);
 }
-.divider { width: 40px; height: 2px; background: var(--red); margin: 2rem 0 3.5rem; }
+.divider { width: 40px; height: 2px; background: var(--red); margin: 1.5rem 0 2.5rem; }
 
 /* WORK */
 #work { background: var(--bg); }
@@ -164,30 +164,30 @@ section { padding: 7rem 3.5rem; min-height: 100vh; }
   border: 1px solid var(--border);
 }
 .work-card {
-  background: var(--bg); padding: 2.5rem;
-  transition: background 0.3s;
+  background: var(--bg); padding: 2rem;
+  transition: background 0.3s, box-shadow 0.2s;
 }
-.work-card:hover { background: var(--bg2); }
+.work-card:hover { background: var(--bg2); box-shadow: inset 3px 0 0 var(--red); }
 .work-card.clickable { cursor: pointer; }
 .work-num {
   font-family: var(--serif); font-style: italic;
   font-size: 0.8rem; color: var(--red);
-  margin-bottom: 1.5rem; display: block;
+  margin-bottom: 1rem; display: block;
 }
 .work-card h3 {
   font-family: var(--serif); font-size: 1.4rem;
   font-weight: 400; color: var(--ink);
-  margin-bottom: 0.75rem; line-height: 1.25;
+  margin-bottom: 0.5rem; line-height: 1.25;
 }
 .work-card p { font-size: 0.875rem; color: var(--ink2); line-height: 1.8; }
 .work-tag {
-  display: inline-block; margin-top: 1.5rem; margin-right: 6px;
+  display: inline-block; margin-top: 1.25rem; margin-right: 6px;
   font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--red); border: 1px solid rgba(200,37,26,0.3);
   padding: 3px 10px;
 }
 .work-card-hint {
-  display: block; margin-top: 1.25rem;
+  display: block; margin-top: 0.85rem;
   font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
   color: var(--ink3); opacity: 0.6;
 }
