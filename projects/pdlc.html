@@ -33,6 +33,29 @@
     .proj-section-right { display:flex; flex-direction:column; gap:1.25rem; }
     .proj-section-right > p { font-size:0.95rem; color:var(--ink2); line-height:1.95; }
     .proj-section-right strong { color:var(--ink); font-weight:500; }
+
+    /* Flowchart */
+    .flow-fork { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:0.25rem; }
+    .flow-fork-card { border:1px solid var(--border); padding:1.5rem; }
+    .flow-fork-if { font-size:0.54rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink3); display:block; margin-bottom:0.6rem; }
+    .flow-fork-name { font-family:var(--serif); font-size:1.05rem; color:var(--ink); display:block; margin-bottom:0.6rem; }
+    .flow-fork-desc { font-size:0.82rem; color:var(--ink2); line-height:1.75; }
+    .flow-fork-gate { font-size:0.54rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--red); display:block; margin-top:1rem; padding-top:0.75rem; border-top:1px solid var(--border); }
+    .flow-merge { text-align:center; padding:0.85rem 0; font-size:0.56rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink3); }
+    .flow-step { display:grid; grid-template-columns:2.5rem 1fr auto; gap:1.5rem; align-items:start; padding:1.5rem 0; border-top:1px solid var(--border); }
+    .flow-step-num { font-family:var(--serif); font-style:italic; font-size:1.1rem; color:var(--ink3); padding-top:1px; }
+    .flow-step-role { font-size:0.54rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink3); display:block; margin-bottom:0.3rem; }
+    .flow-step-name { font-family:var(--serif); font-size:1.05rem; color:var(--ink); display:block; margin-bottom:0.5rem; }
+    .flow-step-desc { font-size:0.82rem; color:var(--ink2); line-height:1.75; }
+    .flow-step-out { font-size:0.66rem; color:var(--ink3); background:var(--bg3); padding:3px 9px; border-radius:2px; white-space:nowrap; margin-top:2px; font-family:monospace; }
+    .flow-gate { padding:1rem 1.25rem; border-left:2px solid var(--red); margin:0.25rem 0 0.25rem 2.5rem; }
+    .flow-gate-label { font-size:0.54rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--red); display:block; margin-bottom:0.25rem; }
+    .flow-gate-q { font-family:var(--serif); font-size:0.95rem; color:var(--ink); display:block; margin-bottom:0.35rem; }
+    .flow-gate-hint { font-size:0.78rem; color:var(--ink3); line-height:1.65; display:block; }
+    .flow-gate-lock { border-left-color:var(--ink); background:var(--bg2); margin-left:0; padding:1.25rem 1.5rem; }
+    .flow-gate-lock .flow-gate-label { color:var(--ink); }
+    .flow-gate-lock-note { font-family:var(--serif); font-style:italic; font-size:0.8rem; color:var(--ink3); display:block; margin-top:0.5rem; }
+
     @media (max-width:768px) {
       .proj-wrap { padding:5rem 1.5rem 5rem; }
       .proj-tags { display:none; }
@@ -71,7 +94,7 @@
   </div>
 
   <h1 class="proj-title">Product Development<br><em>Life Cycle.</em></h1>
-  <p class="proj-title-desc">A structured pipeline for turning any idea into a research-grounded, UX-defined, clickable prototype. Validate first. Plan second. Build last. Five specialist agents. Five human approval gates.</p>
+  <p class="proj-title-desc">A structured pipeline for turning any idea into a research-grounded, UX-defined, clickable prototype. Validate first. Plan second. Build last. Five human approval gates.</p>
 
   <div class="proj-meta">
     <div class="proj-meta-item">
@@ -115,88 +138,89 @@
       <h2 class="proj-section-heading">Validate the idea.<br><em>Then write the plan.</em></h2>
     </div>
     <div class="proj-section-right">
-      <div class="pl-fork">
-        <div class="pl-fork-card">
-          <div class="pl-fork-if">If you have an idea</div>
-          <div class="pl-fork-agent-name">Brainstorm Copilot</div>
-          <div class="pl-fork-desc">A conversational thinking partner. Does live web research before every response. Asks one question at a time. Challenges vague scope. Ends when the direction is clear: one idea, one platform, a defined scope, and at least one explicit not-building.</div>
-          <div class="pl-fork-gate-lbl">Gate 1 · Does this capture your idea?</div>
+
+      <div class="flow-fork">
+        <div class="flow-fork-card">
+          <span class="flow-fork-if">If you have an idea</span>
+          <span class="flow-fork-name">Brainstorm Copilot</span>
+          <p class="flow-fork-desc">A conversational thinking partner. Does live web research before every response. Asks one question at a time. Challenges vague scope. Ends when the direction is clear — and produces a structured brief: one idea, one platform, defined scope, at least one explicit not-building.</p>
+          <span class="flow-fork-gate">Gate 1 · Does this capture your idea? → Structured brief produced</span>
         </div>
-        <div class="pl-fork-card">
-          <div class="pl-fork-if">If you don't have one</div>
-          <div class="pl-fork-agent-name">Discovery Agent</div>
-          <div class="pl-fork-desc">Four steps: define the person, surface pain points from real community signals, map what exists and where it falls short, then propose three idea candidates. Safe bet, unexpected angle, ambitious. You pick one.</div>
-          <div class="pl-fork-gate-lbl">Idea selected · Brainstorm is skipped entirely</div>
+        <div class="flow-fork-card">
+          <span class="flow-fork-if">If you don't have one</span>
+          <span class="flow-fork-name">Discovery Agent</span>
+          <p class="flow-fork-desc">Four steps: define the person, surface pain points from real community signals, map what exists and where it falls short, then propose three candidates — safe bet, unexpected angle, ambitious. You pick one. That selection becomes the structured brief.</p>
+          <span class="flow-fork-gate">Gate 1 · Idea selected → Structured brief produced</span>
         </div>
       </div>
-      <div class="pl-merge">
-        <div class="pl-merge-line"></div>
-        <div class="pl-merge-label">Both paths arrive here</div>
-        <div class="pl-merge-arrow"></div>
+
+      <div class="flow-merge">Both paths produce the same structured brief ↓</div>
+
+      <div class="flow-step">
+        <span class="flow-step-num">01</span>
+        <div class="flow-step-body">
+          <span class="flow-step-role">Adversarial analyst</span>
+          <span class="flow-step-name">Research</span>
+          <p class="flow-step-desc">Validates the idea before anything is planned. The question is not what the product should be — it is whether this idea is worth building at all. Four research tiers: direct competitors, community voice, industry signals, emerging patterns. Output is a compressed verdict: what holds, what doesn't, and what would make this not worth building.</p>
+        </div>
+        <span class="flow-step-out">research.md</span>
       </div>
-      <div class="pl-steps">
 
-        <div class="pl-agent">
-          <div class="pl-agent-role">Structural formatter · silent</div>
-          <div class="pl-agent-name">Intake Clarifier</div>
-          <div class="pl-agent-desc">Converts the handoff into a structured project brief. Runs invisibly — you never interact with it. The brief is frozen the moment it is written. It is the one document that never changes, regardless of what research or requirements say later.</div>
-          <div class="pl-agent-outs"><span>project_brief.md</span></div>
-        </div>
-
-        <div class="pl-agent">
-          <div class="pl-agent-role">Adversarial analyst</div>
-          <div class="pl-agent-name">Research</div>
-          <div class="pl-agent-desc">Validates the idea before anything is planned. The question is not what the product should be — it is whether this idea is worth building at all. Four research tiers: direct competitors, community voice, industry signals, emerging patterns. Output is a compressed verdict: what holds up, what doesn't, and what would make this not worth building. This runs on the raw idea, not on a draft plan.</div>
-          <div class="pl-agent-outs"><span>research.md</span></div>
-        </div>
-
-        <div class="pl-gate">
-          <div class="pl-gate-label">Gate 1.5 · Your call</div>
-          <div class="pl-gate-q">Did the idea hold up?</div>
-          <div class="pl-gate-hint">Yes → continue to planning. No → the pipeline stops here. Nothing gets planned for an idea the evidence didn't support. Route back to brainstorm with the findings in hand.</div>
-        </div>
-
-        <div class="pl-agent">
-          <div class="pl-agent-role">Vision writer</div>
-          <div class="pl-agent-name">PRD</div>
-          <div class="pl-agent-desc">Reads the project brief and the research verdict, then writes requirements once — informed from the start. No draft-then-revise cycle. Every requirement is grounded in evidence before Gate 2 opens. Adds a User Snapshot: four lines synthesized from real research signals, covering context, prior attempts, what they actually want, and what would make them abandon it.</div>
-          <div class="pl-agent-outs"><span>prd.md</span></div>
-        </div>
-
-        <div class="pl-gate">
-          <div class="pl-gate-label">Gate 2 · Your call</div>
-          <div class="pl-gate-q">Requirements approved?</div>
-          <div class="pl-gate-hint">Yes → continue. Feedback → PRD reruns with targeted changes only, then Gate 2 again.</div>
-        </div>
-
-        <div class="pl-agent">
-          <div class="pl-agent-role">Experience designer</div>
-          <div class="pl-agent-name">UX Research</div>
-          <div class="pl-agent-desc">Defines every user flow, information architecture, component state, and visual direction — all traceable back to the approved requirements. If anything contradicts the PRD, it flags a conflict and routes back. That loop runs a maximum of three rounds. If three rounds don't resolve it, a human decides what happens next.</div>
-          <div class="pl-agent-outs"><span>ux_research.md</span></div>
-        </div>
-
-        <div class="pl-gate pl-gate-lock">
-          <div class="pl-gate-label">Gate 3 · Hard lock</div>
-          <div class="pl-gate-q">Does the full experience feel right?</div>
-          <div class="pl-gate-hint">Yes → requirements and UX lock together as the single source of truth. No scope changes, no flow changes after this point.</div>
-          <div class="pl-gate-lock-note">After Gate 3: the prototype is not a test of the design. It is an execution of it.</div>
-        </div>
-
-        <div class="pl-agent">
-          <div class="pl-agent-role">Builder</div>
-          <div class="pl-agent-name">Prototype</div>
-          <div class="pl-agent-desc">Reads a compressed handoff from the locked UX spec: screens, palette, components, interactions. Generates a single HTML file that opens in any browser — no setup, no build step. Every must-have flow is navigable end to end. Concrete enough to get a real reaction, lightweight enough to throw away if the direction needs to change.</div>
-          <div class="pl-agent-outs"><span>prototype.html</span></div>
-        </div>
-
-        <div class="pl-gate">
-          <div class="pl-gate-label">Gate 4 · Your call</div>
-          <div class="pl-gate-q">Does the prototype feel right?</div>
-          <div class="pl-gate-hint">Yes → pipeline complete. Visual or flow issue → UX reruns, Gate 3 reopens. Feature or scope issue → PRD reruns, then UX, then prototype.</div>
-        </div>
-
+      <div class="flow-gate">
+        <span class="flow-gate-label">Gate 1.5 · Your call</span>
+        <span class="flow-gate-q">Did the idea hold up?</span>
+        <span class="flow-gate-hint">Yes → continue to planning. No → pipeline stops here. Nothing gets planned for an idea the evidence didn't support. Route back to brainstorm with the findings in hand.</span>
       </div>
+
+      <div class="flow-step">
+        <span class="flow-step-num">02</span>
+        <div class="flow-step-body">
+          <span class="flow-step-role">Vision writer</span>
+          <span class="flow-step-name">PRD</span>
+          <p class="flow-step-desc">Reads the structured brief and the research verdict, then writes requirements once — informed from the start. No draft-then-revise cycle. Adds a User Snapshot: four lines synthesized from real research signals, covering context, prior attempts, what they actually want, and what would make them leave.</p>
+        </div>
+        <span class="flow-step-out">prd.md</span>
+      </div>
+
+      <div class="flow-gate">
+        <span class="flow-gate-label">Gate 2 · Your call</span>
+        <span class="flow-gate-q">Requirements approved?</span>
+        <span class="flow-gate-hint">Yes → continue. Feedback → PRD reruns with targeted changes only, then Gate 2 again.</span>
+      </div>
+
+      <div class="flow-step">
+        <span class="flow-step-num">03</span>
+        <div class="flow-step-body">
+          <span class="flow-step-role">Experience designer</span>
+          <span class="flow-step-name">UX Research</span>
+          <p class="flow-step-desc">Defines every user flow, information architecture, component state, and visual direction — all traceable to the approved requirements. If anything contradicts the PRD, it flags a conflict and routes back. Maximum three rounds. If three rounds don't resolve it, a human decides.</p>
+        </div>
+        <span class="flow-step-out">ux_research.md</span>
+      </div>
+
+      <div class="flow-gate flow-gate-lock">
+        <span class="flow-gate-label">Gate 3 · Hard lock</span>
+        <span class="flow-gate-q">Does the full experience feel right?</span>
+        <span class="flow-gate-hint">Yes → requirements and UX lock as the single source of truth. No scope changes, no flow changes after this point.</span>
+        <span class="flow-gate-lock-note">After Gate 3: the prototype is not a test of the design. It is an execution of it.</span>
+      </div>
+
+      <div class="flow-step">
+        <span class="flow-step-num">04</span>
+        <div class="flow-step-body">
+          <span class="flow-step-role">Builder</span>
+          <span class="flow-step-name">Prototype</span>
+          <p class="flow-step-desc">Reads a compressed handoff from the locked UX spec: screens, palette, components, interactions. Generates a single HTML file — no setup, no build step. Every must-have flow is navigable end to end. Concrete enough for a real reaction, lightweight enough to throw away.</p>
+        </div>
+        <span class="flow-step-out">prototype.html</span>
+      </div>
+
+      <div class="flow-gate">
+        <span class="flow-gate-label">Gate 4 · Your call</span>
+        <span class="flow-gate-q">Does the prototype feel right?</span>
+        <span class="flow-gate-hint">Yes → pipeline complete. Visual or flow issue → UX reruns, Gate 3 reopens. Feature or scope issue → PRD reruns, then UX, then prototype.</span>
+      </div>
+
     </div>
   </div>
 
