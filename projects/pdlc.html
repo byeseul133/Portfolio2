@@ -6,7 +6,7 @@
   <title>Product Development Life Cycle — A space by Yeseul</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
   <style>
     .proj-wrap { padding: 6rem 4rem 7rem; }
@@ -15,35 +15,35 @@
     .proj-nav-back:hover { color:var(--red); }
     .proj-header-bar { display:flex; align-items:center; justify-content:space-between; gap:2rem; margin-bottom:2rem; }
     .proj-header-left { display:flex; align-items:center; gap:1.5rem; flex:1; min-width:0; }
-    .proj-num { font-family:var(--serif); font-style:italic; font-size:2.2rem; color:var(--ink); line-height:1; }
+    .proj-num { font-size:0.55rem; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink3); line-height:1; }
     .proj-rule { flex:1; height:1px; background:var(--border); }
-    .proj-tags { font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink3); white-space:nowrap; flex-shrink:0; }
+    .proj-tags { font-size:0.55rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink3); white-space:nowrap; flex-shrink:0; font-weight:400; }
     .proj-live { display:inline-flex; align-items:center; gap:0.55rem; margin-bottom:2.5rem; }
     .proj-live-dot { width:7px; height:7px; border-radius:50%; background:var(--red); flex-shrink:0; animation:livepulse 2s ease-in-out infinite; }
     @keyframes livepulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.35;transform:scale(0.8)} }
-    .proj-live-text { font-size:0.54rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--red); }
-    .proj-title { font-family:var(--serif); font-weight:300; font-size:clamp(3rem,7.5vw,7rem); line-height:0.95; color:var(--ink); letter-spacing:-0.02em; margin-bottom:2rem; }
-    .proj-title em { font-style:italic; color:var(--red); }
-    .proj-title-desc { font-size:1rem; color:var(--ink2); line-height:1.75; max-width:500px; margin-bottom:4rem; }
+    .proj-live-text { font-size:0.54rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--red); font-weight:400; }
+    .proj-title { font-weight:700; font-size:clamp(2.5rem,6vw,5.5rem); line-height:1.0; color:var(--ink); letter-spacing:-0.02em; text-transform:uppercase; margin-bottom:1.5rem; }
+    .proj-title em { font-style:italic; color:var(--red); font-weight:300; text-transform:none; }
+    .proj-title-desc { font-size:0.925rem; color:var(--ink3); line-height:1.75; max-width:500px; margin-bottom:4rem; font-weight:300; }
     .proj-meta { display:flex; border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:1.5rem 0; margin-bottom:5rem; }
     .proj-meta-item { flex:1; padding-right:1rem; }
-    .proj-meta-label { font-size:0.54rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink3); display:block; margin-bottom:0.45rem; }
-    .proj-meta-val { font-family:var(--serif); font-style:italic; font-size:0.95rem; color:var(--ink2); }
+    .proj-meta-label { font-size:0.5rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink3); display:block; margin-bottom:0.45rem; font-weight:400; }
+    .proj-meta-val { font-size:0.875rem; color:var(--ink2); font-weight:300; }
     .proj-section { display:grid; grid-template-columns:5fr 8fr; gap:5rem; padding:3.5rem 0; border-top:1px solid var(--border); }
     .proj-section:last-child { border-bottom:1px solid var(--border); }
-    .proj-section-label { font-size:0.54rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--red); display:block; margin-bottom:1rem; }
-    .proj-section-heading { font-family:var(--serif); font-size:clamp(1.4rem,2.2vw,2rem); font-weight:300; color:var(--ink); line-height:1.2; }
+    .proj-section-label { font-size:0.5rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--red); display:block; margin-bottom:1rem; font-weight:400; }
+    .proj-section-heading { font-size:clamp(1.2rem,2vw,1.75rem); font-weight:300; color:var(--ink); line-height:1.25; }
     .proj-section-heading em { font-style:italic; color:var(--red); }
     .proj-section-right { display:flex; flex-direction:column; gap:1.25rem; }
-    .proj-section-right > p { font-size:0.95rem; color:var(--ink2); line-height:1.95; }
-    .proj-section-right strong { color:var(--ink); font-weight:500; }
+    .proj-section-right > p { font-size:0.9rem; color:var(--ink3); line-height:1.85; font-weight:300; }
+    .proj-section-right strong { color:var(--ink2); font-weight:700; }
 
     /* Agent grid */
     .flow-agents { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem 2.5rem; padding-top:1.5rem; border-top:1px solid var(--border); }
-    .flow-agent-role { font-size:0.52rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink3); display:block; margin-bottom:0.2rem; }
-    .flow-agent-name { font-family:var(--serif); font-size:0.95rem; color:var(--ink); display:block; margin-bottom:0.2rem; }
-    .flow-agent-desc { font-size:0.78rem; color:var(--ink2); line-height:1.65; display:block; }
-    .flow-agent-out { font-size:0.63rem; color:var(--ink3); background:var(--bg3); padding:2px 7px; border-radius:2px; font-family:monospace; margin-top:0.3rem; display:inline-block; }
+    .flow-agent-role { font-size:0.5rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink3); display:block; margin-bottom:0.2rem; font-weight:400; }
+    .flow-agent-name { font-size:0.875rem; font-weight:700; color:var(--ink); display:block; margin-bottom:0.2rem; text-transform:uppercase; letter-spacing:0.03em; }
+    .flow-agent-desc { font-size:0.78rem; color:var(--ink3); line-height:1.65; display:block; font-weight:300; }
+    .flow-agent-out { font-size:0.6rem; color:var(--ink3); background:var(--bg3); padding:2px 7px; border-radius:0; font-family:monospace; margin-top:0.3rem; display:inline-block; }
 
     @media (max-width:768px) {
       .proj-wrap { padding:5rem 1.5rem 5rem; }

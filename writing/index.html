@@ -6,7 +6,7 @@
   <title>Writing — A space by Yeseul</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
   <style>
     .essay-list { display: flex; flex-direction: column; }
@@ -38,20 +38,22 @@
     .essay-card:hover .essay-card-arrow { transform: translateX(4px); color: var(--red); }
 
     .essay-card-date {
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: 0.82rem;
-      color: var(--red);
+      font-size: 0.58rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink3);
       padding-top: 6px;
-      line-height: 1.4;
+      line-height: 1.6;
     }
 
     .essay-card-content { display: flex; flex-direction: column; gap: 0.6rem; }
 
     .essay-card-title {
-      font-family: var(--serif);
-      font-size: clamp(1.25rem, 2vw, 1.7rem);
-      font-weight: 300;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
       color: var(--ink);
       line-height: 1.2;
       transition: color 0.25s;
@@ -59,15 +61,17 @@
 
     .essay-card-desc {
       font-size: 0.82rem;
+      font-weight: 300;
       color: var(--ink3);
       line-height: 1.75;
       max-width: 560px;
     }
 
     .essay-card-arrow {
-      font-size: 0.65rem;
+      font-size: 0.58rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
+      font-weight: 400;
       color: var(--ink3);
       padding-top: 8px;
       transition: transform 0.25s, color 0.25s;

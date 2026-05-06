@@ -6,7 +6,7 @@
   <title>The Pipeline, Revised — A space by Yeseul</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
   <style>
     .proj-wrap { padding: 6rem 4rem 7rem; }
@@ -15,26 +15,26 @@
     .proj-nav-back:hover { color:var(--red); }
     .proj-header-bar { display:flex; align-items:center; justify-content:space-between; gap:2rem; margin-bottom:2rem; }
     .proj-header-left { display:flex; align-items:center; gap:1.5rem; flex:1; min-width:0; }
-    .proj-num { font-family:var(--serif); font-style:italic; font-size:2.2rem; color:var(--ink); line-height:1; }
+    .proj-num { font-size:0.55rem; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink3); line-height:1; }
     .proj-rule { flex:1; height:1px; background:var(--border); }
-    .proj-tags { font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink3); white-space:nowrap; flex-shrink:0; }
-    .proj-title { font-family:var(--serif); font-weight:300; font-size:clamp(3rem,7.5vw,7rem); line-height:0.95; color:var(--ink); letter-spacing:-0.02em; margin-bottom:2rem; }
-    .proj-title em { font-style:italic; color:var(--red); }
-    .proj-title-desc { font-size:1rem; color:var(--ink2); line-height:1.75; max-width:520px; margin-bottom:4rem; }
+    .proj-tags { font-size:0.55rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink3); white-space:nowrap; flex-shrink:0; font-weight:400; }
+    .proj-title { font-weight:700; font-size:clamp(2.5rem,6vw,5.5rem); line-height:1.0; color:var(--ink); letter-spacing:-0.02em; text-transform:uppercase; margin-bottom:1.5rem; }
+    .proj-title em { font-style:italic; color:var(--red); font-weight:300; text-transform:none; }
+    .proj-title-desc { font-size:0.925rem; color:var(--ink3); line-height:1.75; max-width:520px; margin-bottom:4rem; font-weight:300; }
 
     /* Changelog phases */
     .cl-phases { margin-top: 1rem; }
     .cl-phase { padding: 2.5rem 0; border-top: 1px solid var(--border); display: grid; grid-template-columns: 5fr 8fr; gap: 5rem; }
     .cl-phase:last-child { border-bottom: 1px solid var(--border); }
     .cl-phase-left {}
-    .cl-phase-eyebrow { font-size:0.54rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--red); display:block; margin-bottom:0.75rem; }
-    .cl-phase-name { font-family:var(--serif); font-size:clamp(1.4rem,2.2vw,2rem); font-weight:300; color:var(--ink); line-height:1.2; display:block; margin-bottom:0.5rem; }
-    .cl-phase-date { font-size:0.56rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink3); display:block; }
-    .cl-phase-wip { display:inline-block; font-size:0.54rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--red); border:1px solid var(--red); padding:2px 8px; border-radius:2px; margin-top:0.6rem; }
+    .cl-phase-eyebrow { font-size:0.5rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--red); display:block; margin-bottom:0.75rem; font-weight:400; }
+    .cl-phase-name { font-size:clamp(1.1rem,2vw,1.5rem); font-weight:700; color:var(--ink); line-height:1.2; display:block; margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.02em; }
+    .cl-phase-date { font-size:0.52rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink3); display:block; font-weight:400; }
+    .cl-phase-wip { display:inline-block; font-size:0.5rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--red); border:1px solid var(--red); padding:2px 8px; border-radius:0; margin-top:0.6rem; font-weight:400; }
     .cl-bullets { list-style:none; display:flex; flex-direction:column; gap:0.65rem; }
-    .cl-bullets li { font-size:0.9rem; color:var(--ink2); line-height:1.75; padding-left:1.5rem; position:relative; }
-    .cl-bullets li::before { content:'—'; position:absolute; left:0; color:var(--ink3); }
-    .cl-bullets li strong { color:var(--ink); font-weight:500; }
+    .cl-bullets li { font-size:0.875rem; color:var(--ink3); line-height:1.8; padding-left:1.5rem; position:relative; font-weight:300; }
+    .cl-bullets li::before { content:'—'; position:absolute; left:0; color:var(--border); }
+    .cl-bullets li strong { color:var(--ink2); font-weight:700; }
 
     @media (max-width:768px) {
       .proj-wrap { padding:5rem 1.5rem 5rem; }
