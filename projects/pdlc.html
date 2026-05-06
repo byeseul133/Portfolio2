@@ -18,7 +18,10 @@
     .proj-num { font-family:var(--serif); font-style:italic; font-size:2.2rem; color:var(--ink); line-height:1; }
     .proj-rule { flex:1; height:1px; background:var(--border); }
     .proj-tags { font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink3); white-space:nowrap; flex-shrink:0; }
-    .proj-wip { font-size:0.56rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--red); border:1px solid var(--red); padding:3px 10px; border-radius:2px; display:inline-block; margin-bottom:1.5rem; }
+    .proj-live { display:inline-flex; align-items:center; gap:0.55rem; margin-bottom:2.5rem; }
+    .proj-live-dot { width:7px; height:7px; border-radius:50%; background:var(--red); flex-shrink:0; animation:livepulse 2s ease-in-out infinite; }
+    @keyframes livepulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.35;transform:scale(0.8)} }
+    .proj-live-text { font-size:0.54rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--red); }
     .proj-title { font-family:var(--serif); font-weight:300; font-size:clamp(3rem,7.5vw,7rem); line-height:0.95; color:var(--ink); letter-spacing:-0.02em; margin-bottom:2rem; }
     .proj-title em { font-style:italic; color:var(--red); }
     .proj-title-desc { font-size:1rem; color:var(--ink2); line-height:1.75; max-width:500px; margin-bottom:4rem; }
@@ -76,6 +79,11 @@
 
   <a href="./" class="proj-nav-back">All projects</a>
 
+  <div class="proj-live">
+    <span class="proj-live-dot"></span>
+    <span class="proj-live-text">In progress</span>
+  </div>
+
   <div class="proj-header-bar">
     <div class="proj-header-left">
       <span class="proj-num">01</span>
@@ -84,7 +92,6 @@
     <span class="proj-tags">Process Design · AI Systems · Product Thinking</span>
   </div>
 
-  <span class="proj-wip">In progress</span>
   <h1 class="proj-title">Product Development<br><em>Life Cycle.</em></h1>
   <p class="proj-title-desc">A structured pipeline for turning any idea into a research-grounded, UX-defined, clickable prototype. Validate first. Plan second. Build last. Five human approval checkpoints.</p>
 
