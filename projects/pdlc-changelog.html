@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Pipeline, Revised — A space by Yeseul</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .proj-wrap { padding: 6rem 4rem 7rem; }
+    .proj-nav-back { display:block; font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink3); text-decoration:none; margin-bottom:3.5rem; transition:color 0.2s; }
+    .proj-nav-back::before { content:'← '; }
+    .proj-nav-back:hover { color:var(--red); }
+    .proj-header-bar { display:flex; align-items:center; justify-content:space-between; gap:2rem; margin-bottom:2rem; }
+    .proj-header-left { display:flex; align-items:center; gap:1.5rem; flex:1; min-width:0; }
+    .proj-num { font-family:var(--serif); font-style:italic; font-size:2.2rem; color:var(--ink); line-height:1; }
+    .proj-rule { flex:1; height:1px; background:var(--border); }
+    .proj-tags { font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink3); white-space:nowrap; flex-shrink:0; }
+    .proj-title { font-family:var(--serif); font-weight:300; font-size:clamp(3rem,7.5vw,7rem); line-height:0.95; color:var(--ink); letter-spacing:-0.02em; margin-bottom:2rem; }
+    .proj-title em { font-style:italic; color:var(--red); }
+    .proj-title-desc { font-size:1rem; color:var(--ink2); line-height:1.75; max-width:520px; margin-bottom:4rem; }
+
+    /* Changelog phases */
+    .cl-phases { margin-top: 1rem; }
+    .cl-phase { padding: 2.5rem 0; border-top: 1px solid var(--border); display: grid; grid-template-columns: 5fr 8fr; gap: 5rem; }
+    .cl-phase:last-child { border-bottom: 1px solid var(--border); }
+    .cl-phase-left {}
+    .cl-phase-eyebrow { font-size:0.54rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--red); display:block; margin-bottom:0.75rem; }
+    .cl-phase-name { font-family:var(--serif); font-size:clamp(1.4rem,2.2vw,2rem); font-weight:300; color:var(--ink); line-height:1.2; display:block; margin-bottom:0.5rem; }
+    .cl-phase-date { font-size:0.56rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink3); display:block; }
+    .cl-phase-wip { display:inline-block; font-size:0.54rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--red); border:1px solid var(--red); padding:2px 8px; border-radius:2px; margin-top:0.6rem; }
+    .cl-bullets { list-style:none; display:flex; flex-direction:column; gap:0.65rem; }
+    .cl-bullets li { font-size:0.9rem; color:var(--ink2); line-height:1.75; padding-left:1.5rem; position:relative; }
+    .cl-bullets li::before { content:'—'; position:absolute; left:0; color:var(--ink3); }
+    .cl-bullets li strong { color:var(--ink); font-weight:500; }
+
+    @media (max-width:768px) {
+      .proj-wrap { padding:5rem 1.5rem 5rem; }
+      .proj-tags { display:none; }
+      .cl-phase { grid-template-columns:1fr; gap:1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="scrolled">
+  <a href="../" class="nav-logo">
+    <svg viewBox="0 0 32 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M26 8.5a5.5 5.5 0 00-10.6-2A4 4 0 0014 6.5a4 4 0 000 8h12a4 4 0 000-8z"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../projects/">Projects</a></li>
+    <li><a href="../art/">Art</a></li>
+    <li><a href="../writing/">Writing</a></li>
+    <li><a href="../about/">About</a></li>
+  </ul>
+</nav>
+
+<div class="proj-wrap">
+
+  <a href="./" class="proj-nav-back">All projects</a>
+
+  <div class="proj-header-bar">
+    <div class="proj-header-left">
+      <span class="proj-num">03</span>
+      <div class="proj-rule"></div>
+    </div>
+    <span class="proj-tags">Process Design · PDLC · Iteration</span>
+  </div>
+
+  <h1 class="proj-title">The Pipeline,<br><em>Revised.</em></h1>
+  <p class="proj-title-desc">Every version of the PDLC that ever ran. What it got wrong, what got cut, and what got sharper — phase by phase.</p>
+
+  <div class="cl-phases">
+
+    <!-- Phase 01 -->
+    <div class="cl-phase">
+      <div class="cl-phase-left">
+        <span class="cl-phase-eyebrow">Phase 01</span>
+        <span class="cl-phase-name">The Build</span>
+        <span class="cl-phase-date">2025</span>
+      </div>
+      <ul class="cl-bullets">
+        <li>Six agents, five gates: Brainstorm → Intake Clarifier → PRD Draft → Research → PRD Refine → UX Research → Prototype</li>
+        <li>Research was designed to test the PRD — not the raw idea</li>
+        <li>Intake Clarifier ran silently between the idea step and everything else, converting the handoff into a structured brief</li>
+        <li>Agents labeled by what they produce, not by what role they play</li>
+        <li>No defined file structure — outputs written wherever</li>
+        <li>No defined agent names — "PRD Writer," "Research Agent"</li>
+        <li>Pipeline had no kill switch — if research proved the idea wrong, it kept going anyway</li>
+      </ul>
+    </div>
+
+    <!-- Phase 02 -->
+    <div class="cl-phase">
+      <div class="cl-phase-left">
+        <span class="cl-phase-eyebrow">Phase 02</span>
+        <span class="cl-phase-name">The Audit</span>
+        <span class="cl-phase-date">March 2026</span>
+      </div>
+      <ul class="cl-bullets">
+        <li>Ran five gstack skills against the pipeline — the same methodology the PDLC uses on products, turned back on itself</li>
+        <li><strong>Found:</strong> no kill switch — research proving an idea wrong didn't stop the plan from being written. <strong>Fixed:</strong> Gate 1.5 can now route back to brainstorm, not just forward</li>
+        <li><strong>Found:</strong> research could agree with everything and nobody would notice. <strong>Fixed:</strong> Gate 1.5 now flags explicitly if research changed nothing</li>
+        <li><strong>Found:</strong> UX conflict loop had no exit — could run indefinitely. <strong>Fixed:</strong> capped at 3 rounds; human decides if unresolved</li>
+        <li><strong>Found:</strong> deepest research tier was quietly skipped when early results came back empty. <strong>Fixed:</strong> skipping it is now an explicit choice, not a default</li>
+        <li><strong>Found:</strong> agents were defined by output, not role — no way to know how to read or push back on what they made. <strong>Fixed:</strong> six agents named — Structural formatter, Vision writer, Adversarial analyst, Evidence editor, Experience designer, Builder</li>
+        <li><strong>Found:</strong> every prototype made its own visual decisions from scratch. <strong>Fixed:</strong> DESIGN.md captures design decisions once; every future prototype reads it first</li>
+      </ul>
+    </div>
+
+    <!-- Phase 03 -->
+    <div class="cl-phase">
+      <div class="cl-phase-left">
+        <span class="cl-phase-eyebrow">Phase 03</span>
+        <span class="cl-phase-name">The Restructure</span>
+        <span class="cl-phase-date">May 2026</span>
+        <span class="cl-phase-wip">In progress</span>
+      </div>
+      <ul class="cl-bullets">
+        <li><strong>Found:</strong> research was running on the PRD draft, not the raw idea — it was testing the plan, not validating the idea. <strong>Fixed:</strong> research now runs first, before any planning begins</li>
+        <li><strong>Found:</strong> PRD Draft + PRD Refine were two agents doing one job in sequence. <strong>Fixed:</strong> collapsed into a single PRD agent that writes once, already informed by research</li>
+        <li><strong>Found:</strong> Intake Clarifier was redundant if both entry agents already produce a structured brief in the same format. <strong>Fixed:</strong> removed — Brainstorm and Discovery both now output <code>output/brief.md</code> directly</li>
+        <li><strong>Found:</strong> no single entry point — users had to know which agent to open. <strong>Fixed:</strong> added Orchestrator; reads <code>.state.md</code>, routes to current step if resuming, asks one question if starting fresh</li>
+        <li>Defined file structure: <code>output/</code> for all deliverables, <code>.working/progress/</code> for intermediate work, <code>.state.md</code> for pipeline state</li>
+        <li>Removed "Gate" terminology throughout — replaced with plain language: "Your call," "Hard lock," "back here"</li>
+        <li>Replaced text-based flowchart with standard Mermaid diagram — diamonds for decisions, color-coded agents, back-loop arrows for all rejection paths</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
