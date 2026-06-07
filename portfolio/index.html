@@ -86,12 +86,47 @@
       flex-shrink: 0;
       transform-origin: top center;
       transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
     }
     .env-card--active:hover .env-flap {
       transform: perspective(700px) rotateX(-10deg);
     }
-    .env-flap--oxblood { background: #7a1810; }
-    .env-flap--stone   { background: #cac5bc; }
+
+    /* Subtle highlight stripe at top edge of flap */
+    .env-flap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.13) 0%,
+        transparent 40%
+      );
+    }
+
+    /* Oxblood: light at top → deep shadow at tip, shaped drop-shadow below */
+    .env-flap--oxblood {
+      background: linear-gradient(
+        to bottom,
+        #ac2319 0%,
+        #7a1810 38%,
+        #5e1008 78%,
+        #4c0d06 100%
+      );
+      filter: drop-shadow(0 6px 10px rgba(26,23,20,0.22));
+    }
+
+    /* Stone: same shading logic, muted */
+    .env-flap--stone {
+      background: linear-gradient(
+        to bottom,
+        #d8d3ca 0%,
+        #bdb8af 40%,
+        #a8a39a 80%,
+        #9c978e 100%
+      );
+      filter: drop-shadow(0 5px 8px rgba(26,23,20,0.14));
+    }
 
     /* Card body */
     .env-body {
