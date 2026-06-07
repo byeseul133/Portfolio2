@@ -9,152 +9,155 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
   <style>
+    /* Section resets — panels handle their own spacing */
+    #about {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
 
+    /* ── Three-panel grid ── */
     .about-layout {
       display: grid;
-      grid-template-columns: clamp(180px, 22%, 300px) 1fr clamp(180px, 22%, 300px);
-      gap: clamp(1.5rem, 4vw, 4rem);
-      align-items: start;
+      grid-template-columns: 1fr 1.4fr 1fr;
+      align-items: stretch;
+      min-height: 80vh;
+      flex: 1;
     }
 
-    /* Photo */
-    .about-photo-wrap {
-      position: sticky;
-      top: 7rem;
+    /* ── Image panels ── */
+    .about-photo-wrap,
+    .about-accent-wrap {
+      position: relative;
+      overflow: hidden;
     }
+    .about-photo-img,
+    .about-accent-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .about-photo-img  { filter: grayscale(8%); }
+    .about-accent-img { filter: saturate(0.58) brightness(0.88); }
+
+    /* Red accent line under portrait */
     .about-photo-wrap::after {
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
       height: 3px;
       background: var(--red);
-    }
-    .about-photo-img {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      display: block;
-      filter: grayscale(8%);
-    }
-    .about-photo-ph {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--ink3);
-      font-size: 0.58rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      opacity: 0.5;
+      z-index: 1;
     }
 
-    /* Content */
+    /* ── Center text panel ── */
     .about-content {
-      padding-top: 0;
-      position: relative;
+      padding: clamp(2.5rem, 5vw, 4rem) clamp(2rem, 4vw, 3.5rem);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
     }
+
+    .about-eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .about-eyebrow::after {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--red);
+      opacity: 0.4;
+    }
+
     .about-headline {
       font-family: var(--serif);
-      font-size: clamp(2.4rem, 4.5vw, 4rem);
+      font-size: clamp(2rem, 3.2vw, 3.4rem);
       font-weight: 300;
-      line-height: 1.05;
+      line-height: 1.06;
       color: var(--ink);
       letter-spacing: -0.02em;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
     }
     .about-headline em {
       font-style: italic;
       color: var(--red);
     }
+
     .about-body {
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
     .about-body p {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--ink2);
-      line-height: 1.95;
+      line-height: 1.9;
     }
     .about-body p strong {
       color: var(--ink);
       font-weight: 400;
     }
+
     .about-divider {
-      width: 40px;
+      width: 36px;
       height: 2px;
       background: var(--red);
-      margin: 2rem 0;
-    }
-    .about-program {
-      border-left: 2px solid var(--border);
-      padding-left: 1.5rem;
-      margin-top: 0.5rem;
-    }
-    .about-program-label {
-      font-size: 0.6rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--ink3);
-      display: block;
-      margin-bottom: 0.4rem;
-    }
-    .about-program-name {
-      font-family: var(--serif);
-      font-size: 0.95rem;
-      color: var(--ink);
-      line-height: 1.4;
+      margin: 1.75rem 0;
     }
 
     .about-links {
       display: flex;
       gap: 1.5rem;
-      margin-top: 2rem;
     }
     .about-link {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.68rem;
+      gap: 0.45rem;
+      font-size: 0.65rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--ink3);
       text-decoration: none;
       transition: color 0.2s;
     }
-    .about-link svg {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-    }
+    .about-link svg { width: 13px; height: 13px; flex-shrink: 0; }
     .about-link:hover { color: var(--red); }
 
-    .about-accent-wrap {
-      position: sticky;
-      top: 7rem;
-    }
-    .about-accent-img {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      display: block;
-      filter: saturate(0.6) brightness(0.9);
-      border-radius: 2px;
+    /* ── Tablet: 2 columns, accent below ── */
+    @media (max-width: 1024px) {
+      .about-layout {
+        grid-template-columns: 1fr 1.5fr;
+        grid-template-rows: auto auto;
+        min-height: auto;
+      }
+      .about-photo-wrap  { grid-column: 1; grid-row: 1; min-height: 55vw; }
+      .about-content     { grid-column: 2; grid-row: 1; border-right: none; }
+      .about-accent-wrap { grid-column: 1 / -1; grid-row: 2; min-height: 30vw; border-top: 1px solid var(--border); }
     }
 
-    /* Tablet */
-    @media (max-width: 1024px) {
-      .about-layout { grid-template-columns: clamp(160px, 28%, 260px) 1fr; }
-      .about-accent-wrap { display: none; }
-    }
-    /* Mobile */
+    /* ── Mobile: single column ── */
     @media (max-width: 640px) {
-      .about-layout { grid-template-columns: 1fr; gap: 2rem; }
-      .about-photo-wrap { position: static; max-width: 200px; order: 2; }
-      .about-content { order: 1; }
+      .about-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        min-height: auto;
+      }
+      .about-content     { grid-column: 1; grid-row: 1; border-left: none; border-right: none; padding: 2rem 0; justify-content: flex-start; }
+      .about-photo-wrap  { grid-column: 1; grid-row: 2; min-height: 90vw; }
+      .about-accent-wrap { grid-column: 1; grid-row: 3; min-height: 70vw; }
     }
   </style>
 </head>
@@ -175,20 +178,17 @@
 
 <section id="about">
 
-  <div class="reveal visible">
-    <p class="section-eyebrow">About</p>
-  </div>
-
   <div class="about-layout">
 
-    <!-- PHOTO -->
+    <!-- LEFT: Portrait -->
     <div class="about-photo-wrap reveal visible">
       <img src="../image/ashley-profile.jpg" alt="Ashley / Yeseul" class="about-photo-img"
-           onerror="this.outerHTML='<div class=\'about-photo-ph\'>Photo</div>'">
+           onerror="this.outerHTML='<div style=\'width:100%;height:100%;background:var(--bg3);\'></div>'">
     </div>
 
-    <!-- CONTENT -->
+    <!-- CENTER: Text -->
     <div class="about-content reveal visible">
+      <p class="about-eyebrow">About</p>
 
       <h1 class="about-headline">
         Between systems<br>
@@ -219,7 +219,6 @@
           LinkedIn
         </a>
       </div>
-
     </div>
 
     <!-- RIGHT: Accent image -->
