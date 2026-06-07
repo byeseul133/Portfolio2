@@ -8,81 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
-  <style>
-    #portfolio {
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* ── Cloud elements ── */
-    .cloud {
-      position: absolute;
-      pointer-events: none;
-      user-select: none;
-    }
-    .cloud img {
-      display: block;
-      width: 100%;
-    }
-
-    /* Large cloud — upper right */
-    .cloud-1 {
-      width: 600px;
-      top: -80px;
-      right: -160px;
-      opacity: 0.55;
-      filter: blur(18px);
-      animation: cloudFloat1 30s ease-in-out infinite;
-    }
-
-    /* Medium cloud — mid right */
-    .cloud-2 {
-      width: 380px;
-      top: 40%;
-      right: -40px;
-      opacity: 0.35;
-      filter: blur(22px);
-      animation: cloudFloat2 44s ease-in-out infinite;
-    }
-
-    /* Small cloud — lower */
-    .cloud-3 {
-      width: 260px;
-      bottom: 10%;
-      right: 18%;
-      opacity: 0.22;
-      filter: blur(28px);
-      animation: cloudFloat3 58s ease-in-out infinite;
-    }
-
-    @keyframes cloudFloat1 {
-      0%,100% { transform: translate(0, 0); }
-      30%      { transform: translate(-14px,  9px); }
-      65%      { transform: translate( 8px, -13px); }
-    }
-    @keyframes cloudFloat2 {
-      0%,100% { transform: translate(0, 0); }
-      40%     { transform: translate(12px, -8px); }
-      75%     { transform: translate(-9px, 14px); }
-    }
-    @keyframes cloudFloat3 {
-      0%,100% { transform: translate(0, 0); }
-      50%     { transform: translate(-11px, 16px); }
-    }
-
-    /* Tablet: fewer, smaller */
-    @media (max-width: 1024px) {
-      .cloud-1 { width: 340px; opacity: 0.26; }
-      .cloud-2 { width: 200px; opacity: 0.15; }
-      .cloud-3 { display: none; }
-    }
-
-    /* Mobile: one subtle cloud only */
-    @media (max-width: 640px) {
-      .cloud-1 { width: 200px; opacity: 0.16; top: 20px; right: -40px; filter: blur(6px); }
-      .cloud-2, .cloud-3 { display: none; }
-    }
-  </style>
 </head>
 <body>
 
@@ -100,11 +25,6 @@
 </nav>
 
 <section id="portfolio">
-
-  <!-- Cloud background -->
-  <div class="cloud cloud-1" aria-hidden="true"><img src="../image/cloud.jpg" alt=""></div>
-  <div class="cloud cloud-2" aria-hidden="true"><img src="../image/cloud.jpg" alt=""></div>
-  <div class="cloud cloud-3" aria-hidden="true"><img src="../image/cloud.jpg" alt=""></div>
 
   <div class="reveal visible">
     <p class="section-eyebrow">Portfolio</p>
