@@ -201,11 +201,12 @@ section { padding: 6.5rem 3.5rem 4rem; }
 }
 
 /* GALLERY GRID (Selected Works) */
-#portfolio { background: var(--bg); max-width: 1200px; margin: 0 auto; }
+#portfolio { background: var(--bg); }
 .gallery-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
+  max-width: 1100px;
 }
 .gallery-card {
   display: block;
@@ -366,14 +367,9 @@ section { padding: 6.5rem 3.5rem 4rem; }
 .essay-page-divider { width: 40px; height: 2px; background: var(--red); margin: 0 0 3rem; }
 
 /* ABOUT */
-#about { background: var(--bg2); min-height: unset; }
+#about { background: var(--bg); min-height: unset; }
 
 /* FOOTER */
-footer {
-  background: var(--bg);
-  border-top: 1px solid var(--border);
-  padding: 3.5rem 3.5rem 2.5rem;
-}
 .footer-minimal {
   background: var(--bg);
   border-top: 1px solid var(--border);
