@@ -71,6 +71,13 @@ nav.scrolled .nav-links a.active { color: var(--red); }
   background: linear-gradient(to right, rgba(10,8,7,0.22) 0%, transparent 65%),
               linear-gradient(to top, rgba(10,8,7,0.12) 0%, transparent 50%);
 }
+#hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 28%;
+  background: linear-gradient(to bottom, transparent 0%, #f5f2ee 100%);
+  pointer-events: none;
+}
 #hero > * { position: relative; z-index: 1; }
 
 .hero-eyebrow {
