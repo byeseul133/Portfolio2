@@ -364,14 +364,60 @@ section { padding: 6.5rem 3.5rem 4rem; min-height: 100vh; }
 footer {
   background: var(--bg);
   border-top: 1px solid var(--border);
-  padding: 2rem 3.5rem;
-  display: flex; justify-content: space-between; align-items: center;
+  padding: 3.5rem 3.5rem 2.5rem;
 }
-.footer-left {
-  font-family: var(--script); font-size: 1.4rem;
-  color: var(--ink2); opacity: 0.75;
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
 }
-.footer-right { font-size: 0.6rem; letter-spacing: 0.15em; color: var(--ink3); opacity: 0.6; }
+.footer-identity {}
+.footer-name {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--ink2);
+  display: block;
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.01em;
+}
+.footer-tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--ink3);
+  line-height: 1.7;
+  max-width: 340px;
+}
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.6rem;
+}
+.footer-nav a {
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-nav a:hover { color: var(--red); }
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  opacity: 0.55;
+}
+/* keep old classes so nothing breaks if referenced */
+.footer-left { display: none; }
+.footer-right { display: none; }
 
 /* Story layout */
 .story-hook { padding: 1.1rem 0 1.25rem; border-bottom: 1px solid var(--border); margin-bottom: 1.1rem; }
@@ -458,4 +504,7 @@ code {
   footer { padding: 2rem 1.5rem; }
   .gallery-grid { grid-template-columns: 1fr; }
   .about-preview-quote { font-size: 1.3rem; }
+  footer { padding: 2.5rem 1.5rem 2rem; }
+  .footer-top { flex-direction: column; gap: 2rem; }
+  .footer-nav { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 1rem; }
 }
