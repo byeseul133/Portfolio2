@@ -492,8 +492,55 @@ code {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
+@keyframes navIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes cloudDrift {
+  0%, 100% { background-position: 50% 50%; }
+  33%       { background-position: 52% 47%; }
+  66%       { background-position: 48% 53%; }
+}
+@keyframes redShimmer {
+  0%, 75%, 100% { color: var(--red); }
+  88%            { color: #e03528; filter: brightness(1.08); }
+}
+
+/* Nav entrance */
+nav { animation: navIn 0.6s 0.1s ease both; }
+
+/* Cloud ambient drift */
+#hero { animation: cloudDrift 30s ease-in-out infinite; }
+
+/* "Yeseul." subtle shimmer — starts after hero has fully appeared */
+.hero-title span.red {
+  display: inline;
+  animation: redShimmer 9s 2.8s ease-in-out infinite;
+}
+
+/* CTA hover lift */
+.btn-primary {
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.btn-primary:hover {
+  background: var(--red-dk);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(200,37,26,0.2);
+}
+
+/* Scroll reveal */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.75s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.75s cubic-bezier(0.25,0.46,0.45,0.94); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Stagger gallery cards and archive items */
+.gallery-grid .gallery-card:nth-child(2).reveal { transition-delay: 0.13s; }
+.archive-list .archive-item:nth-child(2).reveal { transition-delay: 0.09s; }
+.archive-list .archive-item:nth-child(3).reveal { transition-delay: 0.18s; }
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
 
 /* RESPONSIVE */
 @media (max-width: 860px) {
