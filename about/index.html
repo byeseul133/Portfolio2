@@ -13,8 +13,8 @@
 
     .about-layout {
       display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 6rem;
+      grid-template-columns: 380px 1fr;
+      gap: 5rem;
       align-items: start;
     }
 
@@ -54,7 +54,8 @@
 
     /* Content */
     .about-content {
-      padding-top: 0.25rem;
+      padding-top: 0;
+      position: relative;
     }
     .about-headline {
       font-family: var(--serif);
@@ -133,6 +134,29 @@
     }
     .about-link:hover { color: var(--red); }
 
+    .about-photo-caption {
+      font-family: 'Caveat', cursive;
+      font-size: 1.05rem;
+      color: var(--ink3);
+      line-height: 1.5;
+      margin-top: 1rem;
+      padding-left: 2px;
+      opacity: 0.75;
+    }
+
+    .about-curve {
+      position: absolute;
+      top: -1.5rem;
+      right: -2rem;
+      width: 160px;
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    @keyframes drawCurve {
+      to { stroke-dashoffset: 0; }
+    }
+
     /* Mobile */
     @media (max-width: 860px) {
       .about-layout {
@@ -158,7 +182,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="../">Home</a></li>
-    <li><a href="../">Portfolio</a></li>
+    <li><a href="../portfolio/">Portfolio</a></li>
     <li><a href="../about/" class="active">About</a></li>
   </ul>
 </nav>
@@ -175,6 +199,7 @@
     <div class="about-photo-wrap reveal visible">
       <img src="../image/ashley-profile.jpg" alt="Ashley / Yeseul" class="about-photo-img"
            onerror="this.outerHTML='<div class=\'about-photo-ph\'>Photo</div>'">
+      <p class="about-photo-caption">Product mind.<br>Visual instinct.</p>
     </div>
 
     <!-- CONTENT -->
@@ -184,6 +209,12 @@
         Between systems<br>
         <em>and feeling.</em>
       </h1>
+
+      <!-- subtle hand-drawn curve accent -->
+      <svg class="about-curve" viewBox="0 0 180 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M8 68 C 40 10, 110 60, 172 12" stroke="rgba(26,23,20,0.12)" stroke-width="1.2" stroke-linecap="round" fill="none"
+              style="stroke-dasharray: 220; stroke-dashoffset: 220; animation: drawCurve 1.8s 0.8s ease forwards;"/>
+      </svg>
 
       <div class="about-body">
         <p>
