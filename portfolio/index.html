@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — A space by Yeseul</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+
+<nav class="scrolled">
+  <a href="../" class="nav-logo">
+    <svg viewBox="0 0 32 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M26 8.5a5.5 5.5 0 00-10.6-2A4 4 0 0014 6.5a4 4 0 000 8h12a4 4 0 000-8z"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../">Home</a></li>
+    <li><a href="../portfolio/" class="active">Portfolio</a></li>
+    <li><a href="../about/">About</a></li>
+  </ul>
+</nav>
+
+<section id="portfolio">
+  <div class="reveal visible">
+    <p class="section-eyebrow">01 — Portfolio</p>
+    <h2 class="section-title">Selected <em>Works</em></h2>
+    <p class="section-sub">A collection of AI, product, and visual experiments exploring how technology can feel more human.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="gallery-grid">
+
+    <a href="../projects/gstack.html" class="gallery-card reveal visible" style="text-decoration:none;color:inherit;">
+      <div class="gallery-card-img" style="background: linear-gradient(145deg, #1a1714 0%, #2e2520 55%, #7a1810 100%);"></div>
+      <div class="gallery-card-body">
+        <span class="gallery-num">01</span>
+        <h3 class="gallery-title">gstack × PDLC</h3>
+        <p class="gallery-desc">Five AI skills. Three audit phases. The same methodology the pipeline uses on products — turned back on itself.</p>
+        <span class="gallery-cta">View project →</span>
+      </div>
+    </a>
+
+    <div class="gallery-card gallery-card--quiet reveal visible">
+      <div class="gallery-card-img" style="background: linear-gradient(145deg, #c8cece 0%, #d8dce0 40%, #b8c4c8 100%); opacity: 0.6;"></div>
+      <div class="gallery-card-body">
+        <span class="gallery-num">02</span>
+        <h3 class="gallery-title" style="color: var(--ink3);">Coming Soon</h3>
+        <p class="gallery-desc" style="color: var(--ink3);">New work in progress. Check back soon.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-identity">
+      <p class="footer-tagline">Creating at the intersection of technology, emotion, and visual experience.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Ashley / Yeseul</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
