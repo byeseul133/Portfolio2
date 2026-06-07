@@ -78,7 +78,7 @@ nav.scrolled .nav-links a.active { color: var(--red); }
   background: linear-gradient(to bottom, transparent 0%, rgba(10,8,7,0.3) 100%);
   pointer-events: none;
 }
-#hero > * { position: relative; z-index: 1; }
+#hero > *:not(.hero-footer) { position: relative; z-index: 1; }
 
 .hero-eyebrow {
   font-family: var(--sans); font-size: 0.68rem;
@@ -372,6 +372,29 @@ footer {
   background: var(--bg);
   border-top: 1px solid var(--border);
   padding: 3.5rem 3.5rem 2.5rem;
+}
+.footer-minimal {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 2rem 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-minimal-tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.82rem;
+  color: var(--ink3);
+  white-space: nowrap;
+}
+.footer-minimal-copy {
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  opacity: 0.6;
+  white-space: nowrap;
 }
 .footer-top {
   display: flex;
