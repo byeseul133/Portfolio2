@@ -201,11 +201,11 @@ section { padding: 6.5rem 3.5rem 4rem; }
 }
 
 /* GALLERY GRID (Selected Works) */
-#portfolio { background: var(--bg); }
+#portfolio { background: var(--bg); max-width: 1200px; margin: 0 auto; }
 .gallery-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 .gallery-card {
   display: block;
@@ -218,7 +218,7 @@ section { padding: 6.5rem 3.5rem 4rem; }
 .gallery-card--quiet:hover { box-shadow: none; transform: none; }
 .gallery-card-img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
   display: block;
 }
 .gallery-card-body {
