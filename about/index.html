@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
   <style>
-    #about { min-height: 100vh; }
+    #about { min-height: unset; padding-bottom: 4rem; }
 
     .about-layout {
       display: grid;
@@ -134,17 +134,7 @@
     }
     .about-link:hover { color: var(--red); }
 
-    .about-photo-caption {
-      font-family: 'Caveat', cursive;
-      font-size: 1.05rem;
-      color: var(--ink3);
-      line-height: 1.5;
-      margin-top: 1rem;
-      padding-left: 2px;
-      opacity: 0.75;
-    }
-
-    .about-curve {
+.about-curve {
       position: absolute;
       top: -1.5rem;
       right: -2rem;
@@ -199,7 +189,6 @@
     <div class="about-photo-wrap reveal visible">
       <img src="../image/ashley-profile.jpg" alt="Ashley / Yeseul" class="about-photo-img"
            onerror="this.outerHTML='<div class=\'about-photo-ph\'>Photo</div>'">
-      <p class="about-photo-caption">Product mind.<br>Visual instinct.</p>
     </div>
 
     <!-- CONTENT -->
