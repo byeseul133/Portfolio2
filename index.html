@@ -18,40 +18,122 @@
     </svg>
   </a>
   <ul class="nav-links">
-    <li><a href="projects/">Projects</a></li>
-    <li><a href="art/">Art</a></li>
-    <li><a href="writing/">Writing</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="about/">About</a></li>
   </ul>
 </nav>
 
 <div id="hero">
-  <p class="hero-eyebrow">Product Manager · Artist · Writer · Austin, TX</p>
   <h1 class="hero-title">
     Call me Ashley.<br>
     <em>Or <span class="red">Yeseul.</span></em>
   </h1>
-  <p class="hero-subtitle">Both feel like home.</p>
-  <p class="hero-tagline">I turned "I like building things" and "I like making things" into a whole personality.</p>
-  <div class="hero-tags">
-    <span class="hero-tag">Product Management</span>
-    <span class="hero-tag">AI & Tech</span>
-    <span class="hero-tag">Oil Pastel</span>
-    <span class="hero-tag">Watercolor</span>
-    <span class="hero-tag">Wandering</span>
-    <span class="hero-tag">CrossFit</span>
-    <span class="hero-tag">Essay Writing</span>
-  </div>
+  <p class="hero-subtitle">I turn ideas, systems, and emotions into interactive experiences.</p>
   <div class="hero-cta">
-    <a href="projects/" class="btn btn-primary">See my projects</a>
-    <a href="art/" class="btn btn-ghost">View art</a>
+    <a href="#portfolio" class="btn btn-primary">See My Portfolio</a>
   </div>
 </div>
+
+<!-- PORTFOLIO SECTION -->
+<section id="portfolio">
+  <div class="reveal">
+    <p class="section-eyebrow">01 — Portfolio</p>
+    <h2 class="section-title">Selected <em>Works</em></h2>
+    <p class="section-sub">A collection of AI, product, and visual experiments exploring how technology can feel more human.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="gallery-grid">
+
+    <a href="projects/gstack.html" class="gallery-card reveal" style="text-decoration:none;color:inherit;">
+      <div class="gallery-card-img" style="background: linear-gradient(145deg, #1a1714 0%, #2e2520 55%, #7a1810 100%);"></div>
+      <div class="gallery-card-body">
+        <span class="gallery-num">01</span>
+        <h3 class="gallery-title">gstack × PDLC</h3>
+        <p class="gallery-desc">Five AI skills. Three audit phases. The same methodology the pipeline uses on products — turned back on itself.</p>
+        <span class="gallery-cta">View project →</span>
+      </div>
+    </a>
+
+    <div class="gallery-card gallery-card--quiet reveal">
+      <div class="gallery-card-img" style="background: linear-gradient(145deg, #c8cece 0%, #d8dce0 40%, #b8c4c8 100%); opacity: 0.6;"></div>
+      <div class="gallery-card-body">
+        <span class="gallery-num">02</span>
+        <h3 class="gallery-title" style="color: var(--ink3);">Coming Soon</h3>
+        <p class="gallery-desc" style="color: var(--ink3);">New work in progress. Check back soon.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ARCHIVE SECTION -->
+<section id="archive">
+  <div class="reveal">
+    <p class="section-eyebrow">02 — Archive</p>
+    <h2 class="section-title">Earlier <em>Work</em></h2>
+    <p class="section-sub">Process experiments, AI explorations, and earlier iterations — preserved in full.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="archive-list">
+
+    <a href="projects/pdlc.html" class="archive-item reveal" style="text-decoration:none;color:inherit;">
+      <span class="archive-num">01</span>
+      <div class="archive-item-body">
+        <h4 class="archive-title">Product Development Life Cycle</h4>
+        <p class="archive-desc">An AI-powered pipeline that sharpens and validates ideas through five phases — from first question to clickable prototype.</p>
+      </div>
+      <span class="archive-arrow">→</span>
+    </a>
+
+    <a href="projects/bloom.html" class="archive-item reveal" style="text-decoration:none;color:inherit;">
+      <span class="archive-num">02</span>
+      <div class="archive-item-body">
+        <h4 class="archive-title">Bloom: Personal Task Board</h4>
+        <p class="archive-desc">A personal Kanban board built twice — before and after a structured process. A direct comparison of what methodology actually changes.</p>
+      </div>
+      <span class="archive-arrow">→</span>
+    </a>
+
+    <a href="projects/pdlc-changelog.html" class="archive-item reveal" style="text-decoration:none;color:inherit;">
+      <span class="archive-num">03</span>
+      <div class="archive-item-body">
+        <h4 class="archive-title">The Pipeline, Revised</h4>
+        <p class="archive-desc">Every version of the PDLC that ever ran. What got wrong, what got cut, and what got sharper — a living changelog.</p>
+      </div>
+      <span class="archive-arrow">→</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- ABOUT PREVIEW -->
+<section id="about-preview">
+  <div class="about-preview-wrap reveal">
+    <p class="section-eyebrow">03 — About</p>
+    <blockquote class="about-preview-quote">
+      I work at the intersection of AI, product thinking, and visual storytelling — building digital experiences that close the gap between how technology works and how it feels.
+    </blockquote>
+    <p class="about-preview-body">Creative Technologist. Austin, TX. Eight years building products. Still learning how to make them feel human.</p>
+    <a href="about/" class="btn btn-outline">More about me →</a>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-left">Yeseul</span>
+  <span class="footer-right">© 2026 — Creative Technologist</span>
+</footer>
 
 <script>
   window.addEventListener('scroll', () => {
     document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50);
   });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>

@@ -9,17 +9,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
   <style>
-    /* ── MAIN LAYOUT: photo | two-ways ── */
-    .about-main {
+    #about { min-height: 100vh; }
+
+    .about-layout {
       display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 5rem;
+      grid-template-columns: 300px 1fr;
+      gap: 6rem;
       align-items: start;
     }
 
-    /* ── PHOTO ── */
+    /* Photo */
     .about-photo-wrap {
-      position: relative;
+      position: sticky;
+      top: 7rem;
     }
     .about-photo-wrap::after {
       content: '';
@@ -33,7 +35,7 @@
       aspect-ratio: 3 / 4;
       object-fit: cover;
       display: block;
-      border: 1px solid var(--border);
+      filter: grayscale(8%);
     }
     .about-photo-ph {
       width: 100%;
@@ -43,8 +45,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
-      gap: 0.4rem;
       color: var(--ink3);
       font-size: 0.58rem;
       letter-spacing: 0.2em;
@@ -52,82 +52,76 @@
       opacity: 0.5;
     }
 
-    /* ── TWO WAYS ── */
-    .two-ways-eyebrow {
-      font-size: 0.62rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--ink3);
+    /* Content */
+    .about-content {
+      padding-top: 0.25rem;
+    }
+    .about-headline {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 4.5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--ink);
+      letter-spacing: -0.02em;
       margin-bottom: 2.5rem;
     }
-
-    .two-ways-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-top: 1px solid var(--border);
+    .about-headline em {
+      font-style: italic;
+      color: var(--red);
     }
-
-    .two-ways-col {
-      padding: 2rem 2.5rem 0 0;
+    .about-body {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 540px;
     }
-    .two-ways-col:last-child {
-      padding: 2rem 0 0 2.5rem;
-      border-left: 1px solid var(--border);
-    }
-
-    .two-ways-heading {
-      line-height: 1.15;
-      margin-bottom: 1.25rem;
-    }
-    .two-ways-name {
-      font-family: var(--serif);
-      font-size: clamp(2rem, 2.8vw, 3rem);
-      font-weight: 300;
-      display: inline;
-      letter-spacing: -0.01em;
-    }
-    .two-ways-name.ashley { color: #2a3f5f; }
-    .two-ways-name.yeseul { color: var(--red); }
-
-    .two-ways-verb {
-      font-family: var(--sans);
-      font-weight: 300;
-      font-size: 0.85rem;
-      color: var(--ink3);
-      margin-left: 0.5rem;
-      display: inline;
-    }
-
-    .two-ways-body {
-      font-size: 0.85rem;
+    .about-body p {
+      font-size: 1rem;
       color: var(--ink2);
-      line-height: 1.9;
-      margin-bottom: 1.25rem;
+      line-height: 1.95;
     }
-
-    .two-ways-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .two-ways-tag {
-      font-size: 0.56rem;
-      letter-spacing: 0.14em;
+    .about-body p strong {
+      color: var(--ink);
+      font-weight: 400;
+    }
+    .about-divider {
+      width: 40px;
+      height: 2px;
+      background: var(--red);
+      margin: 2rem 0;
+    }
+    .about-program {
+      border-left: 2px solid var(--border);
+      padding-left: 1.5rem;
+      margin-top: 0.5rem;
+    }
+    .about-program-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--ink2);
-      border: 1px solid var(--border);
-      padding: 4px 11px;
-      border-radius: 999px;
-      transition: all 0.2s;
+      color: var(--ink3);
+      display: block;
+      margin-bottom: 0.4rem;
     }
-    .two-ways-tag:hover { border-color: var(--red); color: var(--red); }
+    .about-program-name {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      color: var(--ink);
+      line-height: 1.4;
+    }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 960px) {
-      .about-main { grid-template-columns: 220px 1fr; gap: 3rem; }
-    }
-    @media (max-width: 700px) {
-      .about-main { grid-template-columns: 1fr; gap: 2.5rem; }
-      .about-photo-wrap { max-width: 220px; }
-      .two-ways-grid { grid-template-columns: 1fr; }
-      .two-ways-col { padding: 1.5rem 0 0 0 !important; border-left: none !important; }
-      .two-ways-col:last-child { border-top: 1px solid var(--border); }
+    /* Mobile */
+    @media (max-width: 860px) {
+      .about-layout {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .about-photo-wrap {
+        position: static;
+        max-width: 240px;
+        order: 2;
+      }
+      .about-content { order: 1; }
     }
   </style>
 </head>
@@ -140,10 +134,8 @@
     </svg>
   </a>
   <ul class="nav-links">
-    <li><a href="../projects/">Projects</a></li>
-    <li><a href="../art/">Art</a></li>
-    <li><a href="../writing/">Writing</a></li>
-    <li><a href="../about/">About</a></li>
+    <li><a href="../">Portfolio</a></li>
+    <li><a href="../about/" class="active">About</a></li>
   </ul>
 </nav>
 
@@ -151,66 +143,53 @@
 
   <div class="reveal visible">
     <p class="section-eyebrow">04 — About</p>
-    <h2 class="section-title">Nice to <em>meet you</em></h2>
-    <div class="divider"></div>
   </div>
 
-  <div class="about-main">
+  <div class="about-layout">
 
     <!-- PHOTO -->
-    <div class="about-photo-wrap">
-      <!--
-        TO ADD YOUR PHOTO:
-        Replace the div below with:
-        <img src="../image/your-photo.jpg" alt="Yeseul" class="about-photo-img">
-      -->
-      <div class="about-photo-ph">
-        <span>Photo</span>
-        <span>coming soon</span>
-      </div>
+    <div class="about-photo-wrap reveal visible">
+      <img src="../image/ashley-profile.jpg" alt="Ashley / Yeseul" class="about-photo-img"
+           onerror="this.outerHTML='<div class=\'about-photo-ph\'>Photo</div>'">
     </div>
 
-    <!-- TWO WAYS TO READ ME -->
-    <div>
-      <p class="two-ways-eyebrow">01 — Two ways to read me</p>
-      <div class="two-ways-grid">
+    <!-- CONTENT -->
+    <div class="about-content reveal visible">
 
-        <div class="two-ways-col">
-          <div class="two-ways-heading">
-            <span class="two-ways-name ashley">Ashley</span>
-            <span class="two-ways-verb">builds things</span>
-          </div>
-          <p class="two-ways-body">Eight years turning fuzzy ideas into shipped product. I like the part where a vague feeling becomes a one-line problem statement, and the part where a one-line problem statement becomes a thing people actually use. That's the trick of software. You take something abstract, put in the work, and somebody you'll never meet is using it.</p>
-          <div class="two-ways-tags">
-            <span class="two-ways-tag">Product Management</span>
-            <span class="two-ways-tag">AI &amp; Tech</span>
-            <span class="two-ways-tag">Systems Thinking</span>
-            <span class="two-ways-tag">Roadmaps</span>
-          </div>
-        </div>
+      <h1 class="about-headline">
+        Between systems<br>
+        <em>and feeling.</em>
+      </h1>
 
-        <div class="two-ways-col">
-          <div class="two-ways-heading">
-            <span class="two-ways-name yeseul">Yeseul</span>
-            <span class="two-ways-verb">makes things</span>
-          </div>
-          <p class="two-ways-body">The other half. Studio, sketchbook, long walks, longer essays. I collect ideas the way other people collect mugs. Some stick, most don't, all of them are fun to find.</p>
-          <div class="two-ways-tags">
-            <span class="two-ways-tag">Oil Pastel</span>
-            <span class="two-ways-tag">Watercolor</span>
-            <span class="two-ways-tag">Essay Writing</span>
-            <span class="two-ways-tag">Wandering</span>
-            <span class="two-ways-tag">CrossFit</span>
-          </div>
-        </div>
-
+      <div class="about-body">
+        <p>
+          I'm Ashley / Yeseul, a product-minded creative technologist exploring how AI, interaction, and visual systems can make digital experiences feel more human.
+        </p>
+        <p>
+          My background is in product management, where I learned how to turn ambiguity into structure and ideas into usable experiences. Through <strong>SDA Bocconi's EMiLUX Executive Program</strong>, I'm expanding that practice into luxury, brand strategy, and heritage — studying the invisible value that makes people desire, trust, keep, and remember something.
+        </p>
+        <p>
+          I'm interested in the space where technology becomes less cold, brands become more meaningful, and digital experiences begin to feel personal.
+        </p>
       </div>
+
+      <div class="about-divider"></div>
+
+      <div class="about-program">
+        <span class="about-program-label">Currently</span>
+        <span class="about-program-name">EMiLUX Executive Program — SDA Bocconi School of Management</span>
+      </div>
+
     </div>
 
   </div>
 
 </section>
 
+<footer>
+  <span class="footer-left">Yeseul</span>
+  <span class="footer-right">© 2026 — Creative Technologist</span>
+</footer>
 
 </body>
 </html>
