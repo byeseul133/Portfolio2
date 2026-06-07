@@ -366,7 +366,7 @@ section { padding: 6.5rem 3.5rem 4rem; min-height: 100vh; }
 .essay-page-divider { width: 40px; height: 2px; background: var(--red); margin: 0 0 3rem; }
 
 /* ABOUT */
-#about { background: var(--bg2); }
+#about { background: var(--bg2); min-height: unset; }
 
 /* FOOTER */
 footer {
