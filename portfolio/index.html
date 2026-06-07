@@ -8,6 +8,148 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    #portfolio { position: relative; overflow: hidden; }
+
+    /* ── CSS-only cloud atmosphere (no images, no white boxes) ── */
+    .p-cloud {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.78);
+      pointer-events: none;
+      user-select: none;
+    }
+    .p-cloud-1 {
+      width: 540px; height: 320px;
+      top: -80px; right: -110px;
+      filter: blur(52px);
+      opacity: 0.85;
+      animation: pCloud1 34s ease-in-out infinite;
+    }
+    .p-cloud-2 {
+      width: 360px; height: 230px;
+      top: 36%; right: 0%;
+      filter: blur(58px);
+      opacity: 0.60;
+      animation: pCloud2 50s ease-in-out infinite;
+    }
+    .p-cloud-3 {
+      width: 260px; height: 170px;
+      bottom: 14%; right: 20%;
+      filter: blur(64px);
+      opacity: 0.38;
+      animation: pCloud3 66s ease-in-out infinite;
+    }
+    @keyframes pCloud1 {
+      0%,100% { transform: translate(0,0); }
+      33%      { transform: translate(-13px, 9px); }
+      66%      { transform: translate(8px, -12px); }
+    }
+    @keyframes pCloud2 {
+      0%,100% { transform: translate(0,0); }
+      42%      { transform: translate(12px, -9px); }
+      77%      { transform: translate(-9px, 14px); }
+    }
+    @keyframes pCloud3 {
+      0%,100% { transform: translate(0,0); }
+      54%      { transform: translate(-11px, 16px); }
+    }
+
+    /* ── Envelope cards ── */
+    .env-card {
+      background: #f9f6f1;
+      border: 1px solid rgba(26,23,20,0.09);
+      box-shadow:
+        0 2px 8px  rgba(26,23,20,0.04),
+        0 8px 32px rgba(26,23,20,0.06);
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.38s ease, box-shadow 0.38s ease;
+    }
+    .env-card--active:hover {
+      transform: translateY(-6px);
+      box-shadow:
+        0 6px 20px  rgba(26,23,20,0.07),
+        0 22px 52px rgba(26,23,20,0.10);
+    }
+    .env-card--quiet { cursor: default; }
+
+    /* Triangular envelope flap */
+    .env-flap {
+      width: 100%;
+      padding-top: 24%;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      flex-shrink: 0;
+      transform-origin: top center;
+      transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .env-card--active:hover .env-flap {
+      transform: perspective(700px) rotateX(-10deg);
+    }
+    .env-flap--oxblood { background: #7a1810; }
+    .env-flap--stone   { background: #cac5bc; }
+
+    /* Card body */
+    .env-body {
+      padding: 1.75rem 2.25rem 2.25rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .env-num {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.78rem;
+      color: var(--red);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+    .env-title {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 2.2vw, 2rem);
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+    .env-desc {
+      font-size: 0.875rem;
+      color: var(--ink2);
+      line-height: 1.85;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+    .env-cta {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: block;
+      transition: letter-spacing 0.25s ease;
+    }
+    .env-card--active:hover .env-cta { letter-spacing: 0.26em; }
+    .env-card--quiet .env-num,
+    .env-card--quiet .env-title,
+    .env-card--quiet .env-desc,
+    .env-card--quiet .env-cta { color: var(--ink3); }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .p-cloud-1 { width: 360px; height: 220px; filter: blur(44px); opacity: 0.70; }
+      .p-cloud-2 { width: 250px; height: 160px; filter: blur(50px); opacity: 0.48; }
+      .p-cloud-3 { display: none; }
+    }
+    @media (max-width: 640px) {
+      .p-cloud-1 { width: 220px; height: 140px; filter: blur(42px); opacity: 0.50; right: -50px; top: -20px; }
+      .p-cloud-2, .p-cloud-3 { display: none; }
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
@@ -26,6 +168,11 @@
 
 <section id="portfolio">
 
+  <!-- CSS cloud atmosphere -->
+  <div class="p-cloud p-cloud-1"></div>
+  <div class="p-cloud p-cloud-2"></div>
+  <div class="p-cloud p-cloud-3"></div>
+
   <div class="reveal visible">
     <p class="section-eyebrow">Portfolio</p>
     <h2 class="section-title">Selected <em>Works</em></h2>
@@ -35,22 +182,25 @@
 
   <div class="gallery-grid">
 
-    <a href="../projects/gstack.html" class="gallery-card reveal visible" style="text-decoration:none;color:inherit;">
-      <div class="gallery-card-img" style="background: linear-gradient(145deg, #1a1714 0%, #2e2520 55%, #7a1810 100%);"></div>
-      <div class="gallery-card-body">
-        <span class="gallery-num">01</span>
-        <h3 class="gallery-title">gstack × PDLC</h3>
-        <p class="gallery-desc">Five AI skills. Three audit phases. The same methodology the pipeline uses on products — turned back on itself.</p>
-        <span class="gallery-cta">View project →</span>
+    <!-- Card 01: Featured envelope -->
+    <a href="../projects/gstack.html" class="env-card env-card--active reveal visible">
+      <div class="env-flap env-flap--oxblood"></div>
+      <div class="env-body">
+        <span class="env-num">01</span>
+        <h3 class="env-title">gstack × PDLC</h3>
+        <p class="env-desc">Five AI skills. Three audit phases. The same methodology the pipeline uses on products — turned back on itself.</p>
+        <span class="env-cta">Open Project →</span>
       </div>
     </a>
 
-    <div class="gallery-card gallery-card--quiet reveal visible">
-      <div class="gallery-card-img" style="background: linear-gradient(145deg, #c8cece 0%, #d8dce0 40%, #b8c4c8 100%); opacity: 0.6;"></div>
-      <div class="gallery-card-body">
-        <span class="gallery-num">02</span>
-        <h3 class="gallery-title" style="color: var(--ink3);">Coming Soon</h3>
-        <p class="gallery-desc" style="color: var(--ink3);">New work in progress. Check back soon.</p>
+    <!-- Card 02: Coming soon -->
+    <div class="env-card env-card--quiet reveal visible">
+      <div class="env-flap env-flap--stone"></div>
+      <div class="env-body">
+        <span class="env-num">02</span>
+        <h3 class="env-title">Coming Soon</h3>
+        <p class="env-desc">New work in progress. Check back soon.</p>
+        <span class="env-cta">Open Project →</span>
       </div>
     </div>
 
