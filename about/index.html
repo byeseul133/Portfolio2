@@ -133,17 +133,16 @@
     }
     .about-link:hover { color: var(--red); }
 
-.about-curve {
+    .about-accent-img {
       position: absolute;
-      top: -1.5rem;
-      right: -2rem;
-      width: 160px;
-      opacity: 1;
+      top: -1rem;
+      right: -1rem;
+      width: 155px;
+      border-radius: 2px;
+      filter: saturate(0.65) brightness(0.92);
+      opacity: 0;
       pointer-events: none;
-    }
-
-    @keyframes drawCurve {
-      to { stroke-dashoffset: 0; }
+      animation: fadeUp 1s 0.6s ease forwards;
     }
 
     /* Mobile */
@@ -198,11 +197,8 @@
         <em>and feeling.</em>
       </h1>
 
-      <!-- subtle hand-drawn curve accent -->
-      <svg class="about-curve" viewBox="0 0 180 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M8 68 C 40 10, 110 60, 172 12" stroke="rgba(26,23,20,0.12)" stroke-width="1.2" stroke-linecap="round" fill="none"
-              style="stroke-dasharray: 220; stroke-dashoffset: 220; animation: drawCurve 1.8s 0.8s ease forwards;"/>
-      </svg>
+      <!-- accent image -->
+      <img src="../image/hands-connection.jpg" class="about-accent-img" alt="" aria-hidden="true">
 
       <div class="about-body">
         <p>
