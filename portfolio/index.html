@@ -58,8 +58,8 @@
     /* ── Editorial portfolio grid ── */
     .pf-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 4.5rem 3.5rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem 2.5rem;
       margin-top: 3.5rem;
     }
 
@@ -136,11 +136,12 @@
       .p-cloud-1 { width: 360px; height: 220px; filter: blur(44px); opacity: 0.70; }
       .p-cloud-2 { width: 250px; height: 160px; filter: blur(50px); opacity: 0.48; }
       .p-cloud-3 { display: none; }
+      .pf-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 2rem; }
     }
     @media (max-width: 640px) {
       .p-cloud-1 { width: 220px; height: 140px; filter: blur(42px); opacity: 0.50; right: -50px; top: -20px; }
       .p-cloud-2, .p-cloud-3 { display: none; }
-      .pf-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .pf-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     }
   </style>
 </head>
@@ -182,38 +183,33 @@
         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <rect width="400" height="300" fill="#ece7df"/>
           <!-- top rule -->
-          <line x1="52" y1="62" x2="348" y2="62" stroke="#1a1714" stroke-width="0.5" opacity="0.22"/>
-          <!-- 5×3 matrix grid lines -->
-          <line x1="116" y1="124" x2="116" y2="206" stroke="#1a1714" stroke-width="0.4" opacity="0.08"/>
-          <line x1="154" y1="124" x2="154" y2="206" stroke="#1a1714" stroke-width="0.4" opacity="0.08"/>
-          <line x1="200" y1="124" x2="200" y2="206" stroke="#1a1714" stroke-width="0.4" opacity="0.08"/>
-          <line x1="246" y1="124" x2="246" y2="206" stroke="#1a1714" stroke-width="0.4" opacity="0.08"/>
-          <line x1="284" y1="124" x2="284" y2="206" stroke="#1a1714" stroke-width="0.4" opacity="0.08"/>
-          <line x1="106" y1="138" x2="294" y2="138" stroke="#1a1714" stroke-width="0.4" opacity="0.08"/>
-          <line x1="106" y1="165" x2="294" y2="165" stroke="#1a1714" stroke-width="0.4" opacity="0.08"/>
-          <line x1="106" y1="192" x2="294" y2="192" stroke="#1a1714" stroke-width="0.4" opacity="0.08"/>
-          <!-- row 1 -->
-          <circle cx="116" cy="138" r="3.5" fill="#1a1714" opacity="0.1"/>
-          <circle cx="154" cy="138" r="3.5" fill="#1a1714" opacity="0.1"/>
-          <circle cx="200" cy="138" r="3.5" fill="#c8251a" opacity="0.72"/>
-          <circle cx="246" cy="138" r="3.5" fill="#1a1714" opacity="0.1"/>
-          <circle cx="284" cy="138" r="3.5" fill="#c8251a" opacity="0.46"/>
-          <!-- row 2 -->
-          <circle cx="116" cy="165" r="3.5" fill="#c8251a" opacity="0.62"/>
-          <circle cx="154" cy="165" r="3.5" fill="#1a1714" opacity="0.1"/>
-          <circle cx="200" cy="165" r="3.5" fill="#1a1714" opacity="0.1"/>
-          <circle cx="246" cy="165" r="3.5" fill="#c8251a" opacity="0.38"/>
-          <circle cx="284" cy="165" r="3.5" fill="#1a1714" opacity="0.1"/>
-          <!-- row 3 -->
-          <circle cx="116" cy="192" r="3.5" fill="#1a1714" opacity="0.1"/>
-          <circle cx="154" cy="192" r="3.5" fill="#c8251a" opacity="0.52"/>
-          <circle cx="200" cy="192" r="3.5" fill="#1a1714" opacity="0.1"/>
-          <circle cx="246" cy="192" r="3.5" fill="#1a1714" opacity="0.1"/>
-          <circle cx="284" cy="192" r="3.5" fill="#c8251a" opacity="0.28"/>
-          <!-- top-right label -->
-          <text x="348" y="54" text-anchor="end" font-family="Georgia, serif" font-size="8" fill="#1a1714" opacity="0.28" letter-spacing="0.04em">5 × 3</text>
-          <!-- bottom caption -->
-          <text x="52" y="258" font-family="Georgia, serif" font-style="italic" font-size="9" fill="#1a1714" opacity="0.28">AI Product Methodology — 2024</text>
+          <line x1="40" y1="48" x2="360" y2="48" stroke="#1a1714" stroke-width="0.5" opacity="0.2"/>
+          <!-- audit row 1 -->
+          <rect x="40" y="72" width="11" height="11" rx="1.5" fill="#c8251a" opacity="0.72"/>
+          <rect x="64" y="75" width="196" height="3.5" rx="1" fill="#1a1714" opacity="0.12"/>
+          <rect x="328" y="71" width="28" height="13" rx="1.5" fill="#c8251a" opacity="0.65"/>
+          <!-- audit row 2 -->
+          <rect x="40" y="100" width="11" height="11" rx="1.5" fill="none" stroke="#1a1714" stroke-width="0.7" opacity="0.22"/>
+          <rect x="64" y="103" width="148" height="3.5" rx="1" fill="#1a1714" opacity="0.1"/>
+          <rect x="64" y="110" width="82" height="2.5" rx="1" fill="#1a1714" opacity="0.07"/>
+          <rect x="328" y="99" width="28" height="13" rx="1.5" fill="none" stroke="#c8251a" stroke-width="0.8" opacity="0.5"/>
+          <!-- audit row 3 -->
+          <rect x="40" y="128" width="11" height="11" rx="1.5" fill="#c8251a" opacity="0.6"/>
+          <rect x="64" y="131" width="216" height="3.5" rx="1" fill="#1a1714" opacity="0.12"/>
+          <rect x="328" y="127" width="28" height="13" rx="1.5" fill="#c8251a" opacity="0.55"/>
+          <!-- section divider -->
+          <line x1="40" y1="152" x2="360" y2="152" stroke="#1a1714" stroke-width="0.3" opacity="0.1"/>
+          <!-- audit row 4 -->
+          <rect x="40" y="162" width="11" height="11" rx="1.5" fill="none" stroke="#1a1714" stroke-width="0.7" opacity="0.2"/>
+          <rect x="64" y="165" width="168" height="3.5" rx="1" fill="#1a1714" opacity="0.1"/>
+          <rect x="64" y="172" width="68" height="2.5" rx="1" fill="#1a1714" opacity="0.07"/>
+          <rect x="328" y="161" width="28" height="13" rx="1.5" fill="none" stroke="#1a1714" stroke-width="0.7" opacity="0.16"/>
+          <!-- audit row 5 -->
+          <rect x="40" y="190" width="11" height="11" rx="1.5" fill="#c8251a" opacity="0.5"/>
+          <rect x="64" y="193" width="128" height="3.5" rx="1" fill="#1a1714" opacity="0.1"/>
+          <rect x="328" y="189" width="28" height="13" rx="1.5" fill="#c8251a" opacity="0.42"/>
+          <!-- bottom rule -->
+          <line x1="40" y1="214" x2="360" y2="214" stroke="#1a1714" stroke-width="0.3" opacity="0.1"/>
         </svg>
       </div>
       <h3 class="pf-title">gstack × PDLC</h3>
@@ -228,12 +224,33 @@
         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <rect width="400" height="300" fill="#ece7df"/>
           <!-- top rule -->
-          <line x1="52" y1="62" x2="348" y2="62" stroke="#1a1714" stroke-width="0.5" opacity="0.14"/>
-          <!-- single circle, open, suggesting potential -->
-          <circle cx="200" cy="158" r="36" fill="none" stroke="#1a1714" stroke-width="0.7" opacity="0.1"/>
-          <circle cx="200" cy="158" r="3.5" fill="#1a1714" opacity="0.1"/>
-          <!-- bottom caption -->
-          <text x="52" y="258" font-family="Georgia, serif" font-style="italic" font-size="9" fill="#1a1714" opacity="0.18">In Progress</text>
+          <line x1="40" y1="48" x2="360" y2="48" stroke="#1a1714" stroke-width="0.5" opacity="0.16"/>
+          <!-- outer wireframe frame (dashed) -->
+          <rect x="44" y="62" width="312" height="192" rx="2" fill="none" stroke="#1a1714" stroke-width="0.8" stroke-dasharray="5,4" opacity="0.2"/>
+          <!-- browser bar hint -->
+          <rect x="60" y="74" width="280" height="9" rx="1.5" fill="none" stroke="#1a1714" stroke-width="0.5" stroke-dasharray="3,3" opacity="0.13"/>
+          <!-- nav strip -->
+          <line x1="44" y1="96" x2="356" y2="96" stroke="#1a1714" stroke-width="0.4" stroke-dasharray="4,3" opacity="0.13"/>
+          <rect x="60" y="103" width="54" height="6" rx="1" fill="#1a1714" opacity="0.09"/>
+          <rect x="288" y="103" width="32" height="6" rx="1" fill="#1a1714" opacity="0.07"/>
+          <!-- hero placeholder (large, dashed, with X) -->
+          <rect x="60" y="120" width="162" height="52" rx="1" fill="none" stroke="#1a1714" stroke-width="0.6" stroke-dasharray="3,3" opacity="0.15"/>
+          <line x1="60" y1="120" x2="222" y2="172" stroke="#1a1714" stroke-width="0.4" opacity="0.08"/>
+          <line x1="222" y1="120" x2="60" y2="172" stroke="#1a1714" stroke-width="0.4" opacity="0.08"/>
+          <!-- text stubs right of hero -->
+          <rect x="238" y="120" width="98" height="7" rx="1" fill="#1a1714" opacity="0.1"/>
+          <rect x="238" y="133" width="70" height="5" rx="1" fill="#1a1714" opacity="0.07"/>
+          <rect x="238" y="144" width="82" height="5" rx="1" fill="#1a1714" opacity="0.06"/>
+          <!-- three card placeholders (dashed, with X) -->
+          <rect x="60" y="186" width="82" height="52" rx="1" fill="none" stroke="#1a1714" stroke-width="0.6" stroke-dasharray="3,3" opacity="0.14"/>
+          <line x1="60" y1="186" x2="142" y2="238" stroke="#1a1714" stroke-width="0.35" opacity="0.07"/>
+          <line x1="142" y1="186" x2="60" y2="238" stroke="#1a1714" stroke-width="0.35" opacity="0.07"/>
+          <rect x="156" y="186" width="82" height="52" rx="1" fill="none" stroke="#1a1714" stroke-width="0.6" stroke-dasharray="3,3" opacity="0.14"/>
+          <line x1="156" y1="186" x2="238" y2="238" stroke="#1a1714" stroke-width="0.35" opacity="0.07"/>
+          <line x1="238" y1="186" x2="156" y2="238" stroke="#1a1714" stroke-width="0.35" opacity="0.07"/>
+          <rect x="252" y="186" width="82" height="52" rx="1" fill="none" stroke="#1a1714" stroke-width="0.6" stroke-dasharray="3,3" opacity="0.14"/>
+          <line x1="252" y1="186" x2="334" y2="238" stroke="#1a1714" stroke-width="0.35" opacity="0.07"/>
+          <line x1="334" y1="186" x2="252" y2="238" stroke="#1a1714" stroke-width="0.35" opacity="0.07"/>
         </svg>
       </div>
       <h3 class="pf-title">Coming Soon</h3>
