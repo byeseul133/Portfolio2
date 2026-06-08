@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color of Now — A space by Yeseul</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .proj-wrap { padding: 6rem 4rem 5rem; }
+    .proj-nav-back { display:block; font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink3); text-decoration:none; margin-bottom:2.5rem; transition:color 0.2s; }
+    .proj-nav-back::before { content:'← '; }
+    .proj-nav-back:hover { color:var(--red); }
+    .proj-header-bar { display:flex; align-items:center; justify-content:space-between; gap:2rem; margin-bottom:2rem; }
+    .proj-header-left { display:flex; align-items:center; gap:1.5rem; flex:1; min-width:0; }
+    .proj-num { font-family:var(--serif); font-style:italic; font-size:2.2rem; color:var(--ink); line-height:1; }
+    .proj-rule { flex:1; height:1px; background:var(--border); }
+    .proj-tags { font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink3); white-space:nowrap; flex-shrink:0; }
+    .proj-title { font-family:var(--serif); font-weight:300; font-size:clamp(3rem,7.5vw,7rem); line-height:0.95; color:var(--ink); letter-spacing:-0.02em; margin-bottom:1.5rem; }
+    .proj-title em { font-style:italic; color:var(--red); }
+    .proj-title-desc { font-size:1rem; color:var(--ink2); line-height:1.75; max-width:520px; margin-bottom:3rem; }
+    .proj-meta { display:flex; border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:1.25rem 0; margin-bottom:3.5rem; }
+    .proj-meta-item { flex:1; padding-right:1rem; }
+    .proj-meta-label { font-size:0.54rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink3); display:block; margin-bottom:0.45rem; }
+    .proj-meta-val { font-family:var(--serif); font-style:italic; font-size:0.95rem; color:var(--ink2); }
+    .proj-section { display:grid; grid-template-columns:5fr 8fr; gap:4rem; padding:2.5rem 0; border-top:1px solid var(--border); }
+    .proj-section:last-child { border-bottom:1px solid var(--border); }
+    .proj-section-label { font-size:0.54rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--red); display:block; margin-bottom:1rem; }
+    .proj-section-heading { font-family:var(--serif); font-size:clamp(1.4rem,2.2vw,2rem); font-weight:300; color:var(--ink); line-height:1.2; }
+    .proj-section-heading em { font-style:italic; color:var(--red); }
+    .proj-section-right { display:flex; flex-direction:column; gap:1.25rem; }
+    .proj-section-right > p { font-size:0.95rem; color:var(--ink2); line-height:1.95; }
+    .proj-section-right strong { color:var(--ink); font-weight:500; }
+
+    /* Palette preview strip */
+    .palette-strip { display:flex; height:28px; border-radius:2px; overflow:hidden; margin-top:0.5rem; }
+    .palette-strip span { flex:1; }
+
+    /* API flow diagram */
+    .api-flow { display:flex; flex-direction:column; gap:0.6rem; margin-top:0.5rem; }
+    .api-step { display:flex; align-items:center; gap:0.75rem; font-size:0.82rem; color:var(--ink2); }
+    .api-step-label { font-size:0.58rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--red); min-width:80px; }
+    .api-arrow { font-size:0.6rem; color:var(--ink3); opacity:0.5; }
+
+    /* Status badge */
+    .status-badge { display:inline-flex; align-items:center; gap:0.5rem; font-size:0.6rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink3); border:1px solid var(--border); padding:0.35rem 0.75rem; border-radius:2px; margin-bottom:1rem; }
+    .status-dot { width:6px; height:6px; border-radius:50%; background:#c8a84a; }
+
+    @media (max-width:768px) {
+      .proj-wrap { padding:5rem 1.5rem 5rem; }
+      .proj-tags { display:none; }
+      .proj-section { grid-template-columns:1fr; gap:1.5rem; }
+      .proj-meta { flex-wrap:wrap; gap:1.25rem; }
+      .proj-meta-item { flex:0 0 45%; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="scrolled">
+  <a href="../" class="nav-logo">
+    <svg viewBox="0 0 32 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M26 8.5a5.5 5.5 0 00-10.6-2A4 4 0 0014 6.5a4 4 0 000 8h12a4 4 0 000-8z"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../">Home</a></li>
+    <li><a href="../portfolio/">Portfolio</a></li>
+    <li><a href="../about/">About</a></li>
+  </ul>
+</nav>
+
+<div class="proj-wrap">
+
+  <a href="../portfolio/" class="proj-nav-back">Portfolio</a>
+
+  <div class="proj-header-bar">
+    <div class="proj-header-left">
+      <span class="proj-num">02</span>
+      <div class="proj-rule"></div>
+    </div>
+    <span class="proj-tags">Web App &nbsp;·&nbsp; React &nbsp;·&nbsp; 2026</span>
+  </div>
+
+  <h1 class="proj-title">Color of <em>Now</em></h1>
+  <p class="proj-title-desc">What color is this moment? Geolocation, weather, and Claude converge to paint today — then remember it forever.</p>
+
+  <div class="proj-meta">
+    <div class="proj-meta-item">
+      <span class="proj-meta-label">Type</span>
+      <span class="proj-meta-val">Web Application</span>
+    </div>
+    <div class="proj-meta-item">
+      <span class="proj-meta-label">Stack</span>
+      <span class="proj-meta-val">React, Vite, Claude API</span>
+    </div>
+    <div class="proj-meta-item">
+      <span class="proj-meta-label">Year</span>
+      <span class="proj-meta-val">2026</span>
+    </div>
+    <div class="proj-meta-item">
+      <span class="proj-meta-label">Status</span>
+      <span class="proj-meta-val">In development</span>
+    </div>
+  </div>
+
+  <!-- Concept -->
+  <div class="proj-section">
+    <div>
+      <span class="proj-section-label">Concept</span>
+      <h2 class="proj-section-heading">A daily color<br><em>archive</em></h2>
+    </div>
+    <div class="proj-section-right">
+      <p>Every moment has a color. Not the color you see — the color you feel. <strong>Color of Now</strong> reads the time, your location, and the weather outside, then maps that convergence to a single muted hue from a 24-hour palette designed to feel more like memory than data.</p>
+      <p>Claude then receives the raw input — city, hour, color name, temperature, sky condition — and returns two sentences in Korean. Not a description. A feeling. Something you could have written yourself, but didn't have the words for yet.</p>
+      <p>Each day, one color. One sentence. Saved quietly to your device. Over time, a calendar of every moment you stopped to look.</p>
+    </div>
+  </div>
+
+  <!-- Palette -->
+  <div class="proj-section">
+    <div>
+      <span class="proj-section-label">Design System</span>
+      <h2 class="proj-section-heading">24 hours,<br><em>24 colors</em></h2>
+    </div>
+    <div class="proj-section-right">
+      <p>The palette maps each hour to a muted, desaturated hue — avoiding the obvious (golden hour is golden, midnight is black). Instead, the colors feel like <strong>emotional states</strong>: dusty plum at 3am, warm ochre at noon, slate violet at 7pm.</p>
+      <div class="palette-strip" title="midnight indigo → dusty plum → terracotta → warm sand → ochre → warm ochre → muted amber → dusty mauve → plum → slate blue → midnight">
+        <span style="background:#4a4868"></span>
+        <span style="background:#4a4868"></span>
+        <span style="background:#4a4868"></span>
+        <span style="background:#7a5c6e"></span>
+        <span style="background:#a07070"></span>
+        <span style="background:#b8826a"></span>
+        <span style="background:#c49a6c"></span>
+        <span style="background:#b8a060"></span>
+        <span style="background:#a89050"></span>
+        <span style="background:#a89050"></span>
+        <span style="background:#a89050"></span>
+        <span style="background:#9a8448"></span>
+        <span style="background:#b89a50"></span>
+        <span style="background:#b89a50"></span>
+        <span style="background:#a07040"></span>
+        <span style="background:#986050"></span>
+        <span style="background:#8a5058"></span>
+        <span style="background:#785060"></span>
+        <span style="background:#6a4868"></span>
+        <span style="background:#585070"></span>
+        <span style="background:#4e5878"></span>
+        <span style="background:#485070"></span>
+        <span style="background:#484868"></span>
+        <span style="background:#484868"></span>
+      </div>
+      <p>Typography uses <strong>Bebas Neue</strong> for the oversized headline (with text-stroke for the outlined editorial effect) and <strong>Cormorant Garamond</strong> italic 300 for the poetic descriptions — a combination that feels both bold and quiet.</p>
+    </div>
+  </div>
+
+  <!-- API Flow -->
+  <div class="proj-section">
+    <div>
+      <span class="proj-section-label">Technical</span>
+      <h2 class="proj-section-heading">Four APIs,<br><em>one feeling</em></h2>
+    </div>
+    <div class="proj-section-right">
+      <p>No backend. No server. Everything runs in the browser — the only data that leaves the device is the Claude API call, which is direct from browser using Anthropic's supported browser access header.</p>
+      <div class="api-flow">
+        <div class="api-step"><span class="api-step-label">Location</span><span>Browser Geolocation → lat / lng</span></div>
+        <div class="api-arrow">↓</div>
+        <div class="api-step"><span class="api-step-label">Sun</span><span>sunrise-sunset.org → actual sunrise / sunset times</span></div>
+        <div class="api-arrow">↓</div>
+        <div class="api-step"><span class="api-step-label">Weather</span><span>Open-Meteo → temperature, cloud cover, WMO code</span></div>
+        <div class="api-arrow">↓</div>
+        <div class="api-step"><span class="api-step-label">Color</span><span>Hour → 24h palette lookup → hex + name</span></div>
+        <div class="api-arrow">↓</div>
+        <div class="api-step"><span class="api-step-label">Claude</span><span>claude-sonnet-4-6 → 2-sentence Korean description</span></div>
+      </div>
+      <p>Entries are stored in <strong>localStorage</strong> — no account, no cloud, no tracking. The calendar builds itself from whatever you've saved. Close the tab and reopen it tomorrow; everything is still there.</p>
+    </div>
+  </div>
+
+  <!-- Interface -->
+  <div class="proj-section">
+    <div>
+      <span class="proj-section-label">Interface</span>
+      <h2 class="proj-section-heading">A constellation<br><em>clock</em></h2>
+    </div>
+    <div class="proj-section-right">
+      <p>The landing screen shows only two things: the oversized outlined text <strong>"color / of NOW"</strong> — where NOW takes the current hour's palette color — and a constellation-style clock in the lower section.</p>
+      <p>The clock uses SVG: micro-stars scattered inside the face, two dashed inner orbit rings, a four-pointed star for the hour hand with a radial glow, a smaller star for the minute hand, and a thin line for seconds. Around the outer ring, curved text reads: <em>CLICK THE CLOCK · CLICK THE CLOCK ·</em></p>
+      <p>Clicking the clock triggers the full pipeline. The background transitions over 1.8 seconds to the hour's color. Claude's two sentences appear character by character. You can edit the text before saving. The calendar section below shows every day you've stopped to look.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer-minimal">
+  <p class="footer-minimal-tagline">Creating at the intersection of technology, emotion, and visual experience.</p>
+  <span class="footer-minimal-copy">© 2026 Ashley / Yeseul</span>
+</footer>
+
+</body>
+</html>
