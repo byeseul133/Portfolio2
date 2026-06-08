@@ -57,7 +57,7 @@
 
     /* ── Envelope cards ── */
     .env-card {
-      background: #f9f6f1;
+      background: #f5f2ee;
       border: 1px solid rgba(26,23,20,0.09);
       box-shadow:
         0 2px 8px  rgba(26,23,20,0.04),
@@ -78,59 +78,53 @@
     }
     .env-card--quiet { cursor: default; }
 
-    /* Triangular envelope flap */
-    .env-flap {
-      width: 100%;
-      padding-top: 24%;
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      flex-shrink: 0;
-      transform-origin: top center;
-      transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Photo-based envelope top */
+    .env-photo-wrap {
       position: relative;
+      width: 100%;
+      padding-top: 54%;
+      overflow: hidden;
+      flex-shrink: 0;
     }
-    .env-card--active:hover .env-flap {
-      transform: perspective(700px) rotateX(-10deg);
+    .env-photo {
+      position: absolute;
+      top: -12%; left: -8%;
+      width: 116%; height: 116%;
+      object-fit: cover;
+      object-position: center 18%;
+      display: block;
+      transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-
-    /* Subtle highlight stripe at top edge of flap */
-    .env-flap::after {
+    .env-card--active:hover .env-photo {
+      transform: scale(1.03) translateY(-6px);
+    }
+    /* Fade photo into card body */
+    .env-photo-wrap::after {
       content: '';
       position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.13) 0%,
-        transparent 40%
-      );
+      bottom: 0; left: 0; right: 0;
+      height: 55%;
+      background: linear-gradient(to bottom, transparent 0%, #f5f2ee 100%);
+      pointer-events: none;
     }
-
-    /* Oxblood: light at top → deep shadow at tip, shaped drop-shadow below */
-    .env-flap--oxblood {
-      background: linear-gradient(
-        to bottom,
-        #ac2319 0%,
-        #7a1810 38%,
-        #5e1008 78%,
-        #4c0d06 100%
-      );
-      filter: drop-shadow(0 6px 10px rgba(26,23,20,0.22));
+    /* Oxblood accent bar at top of photo */
+    .env-photo-wrap--oxblood::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--red);
+      z-index: 2;
     }
-
-    /* Stone: same shading logic, muted */
-    .env-flap--stone {
-      background: linear-gradient(
-        to bottom,
-        #d8d3ca 0%,
-        #bdb8af 40%,
-        #a8a39a 80%,
-        #9c978e 100%
-      );
-      filter: drop-shadow(0 5px 8px rgba(26,23,20,0.14));
+    /* Muted treatment for coming-soon card */
+    .env-photo--muted {
+      filter: grayscale(60%) brightness(1.04);
+      opacity: 0.72;
     }
 
     /* Card body */
     .env-body {
-      padding: 1.75rem 2.25rem 2.25rem;
+      padding: 0.5rem 2.25rem 2.25rem;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -183,6 +177,7 @@
       .p-cloud-1 { width: 220px; height: 140px; filter: blur(42px); opacity: 0.50; right: -50px; top: -20px; }
       .p-cloud-2, .p-cloud-3 { display: none; }
       .gallery-grid { grid-template-columns: 1fr; }
+      .env-photo-wrap { padding-top: 62%; }
     }
   </style>
 </head>
@@ -219,7 +214,9 @@
 
     <!-- Card 01: Featured envelope -->
     <a href="../projects/gstack.html" class="env-card env-card--active reveal visible">
-      <div class="env-flap env-flap--oxblood"></div>
+      <div class="env-photo-wrap env-photo-wrap--oxblood">
+        <img src="../image/envelope-cream.jpg" class="env-photo" alt="" aria-hidden="true">
+      </div>
       <div class="env-body">
         <span class="env-num">01</span>
         <h3 class="env-title">gstack × PDLC</h3>
@@ -230,7 +227,9 @@
 
     <!-- Card 02: Coming soon -->
     <div class="env-card env-card--quiet reveal visible">
-      <div class="env-flap env-flap--stone"></div>
+      <div class="env-photo-wrap">
+        <img src="../image/envelope-cream.jpg" class="env-photo env-photo--muted" alt="" aria-hidden="true">
+      </div>
       <div class="env-body">
         <span class="env-num">02</span>
         <h3 class="env-title">Coming Soon</h3>
